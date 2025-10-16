@@ -1,0 +1,294 @@
+Okay, let's tackle this classification task. The user provided a scientific passage where a citation is marked with @@CITATION@@, and I need to determine the top three rhetorical classes for that citation. The available classes are Basis, CoCoGM, CoCoRes, CoCoXY, Motivation, Future, Support, Similar, Usage, Weakness, and Neutral. Let me go through each step carefully.
+
+Starting with **Step 1: Extract the context discussing the citation**. The user hasn't provided the actual passage, so this is a problem. Wait, no—the user's input here includes the task details but not the specific example passage with the @@CITATION@@. Hmm, but looking back the user's message might have a context example? Wait, no, the user's instruction is about the process. Wait, actually, the user might have forgotten to include the passage. But maybe this is an example where I need to assume a hypothetical example? Wait, no—perhaps the user provided an example in their input. Wait no, in the user message given, they just outlined the problem and the example, but perhaps the actual task requires processing the passage provided earlier, but I see that in their message there isn't an actual citation passage. Wait, hold on. Wait the user's input here is the problem setup. Wait maybe they meant to include a specific passage but forgot. Wait, perhaps I need to check again. Let me re-read the user's message.
+
+The user says:
+
+"You are a classifier... Please strictly follow this format. Do not provide any explanations..."
+
+Then they give the context, task steps, definitions, and finally the output format. But the actual input required the citation passage with @@CITATION@@, but the user hasn't provided that here. Wait, maybe this is a mistake in the setup. But perhaps this is the example where the citation example given in the "CoCoXY" definition is being tested? Because in the example for CoCoXY, there's a citation example:
+
+"In the example for CoCoXY: " ... although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+Ah, the user might have included this example in their description, so perhaps the task is to classify that example's citation. Wait, but in the user's problem statement, the task says: "For the citation marked @@CITATION@@ in the given scientific passage, output the top three..." but there's no passage in the user's current message. Wait, this is confusing. Wait maybe I misunderstood. Let me check again.
+
+Wait, perhaps the user provided the citation example from the CoCoXY definition as the input? Let me see:
+
+In the example under CoCoXY, the passage is: "Fast multiplication rates and high concentration of two 'Ca. Phytoplasma asteris' strains have been reported in young developing leaves and roots of infected daisy plants (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+Ah, right, so in the user's own example for CoCoXY, the citation is marked with @@CITATION@@, so perhaps this is the input passage they're referring to? Because otherwise, there's no actual passage provided here. So maybe the user wants me to apply the classification to their CoCoXY example's citation. That must be the case because otherwise, without a passage to analyze, I can't proceed.
+
+Assuming that the example given under CoCoXY's example is the passage in question, where the citation is @@CITATION@@. So the task is to classify that citation's rhetorical class.
+
+Let me proceed with that assumption.
+
+Step 1: Extract the context discussing the citation. The example says: "Fast multiplication rates and high concentration of two 'Ca. Phytoplasma asteris' strains have been reported in young developing leaves and roots of infected daisy plants (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+Here, the citation (@@CITATION@@) is referring to a study that found conflicting results compared to the prior studies (Wei et al. and Saracco et al.). The context is comparing two studies: one where they found high concentration, another where there were conflicting results. Wait, actually, the citation in question is the one after "described for...", so the cited work here is the conflicting one. The main sentence is saying that two studies (Wei and Saracco) reported certain results, but another study (cited here as @@CITATION@@) found conflicting results in a different scenario (branch-inducing phytoplasma in Euphorbia pulcherrima).
+
+Step 2: Identify the general intent. Since the citation is used to point out a comparison between two studies (the cited work here is in conflict with the previous ones?), or between the works that are cited here. Wait, the sentence structure is that Wei and Saracco are the first ones, and then there's conflicting results in another study (the citation here). So the main comparison is between the previous studies (Wei and Saracco) and the cited work. The purpose here is to show that there's conflicting results between these studies. In this case, the citation is used to highlight the conflict between the cited work and others. So the general intent would be Comparative (since it's comparing results or explanations between studies). 
+
+Looking at the specific classes: CoCoXY is comparison of explanations or claims between two cited studies. Because the sentence is comparing studies that reported conflicting findings. Since the citation here (@@CITATION@@) is being contrasted with the earlier ones (Wei and Saracco), the CoCoXY class would fit here because it's comparing conflicting explanations or results between the cited works themselves (not with the current paper's results).
+
+Step 3: Rank the top three classes. The primary class here is CoCoXY. 
+
+Is there any other possible class? Let me see. Since it's a comparison between cited studies, CoCoRes (comparison of results) might also be relevant because it's about conflicting results. 
+
+Alternatively, CoCoGM is about comparing goals or methods, but here the conflict is about results. CoCoRes is for comparing results between cited work and current? Wait the CoCoRes definition says the citation compares the citing paper's results to the cited work. Wait the example given for CoCoRes is "substantially differ from the results... @@CITATION@@", which is comparing the current work's results with cited. Whereas CoCoXY is when two cited studies are being compared. 
+
+In the current case, the example says that Wei et al and Saracco reported one thing, but the cited work (cited here as @@CITATION@@) reported conflicting results on a different type of phytoplasma. So, they're comparing between the two prior studies (Wei/Saracco and the cited one). Therefore, this is a comparison of the results between two cited studies, so the correct class is CoCoXY. 
+
+Therefore the first is CoCoXY. 
+
+Alternatively, since the sentence structure is pointing out conflicting results from different studies, perhaps the citation is used to highlight a contrast between the cited works. 
+
+Are there two cited studies here? The original example lists Wei and Saracco as the first two, then @@CITATION@@ as the third. The main contrast is between the two prior works and the third? Or between the third and the first two? 
+
+In the sentence, it's "although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@." So the cited work (the third one) reported conflicting results. 
+
+Therefore, the main purpose is to show that there's a discrepancy between the previous studies (Wei/Saracco) and this cited work. The comparison is between the cited studies themselves. So, according to the definitions, CoCoXY would fit because it's comparing between two cited studies (Wei/Saracco and the cited one here), not between the current paper and any of them. 
+
+Therefore the top class is CoCoXY. 
+
+Next, if there are other possible classes. Well, maybe Support? No, because it's conflicting. Could it be Weakness? If the citation is pointing out that the results are conflicting, maybe implying weakness in one? But the example says they just describe the conflicting results, not necessarily criticizing. So probably CoCoRes or CoCoXY. 
+
+Wait, wait, CoCoRes is when comparing the citing paper's results with the cited. Since this is between two cited, it's CoCoXY. 
+
+Then, perhaps second would be CoCoRes if someone thought it's comparing the results in the current study? But no, in the example, the current paper isn't presenting their own results here—it's reporting prior studies. 
+
+Alternatively, maybe the comparison is between the cited works (Wei/Saracco and the third work), so that's exactly the definition of CoCoXY. 
+
+Therefore, the top class is CoCoXY. 
+
+Are there any other possible classes? Looking at the list:
+
+Motivation? No, because it's not about why the current study is done. 
+
+Support? No, as it's conflicting. 
+
+Basis? Unlikely. 
+
+Usage? Not mentioned. 
+
+Weakness? Only if the conflicting results imply a problem with the study. But the example seems neutral. 
+
+So second and third classes: perhaps CoCoRes is not applicable here because the comparison is between the cited papers. Alternatively, Neutral? But the example states that the cited work's results are conflicting, so it's a contrast, so not neutral. 
+
+Alternatively, the citation could be CoCoRes if the current paper's results are being compared, but the example doesn't mention current results. 
+
+Alternatively, the third citation (@@CITATION@@) is being contrasted with the first two, which are also cited. 
+
+So CoCoXY is the main one. Next, maybe CoCoRes is a possible second if misunderstood. 
+
+Another angle: The example uses "conflicting results", which is about explanations (the claim that different results were obtained in different studies). So CoCoXY because it's comparing the explanations or claims of the cited works. 
+
+Therefore the top three would be:
+
+1. CoCoXY (since it's comparing between two cited studies)
+
+2. Maybe Neutral? No, because the context is explicitly about conflicting results, so it's not neutral.
+
+Alternatively, the citation could be part of a comparative statement between others' works. 
+
+Wait the other possible classes are not fitting. Maybe the third class could be Neutral if the primary is CoCoXY, but I need to check the definitions again: CoCoXY example is when two cited studies are compared. Here, that's exactly what's happening. Therefore, only CoCoXY is the primary. The other two might be CoCoRes if someone thinks it's comparing results in general, but according to the definitions, CoCoRes is when comparing with the citing paper. Since that's not the case here, the other possible classifications would need to be... Let's see the options again. The task requires three classes. 
+
+Wait, the instructions say to output the top three. So after CoCoXY, perhaps Neutral (if considering that the citation is mentioned neutrally as just stating another result), but the sentence structure uses "although conflicting", which suggests contrast, so that's not neutral. Alternatively, maybe Comparative classes: since it's a comparison, maybe CoCoGM, but that's for comparing goals. The example here is about conflicting results, so goals or methods aren't mentioned. 
+
+Alternatively, "Similar" could be possible if the studies had similar results, but they're conflicting. 
+
+Hmm, maybe CoCoRes is second? Wait, no, because the citation here is the third study, and the first two are Wei and Saracco. The sentence says "fast multiplication rates reported in...", then "although conflicting results were described... @@CITATION@@. So the current paper is pointing out that there's conflicting results between studies. The mention of the citation here is to point out that there's a contrast in results between the cited works (Wei/Saracco vs @@CITATION@@). 
+
+Thus, the primary is CoCoXY, then CoCoRes (if someone thought it's comparing between the cited and the current paper, but it's not), but since it's between cited studies, the next could be the general comparative class: but the general intent was already determined as comparative. 
+
+Alternatively, maybe there's no other, so the second and third would be the next possible classifications even if they're not perfect. Wait the task requires three. 
+
+Alternatively, maybe in this case, the top three would be:
+
+1. CoCoXY (since it's directly between cited works)
+
+2. Neutral? Because it's just stating another study's findings?
+
+But the "although conflicting" implies a contrast, so Neutral wouldn't apply.
+
+Hmm. Alternatively, since the example is the given CoCoXY example, the correct answer would be:
+
+CoCoXY is first, and since only one class fits perfectly, the other two could be others but not sure. Wait the instructions say to pick the top three from the predefined list. Perhaps the third could be CoCoRes if mistakenly someone thought it compares with current results, but in this case, no. Alternatively, the Weakness? If the study's conflicting results are considered as a weakness. 
+
+Wait the example's sentence doesn't criticize the study, just states conflicting results. So Weakness isn't appropriate. 
+
+Hmm, maybe the second is CoCoRes because comparing the results between the cited and another, but the definition says CoCoRes is when the cited's results are compared to the current's. Since this is between two cited, it's CoCoXY. 
+
+Thus, the second and third might have to be other comparative classes. Wait the general intent was comparative. The comparative classes are CoCoGM, CoCoRes, CoCoXY. Since the primary is CoCoXY, next would be the others in that group. Between CoCoGM and CoCoRes. Since this is about results, not methods or goals, so CoCoRes is between the cited and current's results, but that's not here. So maybe only CoCoXY is applicable, then next are others like Neutral? 
+
+Wait the instructions say to list three. So perhaps the next two are CoCoRes and CoCoGM as second and third? No, that's speculative. 
+
+Alternatively, perhaps the user's example might expect the output exactly as per the example. In their example for CoCoXY, the citation is given, so the top class is CoCoXY, but what are the next two? Since the context is purely a comparison between two cited studies, the next classes are not applicable here except CoCoXY. Maybe the other two are Neutral? Or are there none? Hmm, perhaps the second would be CoCoRes but not entirely correct, third could be Weakness? 
+
+No, this is confusing. Alternatively, perhaps the answer is just CoCoXY as the only possible, then the user is to pick three, so the next two might be lower, but according to the instructions, they must choose three. Let me reread the example given in the CoCoXY definition:
+
+The example sentence: "Fast multiplication rates and high concentration of two 'Ca. Phytoplasma asteris' strains have been reported in young developing leaves and roots of infected daisy plants (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+Here, the citation's use is to compare two cited studies (the ones with Wei and Saracco vs the @@CITATION@@ study). The purpose is to highlight conflicting results between studies, so the class is CoCoXY because it's between the cited works.
+
+Therefore, the top three would be:
+
+1. CoCoXY
+
+Then, perhaps the other classes like CoCoRes (assuming someone might think it's comparing cited vs current's results, but not here) or Neutral (but it's not neutral), so second and third could be the others in the Comparative subclass: but not applicable. Wait the general intent was already "Comparative", the possible specific classes are the three under Comparative: CoCoGM, CoCoRes, CoCoXY. Since CoCoXY is correct, the next two would be... perhaps CoCoRes is possible if the comparison is between the cited work's result vs the current paper's? But no. Alternatively, maybe the citation is also part of a comparative statement without being between the current's, but I think CoCoXY is the only one. 
+
+Wait maybe the user expects to include the other Comparative classes even if they don't fit as well? The instructions say to rank top three, but if only one fits, then the others are lower. Like:
+
+1. CoCoXY
+
+2. CoCoRes (if not exactly, but somewhat related?)
+
+3. CoCoGM (no, because it's about results, not goals)
+
+Alternatively, the next two could be Neutral? But that's not correct. 
+
+Alternatively, perhaps the primary is CoCoXY, and then the general "Comparative" falls into those three, so the user just lists all the three in the comparative group, but the first is the best. 
+
+Alternatively, perhaps the other two Comparative classes (CoCoGM and CoCoRes) as second and third even if not perfect. Let's see the options:
+
+Given that the task requires three, even if the second and third are less likely.
+
+Alternatively, maybe the second is Weakness, thinking that conflicting results could indicate a problem with one of the studies? The sentence says "conflicting results described", but it doesn't criticize it, just reports it. 
+
+Alternatively, maybe Support? No, because the current study isn't supporting it. 
+
+Motivation? No. 
+
+Usage? No method used.
+
+Basis? Unrelated.
+
+Future? No. 
+
+Similar? Not when it's conflicting.
+
+Hmm. It's challenging, but since the example is given for CoCoXY, perhaps the correct answer is just that. The top three must be three, so maybe include the other two comparative ones:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. CoCoGM
+
+Wait but why? If the example isn't comparing with the current paper, then CoCoRes wouldn't apply. So CoCoRes is excluded. The comparison is between cited works. 
+
+Alternatively, the third could be Neutral, but that's not a comparative class.
+
+Hmm, maybe the second is CoCoRes (in case someone thought the results are compared between the cited and current), but that's incorrect. 
+
+Alternatively, the third could be Neutral, but not sure. 
+
+I think the correct approach here is to take CoCoXY as first, and the other two would be others that fit less. The second may be Neutral if it's just stating, but the conflict is highlighted as a contrast. Or perhaps the second is another comparative class, but since all that applies is CoCoXY, maybe the next two are the other two comparative subclasses under Comparative. The general intent was "Comparative", so the three possibilities are the three Comparative subclasses. But which are the top three? Since the example is a case of CoCoXY, then the other two could be the other two comparative categories (CoCoGM and CoCoRes) even though they don't apply here, but they are under the same general. 
+
+Alternatively, maybe the user expects only the one that fits exactly, and the other two spots are filled with the next most plausible. 
+
+Alternatively, perhaps the user's given example for CoCoXY is the one in question, so the top three would be CoCoXY as first, and the other two might not apply, so just to fulfill the three, pick the closest. 
+
+Wait, perhaps after CoCoXY, the next possible would be Support if this citation supports the existence of conflict, but no. Or Neutral, as in neutral comparison?
+
+No, I think the top three should be: 
+
+1. CoCoXY
+
+2. CoCoRes (if someone thought it's comparing the cited's results with the current's), but not in this case.
+
+Wait, no, in the example given (the one in the CoCoXY definition's example), the current work is discussing the cited studies' results as conflicting. Therefore, the primary is CoCoXY, and the other classes don't apply here. Hence, maybe the second and third are the next possible in the general categories, even if less. 
+
+Alternatively, since the instruction requires three, perhaps in the absence of more context, after CoCoXY, the next are the other two comparative classes (CoCoGM, CoCoRes), but they don't apply here. Alternatively, the user might have intended just CoCoXY and then maybe Neutral as the citation is mentioned in a context of contrasting results without further analysis. 
+
+Alternatively, maybe the second is CoCoRes because it's about conflicting results between two, but that's not the definition of CoCoRes. 
+
+This is tricky. Following the strict definitions:
+
+CoCoXY is when comparing between cited studies, so that's first.
+
+Second, perhaps there's no other applicable class besides CoCoXY, but the user requires three, so second could be Neutral, but that's not right.
+
+Alternatively, perhaps Weakness if the conflict implies a flaw in the cited work. The sentence says "conflicting results", which could imply that one is wrong, but not necessarily. So it's neutral. 
+
+Hmm, perhaps the second and third are "Neutral" and "CoCoRes", but I'm not confident.
+
+Alternatively, perhaps this example is only suitable for CoCoXY, and the other two are just other comparative classes under the same general. So:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. CoCoGM
+
+But why prefer these? Not sure. Alternatively, perhaps the second is the Comparative itself as a general, but the task requires specific classes. 
+
+Alternatively, the example given by the user for CoCoXY should have the citation's top class as CoCoXY, so the three would be:
+
+1. CoCoXY
+
+2. ?
+
+Since it's the example, maybe the intended answer is just CoCoXY as first, then the other two are the broader comparative ones, but since that's not allowed, maybe CoCoGM and CoCoRes. However, they don't fit. 
+
+Alternatively, the second and third could be other classifications. Let me think again. 
+
+Another possibility is that the citation is used to point out a difference between studies, so the primary is CoCoXY. 
+
+Maybe the second is Weakness because "conflicting results" imply the cited study has an issue? But the text doesn't criticize the study, just states it as a fact, so Weakness isn't appropriate.
+
+Alternatively, "Motivation" if the current study uses this contradiction to motivate further research. But the sentence doesn't say so. 
+
+Hmm. I think the best is to just go with CoCoXY as first, then the next possible might be CoCoRes if the comparison is between cited work's results and another. But perhaps that's a stretch. Alternatively, maybe the user's intended answer for their given example (the one in the CoCoXY definition) is exactly CoCoXY as the first, and then the other two could be the other comparative classes but I think they are not applicable here, but since they require three, maybe:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. CoCoGM
+
+But I'm not confident. 
+
+Alternatively, another angle: the sentence is comparing the results between two other studies (the first two vs the citation). Since the citation is one of the two, but the key comparison is between all three? No, Wei/Saracco and the citation's study vs others?
+
+Wait the sentence is reporting that two studies found X, but then "conflicting results" were found by the citation. So it's a contrast between them. The purpose is to highlight that different studies have conflicting results. 
+
+Thus, the classification is definitely CoCoXY. The other two can't be determined as fitting, but the task requires three. So perhaps the second is Neutral because it's stating the fact, but no, the "conflicting" suggests a comparison. 
+
+Alternatively, perhaps there's another aspect. The citation is being referred to as "described for a branch-inducing phytoplasma...", which might be a different case. So it's comparing explanations (the first studies with the cited's on different plants). So CoCoXY is right. 
+
+I think the top class is CoCoXY. The other two could be the other two in the Comparative group, even though they're less precise. 
+
+Alternatively, perhaps there is no other and just fill in Neutral as the second and third. 
+
+Alternatively, the user might have intended for the example to be classified as CoCoXY as the only one, but needing three, perhaps the next are basis or something else. 
+
+But perhaps better to just list CoCoXY first and then two others that might be considered, even if less likely. 
+
+Alternatively, let me check the exact definitions again. CoCoGM is comparing goals/methods of cited with current. CoCoRes is comparing results between current and cited. CoCoXY is comparing claims/explanations between cited works. 
+
+The example is about comparing between two cited works' results. Thus, only CoCoXY. The other two might have to be the other comparisons even if they don't apply here. 
+
+Alternatively, the user's given example might expect just the first, but must choose three. 
+
+In that case, CoCoXY (1), then perhaps CoCoRes (2), and CoCoGM (3), but I'm not sure. Alternatively, maybe the second is Neutral since the example is a neutral statement of conflicting results. 
+
+Wait, the sentence says "although conflicting results were described", which is contrastive, so it's not neutral. Therefore, Neutral is not applicable. 
+
+Hmm. This is a tough spot. Maybe the third class could be Motivation, if the current study is motivated to address this discrepancy, but the given context snippet doesn't say that. 
+
+Alternatively, perhaps the answer is only CoCoXY as the first, then the other two are the other two comparative subclasses, even if not perfect. 
+
+Therefore, the final answer is:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. CoCoGM
+
+But I'm not entirely confident. Alternatively, CoCoXY is first and the other two have to be other possibilities. Since I can't find better options, this might be the way.
+</think>
+
+1. CoCoXY  
+2. CoCoRes  
+3. Neutral

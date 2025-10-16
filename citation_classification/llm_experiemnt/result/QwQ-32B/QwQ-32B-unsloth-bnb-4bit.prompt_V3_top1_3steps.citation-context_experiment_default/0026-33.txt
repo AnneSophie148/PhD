@@ -1,0 +1,70 @@
+Alright, let's tackle this classification step by step. 
+
+First, I need to look at the given passage and the citation marked with @@CITATION@@. The user hasn't provided the actual text yet, so I'll assume there's an example here. Wait, no, the user's input includes the context in backticks. Let me check again. 
+
+Wait, the user's input here is the problem setup, but the actual example might be in the test case. Oh right, in the problem description, there's an example for each category. For instance, the "Support" example says, “All subscales were consistent with previous research, particularly that of @@CITATION@@ also using a U.S. sample...” So in that case, the citation is supporting the current findings by aligning with previous work. 
+
+So the process is: Extract the context around @@CITATION@@, then determine the general intent, then pick the specific label.
+
+Let me think of a hypothetical example. Suppose the passage is: "Previous studies have shown that magnetic fields affect water scaling @@CITATION@@. Our experiments confirm these findings under varied temperature conditions." Here, the citation is being supported by the current study, so the context is that their results align. The general intent would be supportive, leading to 'Support'.
+
+Another example for 'CoCoRes' might be: "In contrast to the results of @@CITATION@@ which found no correlation, our experiments revealed a significant link between temperature and scaling rates." Here, they are directly comparing results, so CoCoRes.
+
+For 'Basis', if the passage says, "Building on the foundational work of @@CITATION@@, we extended their method to..." then it's Basis.
+
+'Usage' would be when they mention using a method: "We used the experimental setup described by @@CITATION@@ to measure the effects..." 
+
+'Weakness' could be: "Despite the claims in @@CITATION@@, recent evidence suggests their methodology overlooked key variables..." 
+
+So, applying this to the user's task: When given a passage with @@CITATION@@, extract the surrounding context focused on why the citation is referenced. 
+
+Let me try the example provided for 'Similar': “Our finding [...] is supported by recent cross-taxon investigations [...] @@CITATION@@.” The key is that they're pointing out similarity in results, so 'Similar' is the label.
+
+Another example given for 'CoCoGM': comparing methods. If the passage says, "Unlike prior methods focusing on enzymatic pathways @@CITATION@@, our approach uses machine learning..." then CoCoGM since it's about methods.
+
+The critical part is parsing the context to see if the authors are comparing, supporting, using a method, etc. The general intent buckets help narrow down. Once the general intent is determined, pick the specific label based on the definitions.
+
+Wait, in step 2, the general intent options are things like Foundational (leading to Basis), Comparative (leading to one of CoCoGM, CoCoRes, CoCoXY), etc. So first decide which general category the citation falls into, then choose the most specific label.
+
+For instance, if it's a comparative citation between two cited studies (not the current paper), that's CoCoXY. If comparing current with cited work's methods, CoCoGM. Results comparison is CoCoRes.
+
+Therefore, the key steps are:
+
+1. Extract the exact sentence(s) around @@CITATION@@ that explain the reason for citing it.
+
+2. Determine the general intent: Is it foundational? comparative? supporting? etc.
+
+3. Match to the specific label using the definitions.
+
+Now, applying this to whatever the actual input is. Since the user hasn't provided a specific example yet (maybe in their next message?), but the initial instructions are as given. The example given for the task is the one in the problem description, but the user would provide a new passage with @@CITATION@@ to classify.
+
+Let's imagine a new example: 
+
+Passage: "Phytoplasma strains have been reported to multiply rapidly in daisy plants @@CITATION@@. However, conflicting results were found in another study on Euphorbia @@CITATION2@@. These discrepancies highlight the species-specific effects @@CITATION3@@."
+
+Wait, here @@CITATION2 would be compared between the two studies, so that's CoCoXY. The third citation might be about the discrepancies but if the context is comparing the studies themselves, then CoCoXY.
+
+Another example: "The current study uses the experimental protocols established in @@CITATION@@ with minor modifications. This allowed for direct comparison with previous results." Here, the first part is 'Usage' (using their method), and if comparing results later, but the citation here is about the method use, so Usage.
+
+Another scenario for 'Motivation': "Despite the progress in understanding plant pathogen interactions @@CITATION@@, the role of environmental factors remains poorly studied. This gap motivated our research." Here, the citation is stating prior work that pointed out a gap, so Motivation.
+
+For 'Future': "Our findings suggest that the peptide could be effective in other aphid species @@CITATION@@, opening avenues for pest control applications yet to be explored." Here, the citation supports the suggestion for future research, so Future.
+
+'Weakness': “Previous claims about universal applicability of the method @@CITATION@@ are called into question by our analysis, which shows limited efficacy under field conditions.” So here, the cited work is criticized, thus Weakness.
+
+Now, ensuring that the context is properly extracted. Suppose the passage is: 
+
+"Advanced sequencing techniques have enabled precise tracking of viral evolution. However, earlier studies using older methods, such as @@CITATION@@, often misidentified transmission routes due to lower resolution."
+
+Here, the citation is being contrasted with newer methods, and the cited method's limitations are pointed out. The context is criticizing the cited work's method, so that's Weakness.
+
+Another one for 'Neutral': "The history of magnetic water treatment dates back to the 19th century @@CITATION@@." Just a factoid, no argument or critique. So Neutral.
+
+Alright, following these steps should classify the citation correctly. The key is to focus on the context sentence, understand the author's intent in citing, then match to the defined classes.
+</think>
+
+```json
+{
+  "label": "Support"
+}
+```

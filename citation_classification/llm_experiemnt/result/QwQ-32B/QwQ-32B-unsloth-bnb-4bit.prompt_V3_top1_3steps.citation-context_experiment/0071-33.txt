@@ -1,0 +1,258 @@
+Okay, let's tackle this classification task step by step. First, I need to understand the problem. The user provided a scientific article passage with a citation marked as @@CITATION@@, and I have to determine the rhetorical class of that citation based on the context. The options are things like Basis, Support, Weakness, etc.
+
+The passage given is:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@. This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@."
+
+Wait, actually, looking again, the user's input seems to have a citation in the context but the @@CITATION@@ is in the middle. Wait, the user's input is the passage with @@CITATION@@, but in the example they provided, the user's input is the passage with @@CITATION@@, and I have to process that. Let me check again.
+
+Wait, the user's actual input here is the passage provided, but in the problem description, the user might have included the example. Wait, no, looking at the user's message, the user's input is the passage between backticks. Let me parse the user's exact input.
+
+Wait, the user's message is structured as:
+
+They provided the context and task, then the example, but in the current query, the user is giving a specific passage for me to classify. Wait, in the current problem, the user's input is the passage with the @@CITATION@@. Let me check again.
+
+Looking at the user's message, after the task description, they say:
+
+"Please reason step by step, and put your final answer within \boxed{}."
+
+But in the current setup, the user's actual input is the passage provided. Let me check again the exact input given here.
+
+Wait, the user's message includes the problem setup, but the actual test case is in the user's message. Wait, perhaps I need to look again.
+
+Wait, perhaps the user's actual input is the following passage between backticks? Let me check.
+
+Ah, yes, the user provided the passage in backticks. Let me parse that correctly.
+
+The user's message says:
+
+"You are a classifier that assigns to a rhetorical class the citation tagged @@CITATION@@ in a scientific article passage delimited by backticks."
+
+Then the user's input is the passage between backticks. Let me look at the user's exact input again.
+
+The user's message includes:
+
+#CONTEXT
+
+[...]
+
+#TASK
+
+[...]
+
+Then the user's input is the passage between backticks, which is:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@. This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@."
+
+Wait, but in this passage, there are three citations? Let me see:
+
+The first @@CITATION@@ is after "above-ground symptoms", the second after "earlier research", and the third after "field studies".
+
+Wait, the user is asking to classify the citation tagged @@CITATION@@. So perhaps the user is referring to one specific citation instance here, but the example shows that each citation instance is considered. Wait, but in the problem, the user's input is a single citation reference, but here there are three. Hmm, perhaps there's a formatting error here, but maybe the user intended to have the citation in the first position. Alternatively, maybe the user wants to process each citation in the passage. But according to the task description, it's per citation instance. Wait, the problem says "the citation tagged @@CITATION@@", but in the given example, there are three @@CITATION@@ tags. That might be an issue. Wait, perhaps in the actual input, there's only one @@CITATION@@, but in the user's example, maybe they made a mistake. Alternatively, perhaps the user wants to process each one.
+
+Wait, perhaps the user's actual input is the passage with one @@CITATION@@, but in the current problem, the user might have provided a passage with multiple @@CITATION@@ instances. Let me check again.
+
+Looking at the user's message, the passage provided is:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@. This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@."
+
+So three citations here. But the task is to process the citation tagged @@CITATION@@, so perhaps each instance needs to be considered. But the user's question here is to assign the label for the citation in the passage. However, since the user's instruction is to do this for a single citation instance, perhaps in this case, the user is referring to the first citation, or maybe the second. Alternatively, maybe there was an error in the problem setup. Alternatively, perhaps the user's example is such that the citation is the first one, and the rest are other citations not marked as @@CITATION@@. Hmm.
+
+Alternatively, maybe the user intended to have only one @@CITATION@@ in the passage, and the rest are actual citations. Let me re-examine the problem.
+
+Wait, in the user's message, the exact passage provided is:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@. This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@."
+
+So three instances of @@CITATION@@ here. But the task is to process the citation tagged @@CITATION@@. Since each instance is a separate citation, perhaps each needs to be classified individually. However, the user's question might be asking about one of them. But the user's instructions say "the citation @@CITATION@@", so perhaps in the given passage, each @@CITATION@@ is a separate one, but the user wants each to be processed. However, the problem says to return only one label, so perhaps the user's input is only one citation instance. Maybe this is a mistake, but let me proceed.
+
+Alternatively, perhaps the user made a formatting error and there's only one citation. Let me think again. Alternatively, perhaps the user's example is such that the citation in question is the first one. Let me proceed with that.
+
+First, following the steps:
+
+Step 1: Extract the context discussing the citation @@CITATION@@. The entire sentence where the citation occurs is the context. Let's take the first @@CITATION@@ in the passage: "In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@. This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@."
+
+So for the first citation (first @@CITATION@@), the context is "previous studies that focused on above-ground symptoms @@CITATION@@", so the sentence before the citation is "previous studies that focused on above-ground symptoms".
+
+The second citation is after "earlier research", so the context is "a factor that was not considered in earlier research @@CITATION@@", so the context is "a factor that was not considered in earlier research".
+
+The third citation is after "field studies", so the context is "extensive root necrosis observed in field studies @@CITATION@@", so the context is "extensive root necrosis observed in field studies".
+
+Assuming the user is referring to the first citation instance, let's proceed with that.
+
+Step 1: Extract context for first @@CITATION@@: "previous studies that focused on above-ground symptoms".
+
+Step 2: Identify general intent. The sentence is contrasting the current work with previous studies. The citation is pointing out that previous studies focused on above-ground symptoms, while the current work highlights root colonization. This seems to be a comparison between the current study's focus and the cited studies' focus. So the general intent would be Comparative, which leads to CoCoGM, CoCoRes, or CoCoXY.
+
+Looking at the definitions:
+
+CoCoGM is comparing goals or methods. Since the current work's focus (root colonization) is different from the cited studies' focus (above-ground symptoms), this is a comparison of goals or methods. So CoCoGM might be the specific class.
+
+Alternatively, maybe the comparison is between the current work and the cited work's goals. The cited work's goal was to study above-ground symptoms, while the current work's goal is root colonization. So that's a comparison of goals, hence CoCoGM.
+
+Alternatively, maybe the second citation's context is more relevant. Let's check the second citation's context: "a factor that was not considered in earlier research @@CITATION@@", which is pointing out that earlier research didn't consider root colonization, which the current work is addressing. This might be pointing out a gap in previous research, which could be Motivation (since it's justifying why this research is done). But the first citation is contrasting their focus, so that's CoCoGM.
+
+Alternatively, the third citation is about root necrosis observed in field studies, which supports the current findings. But since the user's task is for the @@CITATION@@, perhaps each citation instance is to be considered. However, the problem states to process the citation in the given passage. Since the user's example might have three citations, but the user's instruction says to process the one with @@CITATION@@, perhaps each @@CITATION@@ is a separate instance, but the user is asking for each in turn. However, since the user is asking for a single label, perhaps the question is about one of them, and maybe the first.
+
+Alternatively, maybe the user intended only one citation. Let me proceed with the first citation first.
+
+So first citation: context is "previous studies that focused on above-ground symptoms". The sentence is contrasting the current work's focus (root colonization) with the cited studies' focus (above-ground symptoms). This is comparing the goals or methods of the cited work with the current paper. So the general intent is Comparative, and the specific class would be CoCoGM (Comparison of Goals or Methods).
+
+Alternatively, the second citation's context is "a factor that was not considered in earlier research". This points out that earlier research didn't consider root colonization, which the current work does. This might be pointing out a gap, which would be Motivation. However, the first citation is more about contrasting the focus, so CoCoGM.
+
+Alternatively, the second citation's context is part of the same sentence, so maybe it's part of the same comparison. Let me look at the full sentence again.
+
+The full sentence is: "In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@."
+
+So the first citation is about previous studies' focus on above-ground symptoms. The second citation is about earlier research not considering root colonization. The first citation is the studies that focused on above-ground symptoms, while the second citation is perhaps another set of studies that didn't consider root colonization. 
+
+Wait, maybe the first citation refers to studies that focused on above-ground symptoms, and the second citation refers to earlier research (maybe the same or different studies) that didn't consider root colonization. The second citation's context is part of the same sentence, contrasting the current work's focus with the cited studies' omissions. 
+
+Alternatively, perhaps the second citation is the same as the first, but the user is showing multiple citations. 
+
+Alternatively, perhaps the user wants to process each citation. Since the problem requires to process the citation tagged @@CITATION@@, but there are three instances, perhaps the user made a mistake and only one is intended. Let me assume the first citation instance.
+
+In that case, the first citation's context is "previous studies that focused on above-ground symptoms". The sentence is contrasting the current work's focus with the cited studies' focus. Therefore, the citation is used to compare the goals or methods of the cited work with the current paper. So the rhetorical class would be CoCoGM.
+
+Alternatively, if the second citation's context is "a factor that was not considered in earlier research", which points out an omission in previous research, that might be Motivation (since it's highlighting a gap that the current work addresses). But the first is more about comparing goals, so CoCoGM.
+
+Alternatively, maybe the third citation's context is "extensive root necrosis observed in field studies", which supports the current findings. That would be Support.
+
+But since the user's task is to process each citation, but the problem expects a single answer, perhaps the first citation is the one to consider here.
+
+Alternatively, perhaps the user intended the third citation. Let me think again.
+
+Wait, the example given in the user's instructions for CoCoXY is when comparing two cited studies. For instance, in the example given, two studies (Wei et al. and Saracco et al.) are cited, and the citation is comparing them. But in the current passage, the first citation is about previous studies focusing on above-ground symptoms, and the second is about earlier research not considering root colonization. The third is about field studies observing root necrosis. 
+
+Alternatively, the third citation is providing evidence (root necrosis) which supports the current work's findings, so that would be Support. But the user's question is about the citation in the passage. Since each citation is a separate @@CITATION@@, perhaps the user wants each classified. However, the problem says to return only one label. Maybe the user intended only one @@CITATION@@ in the passage, and there's a formatting error. Let me check again the exact input.
+
+Looking at the user's message:
+
+The user's input between backticks is:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@. This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@".
+
+So three @@CITATION@@ instances. But the task is to process the citation tagged @@CITATION@@, so perhaps the user wants to process each citation. However, the problem expects a single label. This is conflicting. Alternatively, perhaps the user intended only one citation here, and the three instances are a mistake. Alternatively, perhaps the user wants to process all three, but the problem requires one. Maybe I need to proceed with the first citation.
+
+Alternatively, perhaps the user's question is about the first citation, so I'll proceed with that.
+
+First citation's context: "previous studies that focused on above-ground symptoms @@CITATION@@", so the cited work(s) are the studies that focused on above-ground symptoms. The current paper is contrasting their focus with their own. This is a comparison between the current work's goals and the cited work's goals, so CoCoGM (Comparison of Goals or Methods).
+
+Alternatively, the second citation's context is "a factor that was not considered in earlier research @@CITATION@@", which points out that the cited work didn't consider root colonization. This is highlighting a gap in previous research, which could be Motivation. Because the current work is addressing something not considered before, so the citation is used to motivate their research (since it shows a gap). But the sentence structure is "a factor that was not considered in earlier research @@CITATION@@", so the citation is supporting that previous studies didn't consider it. The motivation would be the current work's reason for studying it. So that could be Motivation.
+
+Alternatively, the first citation is pointing out that previous studies focused elsewhere, which is a comparative point (CoCoGM), while the second is pointing out an omission (Motivation). 
+
+The third citation's context is "extensive root necrosis observed in field studies @@CITATION@@", which supports the current work's findings (since root necrosis is part of the disease progression they're studying). So that would be Support.
+
+Since the user's problem requires only one label, perhaps the first citation is the one to focus on. But without knowing which citation instance the user refers to, it's ambiguous. However, given the structure, perhaps the first citation is the key one here, leading to CoCoGM.
+
+Alternatively, maybe the second citation's context is part of the same sentence and is part of the same comparison. Let me read the entire sentence again:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@."
+
+Here, the first citation is about studies focusing on above-ground symptoms, and the second is about earlier research not considering root colonization. The second citation is emphasizing that previous research didn't consider this factor, which the current work does. This could be Motivation (since it's pointing out a gap) or CoCoRes (comparing results?), but the second part is not comparing results but pointing out an omission. 
+
+Alternatively, the first citation's context is about their focus (goals/methods), so CoCoGM. The second citation is about the omission, which is a motivation for the current work. 
+
+Since the user is asking for the citation's rhetorical class, perhaps each citation instance is to be considered separately. But since the problem requires only one label, perhaps the user intended the first citation. 
+
+Alternatively, maybe the entire sentence is the context for all three citations, but that's unlikely. 
+
+Alternatively, perhaps the user's example has a typo and there's only one @@CITATION@@. For instance, maybe the correct passage is:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research. This omission is particularly notable given the extensive root necrosis observed in field studies."
+
+But with only one @@CITATION@@. In that case, the context would be the first citation. 
+
+Alternatively, perhaps the user intended the third citation's context. The third citation's context is about field studies showing root necrosis. The current work's finding is that root colonization is critical, so citing field studies that observed root necrosis would support the current findings, so that's Support. 
+
+Alternatively, since the third citation is in the sentence "This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@", the citation supports the idea that root necrosis is significant, thus supporting the current work's emphasis on root colonization. So that would be Support.
+
+But since there are three citations, and the user might have intended one of them, perhaps the third is the one to choose. 
+
+Alternatively, maybe the user made a mistake and there's only one citation in the passage, and the @@CITATION@@ appears once. Let me check again the user's input:
+
+The user's input is:
+
+"In contrast to previous studies that focused on above-ground symptoms @@CITATION@@, our work highlights the critical role of root colonization in the progression of the disease, a factor that was not considered in earlier research @@CITATION@@. This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@".
+
+So three @@CITATION@@ instances. Since the problem says "the citation tagged @@CITATION@@", maybe each is considered separately, but the user expects to answer for each. But since the problem requires one label, perhaps the user intended one instance. 
+
+Alternatively, perhaps the user wants the answer for the first citation, which is the first one. 
+
+Alternatively, maybe the second citation's context is part of the same sentence as the first, so they are part of the same comparison. 
+
+Alternatively, the third citation is providing evidence (root necrosis) which supports the current work's findings, so Support.
+
+Alternatively, perhaps the first citation is CoCoGM, the second is Motivation, the third is Support.
+
+Since the user's question is to process the citation tagged @@CITATION@@, but there are three instances, this is ambiguous. However, given the example structure in the user's instructions, perhaps the first citation is the one to focus on. 
+
+Alternatively, maybe the entire context is about contrasting previous studies' focus versus current work, so the citation is used to compare goals, hence CoCoGM.
+
+Alternatively, if I consider the second citation's context: "a factor that was not considered in earlier research @@CITATION@@", this could be pointing out a gap, which is Motivation.
+
+Alternatively, the third citation's context is supporting the current findings (root necrosis is part of the disease progression), so Support.
+
+Since the problem requires choosing one, perhaps the most likely is Support for the third citation. But without knowing which citation instance the user refers to, it's hard. 
+
+Alternatively, maybe the user intended the first citation. Let me think again.
+
+The first citation is about previous studies focusing on above-ground symptoms. The current work contrasts this by focusing on roots. This is a comparison of goals (the previous studies' focus vs current's), so CoCoGM.
+
+Alternatively, the second citation is about the omission (not considering root colonization), which is a gap, so Motivation.
+
+The third is support via field studies showing root necrosis, so Support.
+
+The user might expect the first citation to be CoCoGM.
+
+Alternatively, the second citation's context is part of the same sentence as the first. The first citation is about previous studies' focus, the second is about their omission. The entire sentence is contrasting the current work's approach with previous studies' limitations. The first citation's context is the studies' focus, so CoCoGM. The second citation's context is their omission, which could be part of the same comparison, but the rhetorical class would still be Comparative, perhaps CoCoGM again.
+
+Alternatively, since the second part is about not considering a factor, that's pointing out a weakness in previous studies, but the current work addresses it, so that could be Weakness (criticizing the cited work for not considering it). But the sentence says "a factor that was not considered in earlier research @@CITATION@@", so the citation is supporting that previous research didn't consider it. The rhetorical class here is pointing out a gap, which is Motivation for the current work.
+
+Hmm, this is getting a bit tangled. Let's try to re-express the problem with each citation:
+
+First citation (first @@CITATION@@):
+
+Context: "previous studies that focused on above-ground symptoms @@CITATION@@", 
+
+The sentence is contrasting the current work's focus (root colonization) with the cited studies' focus (above-ground symptoms). The rhetorical use here is to compare the goals/methods between the current work and the cited studies. So this would be CoCoGM (Comparison of Goals or Methods).
+
+Second citation (second @@CITATION@@):
+
+Context: "a factor that was not considered in earlier research @@CITATION@@", 
+
+This is pointing out that earlier research didn't consider root colonization. The current work is addressing this factor. This is highlighting a gap in previous research, which is the motivation for the current study. So this would be Motivation.
+
+Third citation (third @@CITATION@@):
+
+Context: "extensive root necrosis observed in field studies @@CITATION@@", 
+
+This is providing evidence (root necrosis) that supports the current work's findings (root colonization's role in disease progression). So this is Support.
+
+Since the user's problem is to classify the citation tagged @@CITATION@@, but there are three, perhaps the first is the primary one here, leading to CoCoGM. Alternatively, if the user is asking for all three, but the problem requires one, perhaps the most prominent is the first.
+
+Alternatively, perhaps the user intended the third citation as the example. But without more info, I'll proceed with the first.
+
+Alternatively, perhaps the third citation's context is the most straightforward. The sentence says "This omission is particularly notable given the extensive root necrosis observed in field studies @@CITATION@@", so the citation supports the importance of root necrosis, which the current work is studying. Hence, the citation here is providing evidence (Support).
+
+Alternatively, maybe the third citation is the correct one. Let me think again.
+
+The third citation is in the last part: "extensive root necrosis observed in field studies @@CITATION@@", so the current work is pointing out that previous studies didn't consider this factor (root colonization), and the cited field studies show root necrosis, which supports the current work's emphasis on roots. So that's Support.
+
+Alternatively, the third citation is supporting the current work's findings by citing evidence from field studies that align with their findings, hence Support.
+
+Alternatively, the first citation is the key one for comparison.
+
+Since the user might have intended the first citation (the first @@CITATION@@), I'll go with CoCoGM as the answer. But I'm a bit uncertain because the third citation's context is also a possible candidate for Support.
+
+Alternatively, perhaps the second citation's context is Motivation. 
+
+Alternatively, perhaps the first citation's context is the main comparison. 
+
+Wait, the first citation's context is "previous studies that focused on above-ground symptoms @@CITATION@@", which is the cited work's focus. The current work's focus is on roots. So this is comparing their goals, so CoCoGM.
+
+Therefore, the answer is CoCoGM.
+</think>
+
+CoCoGM

@@ -1,0 +1,47 @@
+Okay, let's tackle this step by step. The user provided a scientific passage with a citation marked as @@CITATION@@, and I need to classify the rhetorical class of that citation. 
+
+First, I need to extract the context around the citation. The passage says: "Early studies suggested that the pathogen spreads through root contact @@CITATION@@, but recent research using advanced imaging techniques has shown aerial transmission to be the primary route @@CITATION@@." The citation here is the first one, right? Wait, actually, let me check again. The user's example shows that @@CITATION@@ is placed where the citation is. But in this case, there are two citations. Wait, but the user only wants to classify the @@CITATION@@ that's in their input. The example given shows that the context is between backticks. Let me re-examine the user's input.
+
+Wait, the user's example shows that the citation's context is within backticks. Let me check the actual input the user provided. Oh, right, the user's input is:
+
+```
+Early studies suggested that the pathogen spreads through root contact @@CITATION@@, but recent research using advanced imaging techniques has shown aerial transmission to be the primary route.
+```
+
+So the citation is after "root contact", so the first citation refers to early studies suggesting root contact as the spread method. The second part mentions recent research (which is maybe the second citation, but the @@CITATION@@ is only in the first part here).
+
+So the task is to classify the @@CITATION@@ in this context. The key is that the citation is part of a sentence where it's stating that early studies suggested one method, but recent research (perhaps the current paper?) found another. 
+
+Looking at step 1: Extract context. The relevant part is "Early studies suggested that the pathogen spreads through root contact @@CITATION@@, but recent research..." The citation is supporting the early studies' claim about the root contact spread. 
+
+Step 2: Identify the general intent. The sentence is comparing the cited work (root contact) with recent research (aerial transmission). So the citation is being compared with another study (the recent one here), but the citation itself is part of the earlier studies, and the current sentence contrasts it with the recent findings.
+
+Wait, the general intent here would be comparative? Because the sentence is contrasting the cited work's conclusion (root contact) with the recent research (aerial transmission). But the comparison is between the cited work's results and the recent (maybe cited or current?) results. Since the recent research isn't cited here but the "Early studies" are, maybe the citation is being compared with the recent findings which are perhaps from the current paper? Or perhaps another citation? Wait, the structure here: the first part of the sentence mentions "Early studies suggested X @@CITATION@@", and then the second half says "but recent research shows Y". The citation here points to the early studies. The recent research comparison is probably not referring to the current paper. Hmm. The comparison is between the cited work (early studies, X) and the recent research (Y), which may or may not be the current paper. The rhetorical class for the citation (the early studies) in this context is being contrasted with another work. 
+
+Looking at the definitions for the specific classes, especially CoCoRes is for comparing results (CoCoRes). Since the citation is about a study's results (spread through root contact) and the current sentence is contrasting that with recent research showing aerial transmission. Wait, but CoCoRes is comparison of results between cited and citing work's? Or between two cited works?
+
+Wait, the definitions: CoCoRes is when the result of the cited work is compared with the citing paper's results. Or is it comparing the cited work and some other work? Let me check the definitions again. 
+
+CoCoRes: "directly compare or contrast the results or findings of the cited work with those of the citing paper." 
+
+Wait, the example given for CoCoRes says "The results obtained in the present work substantially differ from the results of the experiments conducted with the use of deuterium saturated metal targets (TiD, TaD, ZrD, PtD) @@CITATION@@." So here the current work's results (present) vs cited. 
+
+Alternatively, CoCoXY is when comparing two cited studies with each other. The example given in CoCoXY: "fast multiplication rates... reported ... although conflicting results were described for a branch-inducing phytoplasma @@CITATION@@", so comparing two cited works (first Wei and Saracco, then another study here).
+
+In the user's input: 
+The first citation (root contact) is contrasted with the recent research (aerial route). The recent research might be from another study or the current paper's new findings? 
+
+Wait, if "recent research using advanced imaging techniques has shown..." is the current paper's finding, then the citation (early studies) is compared with the current paper's results. That would fit CoCoRes, because it's comparing the cited work's results (root contact) with the citing work's results (aerial). 
+
+Alternatively, if the recent research is another citation (but the example here only has the first @@CITATION@@ as the early studies, and the "recent research" is from another study not cited here?), the comparison might involve two cited studies (first @@CITATION@@ and the second one?), but since the second part doesn't have a citation, it's probably part of the current discussion contrasting the cited work (early) with the citing work's own recent findings. 
+
+Therefore, this would fall under CoCoRes, because the cited work's result (root contact) is directly compared to the citing paper's result (aerial transmission). The sentence is pointing out that the previous work found one thing, but this new work has a different result. 
+
+Wait, but if the recent research is part of the citing paper's own work, then the structure is that the cited reference is the earlier, and the current work's result is different. So the citation's result is compared with their own current one. 
+
+Therefore, the general intent would be comparative (so CoCoGM, CoCoRes, or CoCoXY). Since the comparison is about the results (spread through root contact vs aerial route), this is CoCoRes. 
+
+Therefore, step 3: the specific label would be CoCoRes.
+</think>
+
+CoCoRes

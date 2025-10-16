@@ -1,0 +1,42 @@
+Okay, let's tackle this classification step by step. The user provided a task where I need to assign a rhetorical class to a citation in a plant health context. The citation is tagged as @@CITATION@@ in the given passage. 
+
+First, I'll start by carefully reading the problem statement and the example provided. The key steps are extracting the context around the citation, identifying the general intent, then selecting the specific rhetorical class from the predefined list.
+
+The passage given here is: "The effectiveness of neonicotinoid pesticides in managing sap-sucking insects has been extensively documented @@CITATION@@. However, recent studies highlight unintended ecosystem disruptions, such as reduced pollinator activity, raising concerns about long-term agricultural sustainability @@CITATION@@."
+
+Wait a second, I need to make sure I'm looking at the right citation. The question mentions a citation labeled @@CITATION@@. The passage has two citations. Wait, the user might have given a particular example where the citation in question is part of that text. Wait, the user's sample passage might have exactly one citation. Wait the user's input here might have a different context, but in their example given above, there are two citations. Hmm, but the user's actual input (the one they expect me to process) would be another backtick-delimited text. Since I don't see the exact context provided here, I need to recall the user's instruction. Wait, the user's initial message includes an example where the user would provide such a citation. So in this case, the actual context would be in the user's input after that. But in this case, perhaps the user wants me to process their own example passage? Wait no, the user is asking me to follow the process when presented with their own citation context.
+
+Wait, the user's message was structured with the context and task as above, but the actual input would come after that. However, in this case, looking at the user's message, after the task description, they provided an example passage? Or is that part of the problem? Let me re-read the user's exact input.
+
+Looking back: The user provided the context and task, and then in the example, shows a sample passage like the one quoted above. But the user wants the classifier to process a given input (the actual citation context from the user's specific case) and return the label. Since the user here included the passage "The effectiveness of neonicotinoid pesticides..." maybe this is the specific example they want me to process?
+
+Ah, yes, probably. The problem is presented as if this is the context they want me to evaluate. So, the citation here is the first @@CITATION@@ in "The effectiveness... @@CITATION@@". The second citation starts "recent studies..." but the user is focusing on the first @@CITATION@@.
+
+So my task is to apply the steps to this specific context.
+
+Step 1: Extract the context discussing @@CITATION@@ Here, the sentence with the first citation is: "The effectiveness of neonicotinoid pesticides in managing sap-sucking insects has been extensively documented @@CITATION@@."
+
+The second citation is part of the second sentence but since we are focusing on the first citation, we'll ignore that.
+
+Step 2: Identify the general intent. The sentence states that the cited work "has been extensively documented" as the basis or support for the current assertion. The key word here is "documented", which indicates that the cited work is providing evidence that supports the current claim about the effectiveness of the pesticides. So the general intent might be supportive (like Support or Similar). Alternatively, maybe Usage if it's citing a method, but in this case, it's about documentation of effectiveness.
+
+Looking at the classes:
+
+Support: used to support the citing authors' work or findings. Since the current paper is talking about the effectiveness being documented, and the citation is providing the documentation, this would be supportive. The current authors are stating that previous studies (the citation) support or confirm their assertion here.
+
+Therefore, the general intent is Supportive.
+
+Step 3: Specific label. The Support class is for when the citation supports the current work's findings. The example for Support says: "All subscales were consistent with previous research... also using a U.S. sample; as before..." So in the given context, the citation is supporting the current statement by stating it's been documented. So the appropriate label would be Support.
+
+Wait, but is there another possibility? Let me check other classes.
+
+Basis: If this is foundational for their current research. The sentence here is stating prior documentation (so it's supporting existing work, not that their own research is built on it as a foundation). The Basis would be if the cited work introduced a concept used here, but here it's about support.
+
+Motivation: Maybe not. Motivation is when the citation is used to motivate current research because there's a knowledge gap, etc. Here, no indication that the citation is a reason for their current work.
+
+Usage: If they used the cited method. The passage doesn't mention method/tool/dataset; it's about the findings of effectiveness.
+
+So the best fit is Support. The citation supports the assertion that neonicotinoids are effective, thereby supporting the current paper's context statement.
+</think>
+
+Support

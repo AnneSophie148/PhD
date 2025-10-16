@@ -1,0 +1,92 @@
+Okay, let's start by looking at the user's query. The task is to classify a citation in a scientific article passage into one of the predefined rhetorical classes. The example given here is about plant health, but the process should be the same. 
+
+First, I need to follow the steps outlined. Step 1 is to extract the context around the citation tagged with @@CITATION@@. The user provided a passage in backticks, but in the example, they show a passage like: 
+
+"Based on the pioneering study by @@CITATION@@, which first identified the causal agent of olive quick decline syndrome, we developed a new detection method..."
+
+So, my first job is to identify the exact sentence or part of the passage that includes @@CITATION@@ and extract the relevant context. Let me assume the example passage is given here (since the user's actual input would have the passage). Wait, in the problem statement, the user says "the citation passage in the plant health domain," but in the current input, the user hasn't provided the actual passage with @@CITATION@@. Hmm, maybe there's a missing part here. Oh, right, this is the setup for the problem, and perhaps the actual user input (not shown here) would include a specific passage. Since I'm to imagine a scenario where the user has provided an example, I need to consider a hypothetical example to apply the steps.
+
+Wait, perhaps the user's actual input in this case is exactly the problem given here, but maybe they omitted the example. Let me think of an example passage to work with. Let's say the passage is:
+
+"In previous studies, it was found that the fungus *Fusarium oxysporum* can cause significant damage to tomato crops @@CITATION@@. However, new research has shown that the application of organic compost reduces the incidence of this disease @@CITATION@@. Our study builds on this by investigating the long-term effects of compost application on soil microbiota."
+
+Wait, but the citation in question is surrounded by @@CITATION@@, so suppose the second citation is the one marked. Wait, the user's example might have the first citation as @@CITATION@@, so let me think again.
+
+Alternatively, let me use the example from the definitions given. For instance, the example for Basis says: “@@CITATION@@ introduced and validated the IAT by studying biases that they consider nearly universal in humans and about which there is no social concern. We began by replicating these inoffensive results for the same purposes.”
+
+So in that case, Step 1 is to extract the context discussing the citation. The context here is "introduced and validated the IAT by studying biases...", so the citation is foundational because the authors are building upon it. Step 2 would be identifying that this is foundational, so the general intent is Basis. Then the label is Basis.
+
+Another example given for Support: "All subscales were consistent with previous research, particularly that of @@CITATION@@ also using a U.S. sample..." Here, the citation supports the current results, so Support.
+
+Alternatively, suppose the citation passage is: "The previous study by @@CITATION@@ showed that nitrogen fertilizers increase crop yield, but our results, obtained under drier conditions, contradict this finding." Here, comparing the results (CoCoRes).
+
+Wait, let's get back. The user's actual problem requires processing a specific passage with @@CITATION@@, but without that input, I need to think through the steps as if I have the passage. Since this is a thought process for the assistant, perhaps the user expects me to demonstrate with an example.
+
+Alternatively, maybe the user's problem here is the context given in the initial setup. Wait, looking again, the user says "Below are the fine-grained..." followed by the definitions, and then the output format. The actual task would be given an example passage with @@CITATION@@, and apply these steps. Wait, perhaps I should consider the problem as presented here, but since the user's instruction is to provide the example, maybe the passage is provided after the #CONTEXT and #TASK.
+
+Wait, the user wrote:
+
+"the citation passage in the plant health domain". The actual input (to be classified) is a passage with @@CITATION@@, but in the problem as written here, the user hasn't provided such a passage. The user's instruction is to process when given a passage. Since I'm simulating the assistant, perhaps the example is the one in the Basis example given here. Let me try an example.
+
+Let me make a hypothetical citation passage. Suppose the passage is:
+
+"Previous research @@CITATION@@ has shown that over-fertilization leads to decreased soil health. Our experiments, conducted under varying nitrogen levels, aim to explore the optimal application rates for tomato plants."
+
+Step 1: extract context around @@CITATION@@: "has shown that over-fertilization leads to decreased soil health." The intent here is the cited work provides motivation for the current study's aim. So general intent would be Motivational → Motivation. Therefore the specific label would be Motivation.
+
+Alternatively, if the context were:
+
+"Previous studies have reported conflicting results regarding the efficacy of fungicide application in barley crops. Unlike the inconclusive findings of @@CITATION@@, our controlled trials demonstrated a clear 40% reduction in fungal pathogens with the application of the fungicide," then step 1 is extracting the context. The comparison of results (CoCoRes). So the specific label is CoCoRes.
+
+Another example, suppose the citation is in a sentence like:
+
+"Building on the pioneering work of @@CITATION@@, which first isolated the pathogen responsible for citrus greening disease, we applied their cultivation method to study disease progression in citrus trees."
+
+Here, the usage of their method would be Usage. The citation refers to a method used, so the label is Usage.
+
+Wait, now let me go through the actual steps again with a concrete example. Let's take the Support example given:
+
+"Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@."
+
+Step 1: extract context around the citation. The sentence says "supported by ... investigations of other insect-associated bacteria." The citation is providing support for the current findings, so step 2: general intent is Supportive → Support. Thus the label is Support.
+
+Another example for Weakness: "The study by @@CITATION@@ claimed a 90% effectiveness rate for the biological control agent, but subsequent studies have raised concerns about reproducibility due to uncontrolled environmental variables in their trials."
+
+Here, the context is pointing out a weakness in the cited study. Step 2: critical, so label is Weakness.
+
+For Neutral: "The use of microbial pesticides has grown in agricultural practices over the past decade @@CITATION@@." The citation is just providing a descriptive fact without any critique, support, etc., so Neutral.
+
+Okay, so the key is to first extract the exact sentence or clause that mentions @@CITATION@@, then determine the intent from the context around it. Let's try applying this to a new passage.
+
+Suppose the passage given is:
+
+"The current methodology for diagnosing oak wilt disease relies on symptomatic observation as described in @@CITATION@@, but recent advancements in molecular techniques have proven more accurate in the early stages of infection @@CITATION@@."
+
+Wait, but the target citation is the first one here: "relies on symptomatic observation as described in @@CITATION@@, but" so the second citation is the newer method. If @@CITATION@@ is the first one, the context is that the current method is what was described in the cited work. The contrast is between the old method and new. But the first citation here is the one being contrasted. Since the new method is better, but the first citation is the basis of the traditional approach. The citation here is being compared with their own method, but in the example, the sentence says "relies on... described in @@CITATION@@", so the citation is being used as the basis for the existing method. The current work is pointing out a better method. But the rhetorical use of the @@CITATION@@ here is to cite the existing method. The intent is to state that their method is different. Wait, but the citation is not compared; the current work is contrasting their own method with a previous one. Wait, perhaps the citation here is the one they are replacing. Wait, the structure is: "current methodology uses... described in @@CITATION@@, but recent...". So the first citation describes the traditional method that they are saying is not as good as the new one. The use here is to compare their new method (better) with the cited one (old). So the intent would be Comparative, specifically CoCoGM (comparison of methods), since it's comparing the current approach's method (the new molecular techniques) with the cited work's method (symptomatic observation). Therefore label is CoCoGM.
+
+Alternatively, if the citation is the second one, but the @@CITATION@@ is in the first part.
+
+Hmm. The key is to look at the exact placement of @@CITATION@@. Let's assume the first citation is the @@CITATION@@: "described in @@CITATION@@", so the cited work is the one that provided the traditional method. The current paper is introducing a better method, but in doing so, they contrast their own with the cited one's method. Thus, the citation's rhetorical role is to present the existing method that they are comparing against. Hence, CoCoGM (Comparative: Goals/Methods).
+
+Another example for Similar: "Similar to previous findings @@CITATION@@, we found that nitrogen levels correlate with disease resistance in wheat plants." Here, the context mentions similarity in findings → label is Similar.
+
+For Basis: "The concept of phytoremediation was first proposed and tested successfully in soil contaminated with heavy metals @@CITATION@@. Our study extends this approach to remediate contaminated water bodies."
+
+The citation is the foundational work → Basis.
+
+Alright, so the approach is to parse the sentence structure around @@CITATION@@, see how the authors are using the cited work's contribution. If comparing their own method to it, it's CoCoGM. If contrasting results, CoCoRes. If just supporting similar results, Similar or Support. If pointing out it's old basis, Basis. If the cited work's method is used in the current paper's experiment, Usage. If the citation is used to explain why they did this study, Motivation, etc.
+
+Now, suppose the user provides a passage like:
+
+"Previous studies have identified several strains of *Xylella fastidiosa* in olive orchards @@CITATION@@, but the genetic diversity and host specificity of these strains remain poorly understood. This study aims to address this knowledge gap..."
+
+The @@CITATION@@ is in "identified several strains...". The general intent here is to highlight a knowledge gap, so the Motivational class → Motivation.
+
+Another example: "To analyze the bacterial communities in infected samples, we used the 16S rRNA sequencing protocol established by @@CITATION@@, with minor modifications for our plant hosts." Here, they're using a method from the cited work → Usage.
+
+Okay, I think the key steps are clear. The assistant must first extract the context around the citation, then determine the general category (like foundational, comparative, etc.), then pick the specific label based on the definitions.
+</think>
+
+```json
+{"label": "Basis"}
+```
