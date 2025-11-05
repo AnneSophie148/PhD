@@ -72,6 +72,7 @@ def Elsevier_extract_text(doi, file_name):
         print(response.status_code)
 
         return False
+        
 def Wiley_extract_text(doi, file_name, max_retries=3, delay=10):
     #up to 3 articles per second, and 
     #up to 60 requests per 10 minutes, which entails building in a delay of 10 seconds between requests
@@ -112,6 +113,87 @@ def Wiley_extract_text(doi, file_name, max_retries=3, delay=10):
         else:
             return False
 
+def download_pdf_from_page(page_url, file_path, link_selector=None, base_url=None, proxies=None, headers=None):
+    """Download PDF from an HTML page given a selector for the link, or <meta name="citation_pdf_url">"""
+    pdf_url = None
+
+    response = requests.get(page_url, timeout=15, headers=headers, proxies=proxies)
+    if response.status_code != 200:
+        return False, page_url
+
+    content_type = response.headers.get("Content-Type", "").lower()
+    if "pdf" in content_type:
+        with open(file_path, "wb") as f:
+            f.write(response.content)
+        return True, pdf_url
+
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    #1. APS case: <a> tag
+    if link_selector == "a":
+        tag = soup.find("a", text="VIEW ARTICLE")
+        if tag and tag.get("href"):
+            pdf_url = tag["href"]
+
+    #2. MicrobiologySoc case: <form>
+    elif link_selector == "form":
+        tag = soup.find("form", class_="ft-download-content__form")
+        if tag and tag.get("action"):
+            pdf_url = tag["action"]
+
+    #3. Springer case: <meta name="citation_pdf_url">
+    if not pdf_url:
+        meta_tag = soup.find("meta", attrs={"name": "citation_pdf_url"})
+        if meta_tag and meta_tag.get("content"):
+            pdf_url = meta_tag["content"]
+
+    if not pdf_url:
+        return False, page_url
+
+    if base_url:
+        pdf_url = urljoin(base_url, pdf_url)
+    else:
+        pdf_url = urljoin(page_url, pdf_url)
+
+    pdf_response = requests.get(pdf_url, timeout=15, headers=headers, proxies=proxies)
+    if pdf_response.status_code == 200 and "pdf" in pdf_response.headers.get("Content-Type", "").lower():
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "wb") as f:
+            f.write(pdf_response.content)
+        return True, pdf_url
+
+    return False, pdf_url
+
+def retreive_microbilogy_soc(doi, file_name):
+    pdf_path = file_name + ".pdf"
+    headers = {'User-Agent': config.HEADER}
+
+    microbiology_journals_variants = ["micro", "jgv", "ijsem", "acmi", "jmm", "mgen", "mout"]
+
+    proxies = {"http": f"http://{config.PROXY_USERNAME}:{config.PROXY_PASS}@{config.PROXY}",
+        "https": f"http://{config.PROXY_USERNAME}:{config.PROXY_PASS}@{config.PROXY}"}
+
+    base_url = "https://www.microbiologyresearch.org"
+
+    sigle_journal = doi.split("/")[-1].split(".")[0]
+
+    #le sigle dans le doi est reconnu
+    if sigle_journal in microbiology_journals_variants:
+        pdf_url = f"{base_url}/content/journal/{sigle_journal}/{doi}"
+        success, link = download_pdf_from_page(pdf_url, pdf_path, link_selector="form", base_url=base_url, headers=headers, proxies=proxies)
+        if success:
+            return True, link
+
+    #sinon on teste toutes les variantes
+    for var in microbiology_journals_variants:
+        pdf_url = f"{base_url}/content/journal/{var}/{doi}"
+        print(f"Trying var : {var} with link {pdf_url}")
+        success, link = download_pdf_from_page(pdf_url, pdf_path, link_selector="form", base_url=base_url, headers=headers, proxies=proxies)
+        if success:
+            return True, link
+
+    return False, None  
+
 def retrieve_references_crossref(doi, file_name):
     '''Query crossref API to retreive OA location link if available and try to download, return true or false and link if false'''
     url = f"https://api.crossref.org/works/{doi}"
@@ -133,6 +215,19 @@ def retrieve_references_crossref(doi, file_name):
         if "wiley" in pdf_url.lower() or "elsevier" in pdf_url.lower():
             #stop here if the document is in wiley or elsevier, we'll query the APIs in the next step
             return False, pdf_url
+
+        if pdf_url:
+            if "microbiologyresearch" in pdf_url:
+                return retreive_microbilogy_soc(doi, file_name)
+
+            if "www.apsnet.org/publications/" in pdf_url.lower():                
+                success, link = download_pdf_from_page(pdf_url, pdf_path, link_selector="a", headers=headers, proxies=proxies)
+
+            elif "springer" in pdf_url.lower():
+                success, link = download_pdf_from_page(pdf_url, pdf_path, link_selector="meta", headers=headers, proxies=proxies)
+
+        if success:
+            return True, link
 
         pdf_path = file_name + ".pdf"
 
