@@ -1,0 +1,68 @@
+<alvisnlp-plan id="ner-taxa">
+  <param name="taxaDict">
+    <alias module="dict" param="dictFile"/>
+  </param>
+
+  <param name="compiledDict">
+    <alias module="dict" param="trieSource"/>
+  </param>
+
+  <param name="sectionFilter">
+    <alias module="dict" param="sectionFilter"/>
+  </param>
+
+  <dict class="TabularProjector">
+    <targetLayer>ambiguousTaxa</targetLayer>
+    <matchStartCaseInsensitive/>
+    <valueFeatures>,taxid,canonical-name,path,pos,rank,species-taxid,species-name</valueFeatures>
+    <constantAnnotationFeatures>source=NCBI</constantAnnotationFeatures>
+  </dict>
+
+  <disambiguate>
+    <not-ambiguous class="Action">
+      <target>documents.sections.layer:ambiguousTaxa</target>
+      <action>$[not span:ambiguousTaxa].(add:taxa|remove:ambiguousTaxa|set:feat:disambiguation("not-ambiguous"))</action>
+      <addToLayer/>
+      <removeFromLayer/>
+      <setFeatures/>
+    </not-ambiguous>
+
+    <disambiguate-coreferences class="Action">
+      <target>documents.sections.layer:ambiguousTaxa</target>
+      <action>$[(section.nav:sections-before.layer:taxa|before:taxa)[@taxid == target.@taxid]].
+      (add:taxa|remove:ambiguousTaxa|span:ambiguousTaxa.remove:ambiguousTaxa|set:feat:disambiguation("coreference"))</action>
+      <addToLayer/>
+      <removeFromLayer/>
+      <setFeatures/>
+    </disambiguate-coreferences>
+
+    <disambiguate-coreference-more-general class="Action">
+      <target>documents.sections.layer:ambiguousTaxa</target>
+      <action>$[(section.nav:sections-before.layer:taxa|before:taxa|outside:taxa)[@path ^= target.@path]].
+      (add:taxa|remove:ambiguousTaxa|span:ambiguousTaxa.remove:ambiguousTaxa|set:feat:disambiguation("is-general")|set:feat:more-general-than((section.nav:sections-before.layer:taxa|before:taxa|outside:taxa)[@path ^= target.@path]{0}.@taxid))</action>
+      <addToLayer/>
+      <removeFromLayer/>
+      <setFeatures/>
+    </disambiguate-coreference-more-general>
+
+    <disambiguate-coreferences-more-specific class="Action">
+      <target>documents.sections.layer:ambiguousTaxa</target>
+      <action>$[(section.nav:sections-before.layer:taxa|before:taxa) as gen.$[target.@path ^= @path and not target.span:ambiguousTaxa[@path ^= gen.@path]]].
+      (add:taxa|remove:ambiguousTaxa|span:ambiguousTaxa.remove:ambiguousTaxa|set:feat:disambiguation("is-specific")|set:feat:more-specific-than((section.nav:sections-before.layer:taxa|before:taxa) as gen.$[target.@path ^= @path and not target.span:ambiguousTaxa[@path ^= gen.@path]]{0}.@taxid))</action>
+      <addToLayer/>
+      <removeFromLayer/>
+      <setFeatures/>
+    </disambiguate-coreferences-more-specific>
+
+    <remove-disambiguated class="Action">
+      <target>documents.sections.layer:ambiguousTaxa</target>
+      <action>$[span:taxa].remove:ambiguousTaxa</action>
+      <removeFromLayer/>
+    </remove-disambiguated>
+
+    <report-ambiguous class="Action">
+      <target>documents.sections.layer:ambiguousTaxa</target>
+      <action>module:log("Ambiguous taxon in " ^ section.document.@id ^ "/" ^ section.@name ^ " at " ^ start ^ "-" ^ end ^ ": " ^ @form ^ " -> " ^ @taxid ^ " (" ^ @canonical-name ^ ")")</action>
+    </report-ambiguous>
+  </disambiguate>
+</alvisnlp-plan>

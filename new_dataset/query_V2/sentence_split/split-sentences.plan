@@ -1,0 +1,48 @@
+<alvisnlp-plan id="split-sentences">
+  <read class="XMLReader">
+    <xslTransform>anneso/xml2alvisnlp.xslt</xslTransform>
+    <source>anneso/docs</source>
+  </read>
+
+  <para class="Action">
+    <target>documents.sections.layer:xml[(@tag == "p" and outside:xml[@tag == "body"]) or @tag == "ce:para"]</target>
+    <action>add:para</action>
+    <addToLayer/>
+  </para>
+
+  <taxa href="anneso/ner-taxa.plan">
+    <taxaDict>anneso/taxa+id_full.txt</taxaDict>
+    <compiledDict>anneso/taxa+id_full.trie</compiledDict>
+  </taxa>
+
+  <rigid class="Action">
+    <target>documents.sections[@para].layer:taxa</target>
+    <action>add:rigid-entities</action>
+    <addToLayer/>
+  </rigid>
+
+  <seg href="res://segmentation.plan"/>
+
+  <clean class="Action">
+    <target>documents.sections.layer:sentences[not outside:para]</target>
+    <action>delete</action>
+    <deleteElements/>
+  </clean>
+
+  <transfer class="Action">
+    <target>documents.sections.layer:sentences</target>
+    <action>add:xml | set:feat:tag("s")</action>
+    <addToLayer/>
+    <setFeatures/>
+  </transfer>
+
+  <table class="TabularExport">
+    <outDir>anneso/out/</outDir>
+    <corpusFile>sentences.tsv</corpusFile>
+    <lines>documents.sections.layer:sentences</lines>
+    <columns separator=";">
+      section.document.@id;
+      str:normalizeSpace(@form)
+    </columns>
+  </table>
+</alvisnlp-plan>
