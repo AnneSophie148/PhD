@@ -11,44 +11,59 @@
     <xslTransform>xml2alvisnlp.xslt</xslTransform>
   </read>
 
-  <para class="Action">
-    <target>documents.sections.layer:xml[(@tag == "p" and outside:xml[@tag == "body"]) or @tag == "ce:para"]</target>
-    <action>add:para</action>
-    <addToLayer/>
+  <para>
+    <detect class="Action">
+      <target>
+	documents.sections.layer:xml[
+	(@tag == "p" and outside:xml[@tag == "body"]) or <!-- PMC -->
+	(@tag == "ce:para" and outside:xml[@tag == "ce:section"]) <!-- Elsevier -->
+	]
+      </target>
+      <action>add:para</action>
+      <addToLayer/>
+    </detect>
+
+    <section class="Action">
+      <target>documents.sections.layer:para</target>
+      <action>
+	set:feat:sec((
+	outside:xml[@tag == "sec" and not outside:xml[@tag == "sec"]].(inside:xml[@tag == "title"]){0} |
+	outside:xml[@tag == "ce:section" and not outside:xml[@tag == "ce:section"]].(inside:xml[@tag == "ce:section-title"]){0}	
+	).@form)
+      </action>
+      <setFeatures/>
+    </section>
+
+    <split class="SplitSections">
+      <selectLayer>para</selectLayer>
+      <constantSectionFeatures>para=yes</constantSectionFeatures>
+    </split>
   </para>
 
   <taxa href="ner-taxa.plan">
+    <sectionFilter>@para == "yes"</sectionFilter>
     <taxaDict>taxa+id_full.txt</taxaDict>
     <compiledDict>taxa+id_full.trie</compiledDict>
   </taxa>
 
   <rigid class="Action">
-    <target>documents.sections[@para].layer:taxa</target>
+    <target>documents.sections[@para == "yes"].layer:taxa</target>
     <action>add:rigid-entities</action>
     <addToLayer/>
   </rigid>
 
   <seg href="res://segmentation.plan"/>
 
-  <clean class="Action">
-    <target>documents.sections.layer:sentences[not outside:para]</target>
-    <action>delete</action>
-    <deleteElements/>
-  </clean>
-
-  <transfer class="Action">
-    <target>documents.sections.layer:sentences</target>
-    <action>add:xml | set:feat:tag("s")</action>
-    <addToLayer/>
-    <setFeatures/>
-  </transfer>
-
   <table class="TabularExport">
     <outDir>.</outDir>
-    <lines>documents.sections.layer:sentences</lines>
+    <lines>documents.sections[@para == "yes"].layer:sentences</lines>
     <columns separator=";">
+      section.document.@basename;
       section.document.@id;
+      section.layer:para.@sec;
       str:normalizeSpace(@form)
     </columns>
+    <trueCSV/>
+    <separator>,</separator>
   </table>
 </alvisnlp-plan>
