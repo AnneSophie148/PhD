@@ -1,7 +1,14 @@
 <alvisnlp-plan id="split-sentences">
+  <param name="input">
+    <alias module="read" param="source"/>
+  </param>
+
+  <param name="output">
+    <alias module="table" param="corpusFile"/>
+  </param>
+
   <read class="XMLReader">
-    <xslTransform>anneso/xml2alvisnlp.xslt</xslTransform>
-    <source>anneso/docs</source>
+    <xslTransform>xml2alvisnlp.xslt</xslTransform>
   </read>
 
   <para class="Action">
@@ -10,9 +17,9 @@
     <addToLayer/>
   </para>
 
-  <taxa href="anneso/ner-taxa.plan">
-    <taxaDict>anneso/taxa+id_full.txt</taxaDict>
-    <compiledDict>anneso/taxa+id_full.trie</compiledDict>
+  <taxa href="ner-taxa.plan">
+    <taxaDict>taxa+id_full.txt</taxaDict>
+    <compiledDict>taxa+id_full.trie</compiledDict>
   </taxa>
 
   <rigid class="Action">
@@ -37,8 +44,7 @@
   </transfer>
 
   <table class="TabularExport">
-    <outDir>anneso/out/</outDir>
-    <corpusFile>sentences.tsv</corpusFile>
+    <outDir>.</outDir>
     <lines>documents.sections.layer:sentences</lines>
     <columns separator=";">
       section.document.@id;
