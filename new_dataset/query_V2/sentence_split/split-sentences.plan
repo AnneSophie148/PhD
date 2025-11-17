@@ -40,6 +40,19 @@
     </split>
   </para>
 
+  <citations>
+    <detect class="Action">
+      <target>
+	documents.sections[@para == "yes"].layer:xml[
+	(@tag == "xref" and @ref-type == "bibr") or
+	(@tag == "ce:cross-ref" and @refid ^= "bib")
+	]
+      </target>
+      <action>add:citations</action>
+      <addToLayer/>
+    </detect>
+  </citations>
+
   <taxa href="ner-taxa.plan">
     <sectionFilter>@para == "yes"</sectionFilter>
     <taxaDict>taxa+id_full.txt</taxaDict>
@@ -56,13 +69,41 @@
 
   <table class="TabularExport">
     <outDir>.</outDir>
-    <lines>documents.sections[@para == "yes"].layer:sentences</lines>
+    <lines>documents.sections[@para == "yes"].layer:citations</lines>
     <columns separator=";">
       section.document.@basename;
       section.document.@id;
       section.layer:para.@sec;
-      str:normalizeSpace(@form)
+      "SENT_ID";
+      outside:sentences.before:sentences{-3}.@form;
+      outside:sentences.before:sentences{-2}.@form;
+      outside:sentences.before:sentences{-1}.@form;
+      ctx:sentence-before;
+      @form;
+      ctx:sentence-after;
+      outside:sentences.after:sentences{0}.@form;
+      outside:sentences.after:sentences{1}.@form;
+      outside:sentences.after:sentences{2}.@form
     </columns>
+    <headers>
+      "FILE",
+      "DOI_DOC",
+      "SECTION",
+      "SENT_ID",
+      "S-3",
+      "S-2",
+      "S-1",
+      "S-0",
+      "CITATION",
+      "S+0",
+      "S+1",
+      "S+2",
+      "S+3",
+      "#REFS/SENT",
+      "#REFS/SECTION",
+      "FULL_REF",
+      "REF_DOI"
+    </headers>
     <trueCSV/>
     <separator>,</separator>
   </table>
