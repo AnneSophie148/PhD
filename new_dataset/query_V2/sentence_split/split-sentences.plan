@@ -41,16 +41,79 @@
   </para>
 
   <citations>
-    <detect class="Action">
-      <target>
-	documents.sections[@para == "yes"].layer:xml[
-	(@tag == "xref" and @ref-type == "bibr") or
-	(@tag == "ce:cross-ref" and @refid ^= "bib")
-	]
-      </target>
-      <action>add:citations</action>
-      <addToLayer/>
-    </detect>
+    <PMC>
+      <detect class="Action">
+	<target>
+	  documents.sections[@para == "yes"].layer:xml[@tag == "xref" and @ref-type == "bibr"]
+	</target>
+	<action>add:citations</action>
+	<addToLayer/>
+      </detect>
+
+      <resolve class="Action">
+	<target>documents.sections[@para == "yes"].layer:citations</target>
+	<action>
+	  section.document.sections[@para != "yes"].
+	  layer:xml[@tag == "ref" and @id == target.@rid] as ref.
+	  target.(
+	  set:feat:given-name(ref.inside:xml[@tag == "given-names"]{0}) |
+	  set:feat:surname(ref.inside:xml[@tag == "surname"]{0}) |
+	  set:feat:year(ref.inside:xml[@tag == "year"]{0})
+	  )
+	</action>
+	<setFeatures/>
+      </resolve>
+    </PMC>
+
+    <Elsevier>
+      <detect>
+	<single class="Action">
+	  <target>
+	    documents.sections[@para == "yes"].layer:xml[@tag == "ce:cross-ref" and @refid ^= "bib"]
+	  </target>
+	  <action>add:citations | set:feat:multiple("no") | str:split:' ':rid(@refid)</action>
+	  <addToLayer/>
+	  <setFeatures/>
+	</single>
+
+	<multiple>
+	  <split-refs class="Action">
+	    <target>
+	      documents.sections[@para == "yes"].layer:xml[@tag == "ce:cross-refs" and @refid ^= "bib"]
+	    </target>
+	    <action>str:split:' ':all-refids(@refid)</action>
+	    <setFeatures/>
+	  </split-refs>
+
+	  <copy class="Action">
+	    <target>documents.sections[@para == "yes"].layer:xml[@all-refids]</target>
+	    <action>
+	      nav:features:all-refids as refid.
+	      section.new:annotation:citations(target.start, target.end).
+	      (clone:features(target) | set:feat:refid(refid.@value))
+	    </action>
+	    <constantAnnotationFeatures>multiple=yes</constantAnnotationFeatures>
+	    <createAnnotations/>
+	    <addToLayer/>
+	    <setFeatures/>
+	  </copy>
+	</multiple>
+      </detect>
+
+      <resolve class="Action">
+	<target>documents.sections[@para == "yes"].layer:citations</target>
+	<action>
+	  section.document.sections[@para != "yes"].
+	  layer:xml[@tag == "ce:bib-reference" and @id == target.@refid] as ref.
+	  target.(
+	  set:feat:given-name(ref.inside:xml[@tag == "ce:given-name"]{0}) |
+	  set:feat:surname(ref.inside:xml[@tag == "ce:surname"]{0}) |
+	  set:feat:year(ref.inside:xml[@tag == "sb:date"]{0})
+	  )
+	</action>
+	<setFeatures/>
+      </resolve>
+    </Elsevier>
   </citations>
 
   <taxa href="ner-taxa.plan">
@@ -80,6 +143,9 @@
       outside:sentences.before:sentences{-1}.@form;
       ctx:sentence-before;
       @form;
+      @given-name;
+      @surname;
+      @year;
       ctx:sentence-after;
       outside:sentences.after:sentences{0}.@form;
       outside:sentences.after:sentences{1}.@form;
@@ -95,6 +161,9 @@
       "S-1",
       "S-0",
       "CITATION",
+      "AUTHOR1_GIVEN_NAME",
+      "AUTHOR1_SURNAME",
+      "YEAR",
       "S+0",
       "S+1",
       "S+2",
