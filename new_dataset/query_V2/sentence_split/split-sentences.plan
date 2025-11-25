@@ -58,7 +58,13 @@
 	  target.(
 	  set:feat:given-name(ref.inside:xml[@tag == "given-names"]{0}) |
 	  set:feat:surname(ref.inside:xml[@tag == "surname"]{0}) |
-	  set:feat:year(ref.inside:xml[@tag == "year"]{0})
+	  set:feat:year(ref.inside:xml[@tag == "year"]{0}) |
+    set:feat:id_pmid(ref.inside:xml[@tag == "pub-id" and @pub-id-type=="pmid"]{0}) <!-- PMC --> |
+    set:feat:id_doi(ref.inside:xml[@tag == "pub-id" and @pub-id-type=="doi"]{0}) <!-- PMC --> |
+    set:feat:id_pmid(ref.inside:xml[@tag == "object-id" and @pub-id-type=="pmid"]{0}) <!-- PLOS --> |
+    set:feat:id_doi(ref.inside:xml[@tag == "ext-link" and @ext-link-type=="uri"]{0}) <!-- PLOS --> |
+    set:feat:title_ref(ref.inside:xml[@tag == "article-title"]{0})
+
 	  )
 	</action>
 	<setFeatures/>
@@ -108,8 +114,11 @@
 	  target.(
 	  set:feat:given-name(ref.inside:xml[@tag == "ce:given-name"]{0}) |
 	  set:feat:surname(ref.inside:xml[@tag == "ce:surname"]{0}) |
-	  set:feat:year(ref.inside:xml[@tag == "sb:date"]{0})
-	  )
+	  set:feat:year(ref.inside:xml[@tag == "sb:date"]{0}) |
+    set:feat:full_ref(ref.inside:xml[@tag == "ce:source-text"]) <!-- Elsevier --> |
+    set:feat:id_doi(ref.inside:xml[@tag == "ce:doi"]{0}) <!-- Elsevier --> |
+    set:feat:title_ref(ref.inside:xml[@tag == "sb:maintitle"]{0})
+    )
 	</action>
 	<setFeatures/>
       </resolve>
@@ -149,7 +158,13 @@
       ctx:sentence-after;
       outside:sentences.after:sentences{0}.@form;
       outside:sentences.after:sentences{1}.@form;
-      outside:sentences.after:sentences{2}.@form
+      outside:sentences.after:sentences{2}.@form;
+      "#REFS/SENT";
+      "#REFS/SECTION";
+      @full_ref;
+      @title_ref;
+      @id_pmid;
+      @id_doi
     </columns>
     <headers>
       "FILE",
@@ -171,6 +186,8 @@
       "#REFS/SENT",
       "#REFS/SECTION",
       "FULL_REF",
+      "TITLE_REF",
+      "REF_PMID",
       "REF_DOI"
     </headers>
     <trueCSV/>
