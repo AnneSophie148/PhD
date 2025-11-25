@@ -56,6 +56,7 @@
 	  section.document.sections[@para != "yes"].
 	  layer:xml[@tag == "ref" and @id == target.@rid] as ref.
 	  target.(
+	  set:feat:label(ref.inside:xml[@tag == "label"]) |
 	  set:feat:given-name(ref.inside:xml[@tag == "given-names"]{0}) |
 	  set:feat:surname(ref.inside:xml[@tag == "surname"]{0}) |
 	  set:feat:year(ref.inside:xml[@tag == "year"]{0}) |
@@ -112,13 +113,14 @@
 	  section.document.sections[@para != "yes"].
 	  layer:xml[@tag == "ce:bib-reference" and @id == target.@refid] as ref.
 	  target.(
-	  set:feat:given-name(ref.inside:xml[@tag == "ce:given-name"]{0}) |
-	  set:feat:surname(ref.inside:xml[@tag == "ce:surname"]{0}) |
+	  set:feat:label(ref.inside:xml[@tag == "ce:label"]) |
+	  set:feat:given-name(ref.inside:xml[@tag == "sb:authors"].inside:xml[@tag == "ce:given-name"]{0}) |
+	  set:feat:surname(ref.inside:xml[@tag == "sb:authors"].inside:xml[@tag == "ce:surname"]{0}) |
 	  set:feat:year(ref.inside:xml[@tag == "sb:date"]{0}) |
-    set:feat:full_ref(ref.inside:xml[@tag == "ce:source-text"]) <!-- Elsevier --> |
-    set:feat:id_doi(ref.inside:xml[@tag == "ce:doi"]{0}) <!-- Elsevier --> |
-    set:feat:title_ref(ref.inside:xml[@tag == "sb:maintitle"]{0})
-    )
+	  set:feat:full_ref(ref.inside:xml[@tag == "ce:source-text"]) |
+	  set:feat:id_doi(ref.inside:xml[@tag == "ce:doi"]{0}) |
+	  set:feat:title_ref(ref.inside:xml[@tag == "sb:maintitle"]{0})
+	  )
 	</action>
 	<setFeatures/>
       </resolve>
@@ -152,6 +154,7 @@
       outside:sentences.before:sentences{-1}.@form;
       ctx:sentence-before;
       @form;
+      @label;
       @given-name;
       @surname;
       @year;
@@ -176,6 +179,7 @@
       "S-1",
       "S-0",
       "CITATION",
+      "CITATION_LABEL",
       "AUTHOR1_GIVEN_NAME",
       "AUTHOR1_SURNAME",
       "YEAR",
