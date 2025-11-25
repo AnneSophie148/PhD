@@ -60,10 +60,12 @@
 	  set:feat:given-name(ref.inside:xml[@tag == "given-names"]{0}) |
 	  set:feat:surname(ref.inside:xml[@tag == "surname"]{0}) |
 	  set:feat:year(ref.inside:xml[@tag == "year"]{0}) |
-    set:feat:id_pmid(ref.inside:xml[@tag == "pub-id" and @pub-id-type=="pmid"]{0}) <!-- PMC --> |
-    set:feat:id_doi(ref.inside:xml[@tag == "pub-id" and @pub-id-type=="doi"]{0}) <!-- PMC --> |
-    set:feat:id_pmid(ref.inside:xml[@tag == "object-id" and @pub-id-type=="pmid"]{0}) <!-- PLOS --> |
-    set:feat:id_doi(ref.inside:xml[@tag == "ext-link" and @ext-link-type=="uri"]{0}) <!-- PLOS --> |
+    set:feat:id_pmid(ref.inside:xml[
+      (@tag == "pub-id" and @pub-id-type=="pmid") or <!-- PMC -->
+      (@tag == "object-id" and @pub-id-type=="pmid")]) | <!-- PlosOne -->
+    set:feat:id_doi(ref.inside:xml[
+      (@tag == "pub-id" and @pub-id-type=="doi") or <!-- PMC -->
+      (@tag == "ext-link" and @ext-link-type=="uri")]) | <!-- PlosOne -->
     set:feat:title_ref(ref.inside:xml[@tag == "article-title"]{0})
 
 	  )
