@@ -60,14 +60,9 @@
 	  set:feat:given-name(ref.inside:xml[@tag == "given-names"]{0}) |
 	  set:feat:surname(ref.inside:xml[@tag == "surname"]{0}) |
 	  set:feat:year(ref.inside:xml[@tag == "year"]{0}) |
-    set:feat:id_pmid(ref.inside:xml[
-      (@tag == "pub-id" and @pub-id-type=="pmid") or <!-- PMC -->
-      (@tag == "object-id" and @pub-id-type=="pmid")]) | <!-- PlosOne -->
-    set:feat:id_doi(ref.inside:xml[
-      (@tag == "pub-id" and @pub-id-type=="doi") or <!-- PMC -->
-      (@tag == "ext-link" and @ext-link-type=="uri")]) | <!-- PlosOne -->
-    set:feat:title_ref(ref.inside:xml[@tag == "article-title"]{0})
-
+	  set:feat:id_pmid(ref.inside:xml[(@tag == "pub-id" or @tag == "object-id") and @pub-id-type=="pmid"]{0}) <!-- PMC or PlosOne--> |
+	  set:feat:id_doi(ref.inside:xml[(@tag == "pub-id" and @pub-id-type=="doi") or (@tag == "ext-link" and @ext-link-type=="uri")]{0}) <!-- PMC or PlosOne --> |
+	  set:feat:title_ref(ref.inside:xml[@tag == "article-title"]{0})
 	  )
 	</action>
 	<setFeatures/>
@@ -147,29 +142,29 @@
     <outDir>.</outDir>
     <lines>documents.sections[@para == "yes"].layer:citations</lines>
     <columns separator=";">
-      section.document.@basename;
-      section.document.@id;
-      section.layer:para.@sec;
+      str:normalizeSpace(section.document.@basename);
+      str:normalizeSpace(section.document.@id);
+      str:normalizeSpace(section.layer:para.@sec);
       "SENT_ID";
-      outside:sentences.before:sentences{-3}.@form;
-      outside:sentences.before:sentences{-2}.@form;
-      outside:sentences.before:sentences{-1}.@form;
-      ctx:sentence-before;
-      @form;
-      @label;
-      @given-name;
-      @surname;
-      @year;
-      ctx:sentence-after;
-      outside:sentences.after:sentences{0}.@form;
-      outside:sentences.after:sentences{1}.@form;
-      outside:sentences.after:sentences{2}.@form;
+      str:normalizeSpace(outside:sentences.before:sentences{-3}.@form);
+      str:normalizeSpace(outside:sentences.before:sentences{-2}.@form);
+      str:normalizeSpace(outside:sentences.before:sentences{-1}.@form);
+      str:normalizeSpace(ctx:sentence-before);
+      str:normalizeSpace(@form);
+      str:normalizeSpace(@label);
+      str:normalizeSpace(@given-name);
+      str:normalizeSpace(@surname);
+      str:normalizeSpace(@year);
+      str:normalizeSpace(ctx:sentence-after);
+      str:normalizeSpace(outside:sentences.after:sentences{0}.@form);
+      str:normalizeSpace(outside:sentences.after:sentences{1}.@form);
+      str:normalizeSpace(outside:sentences.after:sentences{2}.@form);
       "#REFS/SENT";
       "#REFS/SECTION";
-      @full_ref;
-      @title_ref;
-      @id_pmid;
-      @id_doi
+      str:normalizeSpace(@full_ref);
+      str:normalizeSpace(@title_ref);
+      str:normalizeSpace(@id_pmid);
+      str:normalizeSpace(@id_doi)
     </columns>
     <headers>
       "FILE",
