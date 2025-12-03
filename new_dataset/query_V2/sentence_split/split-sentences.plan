@@ -16,7 +16,7 @@
       <target>
 	documents.sections.layer:xml[
 	(@tag == "p" and outside:xml[@tag == "body"]) or <!-- PMC -->
-	(@tag == "ce:para" and outside:xml[@tag == "ce:section"]) <!-- Elsevier -->
+	(@tag == "ce:para" and outside:xml[@tag ^= "ce:section"]) <!-- Elsevier -->
 	]
       </target>
       <action>add:para</action>
@@ -73,7 +73,9 @@
       <detect>
 	<single class="Action">
 	  <target>
-	    documents.sections[@para == "yes"].layer:xml[@tag == "ce:cross-ref" and @refid ^= "b"]
+	    documents.sections[@para == "yes"].layer:xml[
+      (@tag == "ce:cross-ref" and @refid ^= "b") or (@tag == "ce:cross-ref" and @refid ^= "B")
+      ]
 	  </target>
 	  <action>add:citations | set:feat:multiple("no") | str:split:' ':rid(@refid)</action>
 	  <addToLayer/>
