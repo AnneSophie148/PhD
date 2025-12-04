@@ -47,7 +47,7 @@ def retrieve_references_crossref(doi):
 
     except requests.exceptions.ReadTimeout:
         pass
-    except Exception:
+    except Exception as e:
         print(f"Crossref error DOI {doi}: {e}")
 
     return language, title, authors
