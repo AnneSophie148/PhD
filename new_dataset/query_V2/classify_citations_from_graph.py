@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     graph = load_graph(entry_graph_path)
     #classify on context window 3-3 sentences
-    loaded_model = torch.load('BioBERT_FINALMODEL_2e-05_accseteps1_ctx_3-3_Jiang_train-PD_test_42.pt')
+    loaded_model = torch.load('classification_model/BioBERT_FINALMODEL_2e-05_accseteps1_ctx_3-3_Jiang_train-PD_test_42.pt')
     loaded_model.eval()
     classify(loaded_model, graph, output_graph_path)
 
