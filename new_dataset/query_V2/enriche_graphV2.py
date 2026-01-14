@@ -126,8 +126,9 @@ def filter_graph(graph):
             new_edges.append(edge)
 
             #findings = cited DOI only
-            findings_dois.add(cited_doi)
-            new_findings.append(cited_article)
+            if cited_doi not in findings_dois:
+                findings_dois.add(cited_doi)
+                new_findings.append(cited_article)
 
             #articles = citing DOI only (new compared to build graph where articles was both citing and cited articles)
             new_articles_by_doi[citing_doi] = citing_article
