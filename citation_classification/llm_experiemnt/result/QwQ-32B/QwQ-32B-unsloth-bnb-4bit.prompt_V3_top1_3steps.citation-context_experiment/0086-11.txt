@@ -1,0 +1,72 @@
+Okay, let me tackle this step by step. The user provided a task where I need to classify a citation in a scientific article's citation passage into one of the predefined rhetorical classes. The example given is about plant health, but the process should be the same regardless of the domain.
+
+First, I need to follow the three steps outlined. Let me start with the first step: extracting the context discussing the citation @@CITATION@@. The user mentioned keeping only the semantic context useful for understanding the citation's intent. So, I need to look at the passage around the citation tag and focus on the parts that explain why the citation is there.
+
+Next, step two is identifying the general intent. The options here are foundational, comparative, motivational, supportive, technical, critical/analytical, or descriptive. Each of these maps to a set of more specific classes. For instance, if it's foundational, it's Basis. If comparative, it could be CoCoGM, CoCoRes, or CoCoXY. I have to figure out which general category the citation falls into first.
+
+Then, step three is selecting the specific rhetorical class based on the definitions provided. The key here is to match the context's intent with the examples given for each class. Let me recall the definitions again to make sure I don't mix them up. 
+
+For example, if the citation is supporting the authors' own results, that's Support. If they're pointing out a similarity in findings, that's Similar. If they're comparing their methods with another study, that's CoCoGM. Weakness would be if they're criticizing the cited work. 
+
+Now, the user's example input isn't provided here, but let's suppose a scenario. Let's say the citation is in a sentence like: "Previous studies have shown that magnetic treatment reduces plant disease @@CITATION@@, which aligns with our findings here." 
+
+Step 1: The context here is that the cited work's findings align with the current study's results. 
+
+Step 2: The general intent here is supportive because they're backing up their results with prior work. 
+
+Step 3: Looking at the options, Support is the specific class since they're confirming their own findings with the cited work. 
+
+Another example: "Unlike the approach by @@CITATION@@ which used chemical methods, our study employs a biological control agent." Here, the citation is being compared in terms of methods, so CoCoGM would be the right class under comparative intent.
+
+Wait, but the user's task is to process a given input passage. Since the actual input isn't here, maybe I need to think through how to apply this when given a specific passage. Let's imagine another example. Suppose the passage says: "The method developed by @@CITATION@@ was utilized in our experiments to analyze the plant samples." Here, the citation is referring to a method used, so that's Usage.
+
+Alternatively, if the passage states, "Despite previous claims @@CITATION@@ that all such pathogens are soil-borne, our research indicates aerial transmission is possible," this would be a critical point, pointing out a weakness in the cited work's conclusions, so Weakness.
+
+The key is to parse the sentence structure and the verbs used. Words like "supports," "similar to," "contrary to," "compared with," "used," "introduced," etc., can hint at the intent. 
+
+I need to ensure I strictly follow the definitions. Let me check the definitions again:
+
+- **Basis**: The cited work is foundational, like the basis of the current research.
+- **CoCoGM**: Comparing goals or methods between cited and current work.
+- **CoCoRes**: Comparing results.
+- **CoCoXY**: Comparing explanations or claims between two cited studies (not with the current paper).
+- **Motivation**: Justifying why the current research is done, like filling a gap.
+- **Future**: Suggesting future research directions based on the citation.
+- **Support**: Backing up the current work's findings with the citation.
+- **Similar**: Pointing out similarities in results or observations between cited and current work.
+- **Usage**: Mentioning use of a method/tool from the cited work.
+- **Weakness**: Criticizing the cited work's flaws.
+- **Neutral**: Just mentioning without any argumentative intent.
+
+So, if the citation is part of a sentence that says "As shown by @@CITATION@@, the effect is significant," that's Support. If it's "In contrast to @@CITATION@@, our results show...", that's CoCoRes. 
+
+Another point: the "CoCoXY" is when comparing two cited works, not the current paper. So if the sentence compares two previous studies, like "While study A found X @@CITATION@@, study B reported Y @@CITATION@@," then CoCoXY applies to both citations. But in our case, the task is for a single citation, so if the context is comparing two cited works with each other, that's CoCoXY for that citation.
+
+Wait, but in the example given for CoCoXY, the citation is part of a sentence that contrasts two studies: "Wei et al. and Saracco et al. reported something, but conflicting results were described in @@CITATION@@." So the citation here is one of the studies being compared, so the citation's intent is CoCoXY.
+
+Alright, so the key is to parse the sentence structure, see if it's comparing with current work (CoCoGM or CoCoRes), comparing two cited works (CoCoXY), supporting the current findings (Support), etc.
+
+Now, assuming I have a specific example. Let's say the input passage is:
+
+"Previous research has demonstrated the efficacy of biological control agents in reducing fungal infections @@CITATION@@, which underscores the potential of eco-friendly solutions in agriculture."
+
+Step 1: The context here is that the cited work's findings (efficacy of agents) supports the current paper's discussion on eco-friendly solutions. 
+
+Step 2: The intent is supportive, as it's backing up the current argument. 
+
+Step 3: The specific class would be Support, since it's supporting the current work's point.
+
+Another example: "The current study builds on the pioneering work of @@CITATION@@ who first identified the pathogen responsible for the disease." Here, the cited work is foundational, so Basis.
+
+If the sentence is: "The model proposed here differs from that of @@CITATION@@ in that it accounts for environmental factors." This is comparing methods or models, so CoCoGM.
+
+If the citation is in a sentence like: "Further studies are needed to validate these findings in field conditions, as suggested by @@CITATION@@," then the citation is pointing out a future direction, so Future.
+
+But if the sentence says, "The results here contradict those of @@CITATION@@ who found no such effect," then CoCoRes.
+
+I think I've got the hang of it. The crucial part is to dissect the sentence structure and match the context to the definitions. The user's example would require applying these steps precisely. Since the actual input isn't provided here, but the user wants the thought process for when they do, this should cover the methodology.
+</think>
+
+{
+  "label": "Support"
+}

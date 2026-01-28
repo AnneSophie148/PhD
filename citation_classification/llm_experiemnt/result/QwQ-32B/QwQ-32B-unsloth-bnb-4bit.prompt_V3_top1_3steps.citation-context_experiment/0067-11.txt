@@ -1,0 +1,36 @@
+Okay, let's tackle this problem. The user provided a scientific article passage with a citation tagged as @@CITATION@@, and I need to classify the rhetorical class of that citation. Let me go through each step carefully.
+
+First, the task is to extract the context around the citation, figure out the general intent, and then assign the most appropriate label from the predefined list. Let me start by looking at the example given. The passage is:
+
+"The study by @@CITATION@@ demonstrated that the application of magnetic fields can reduce calcium carbonate scale formation by altering crystal growth patterns. Our experiments built upon this by investigating the effect of varying field strengths on different types of scale deposits. However, the mechanism proposed by @@CITATION@@ has been questioned due to inconsistent replication in subsequent studies @@CITATION@@."
+
+Wait, actually, in the user's input, the citation in question is the first one, right? Because the second citation is another one, but the user's example here might have two citations. Hmm, but the problem states that the citation to classify is @@CITATION@@. Let me check again.
+
+Wait, in the problem description, the user's example passage is enclosed in backticks. Let me parse that again. The user's input passage is:
+
+`The study by @@CITATION@@ demonstrated that the application of magnetic fields can reduce calcium carbonate scale formation by altering crystal growth patterns. Our experiments built upon this by investigating the effect of varying field strengths on different types of scale deposits. However, the mechanism proposed by @@CITATION@@ has been questioned due to inconsistent replication in subsequent studies @@CITATION@@.`
+
+Wait, here there are two citations. The first @@CITATION@@ is the one we need to classify, and the second one is another citation. But the user's instruction says "the citation tagged @@CITATION@@", so perhaps in the actual problem, there's only one citation. Wait, maybe in the example given, the first @@CITATION@@ is the one to classify. Let me focus on that.
+
+First step: Extract the context discussing the citation @@CITATION@@. The relevant part is the sentence where the citation is mentioned. Let's look at the first part: "The study by @@CITATION@@ demonstrated that the application of magnetic fields can reduce calcium carbonate scale formation by altering crystal growth patterns. Our experiments built upon this by investigating the effect of varying field strengths on different types of scale deposits."
+
+So the citation here is introducing a previous study that demonstrated a certain effect. The current study builds upon that. The phrase "built upon this" suggests that the current work is extending the cited study's findings. 
+
+Next, step two: Identify the general intent. The first citation's context says that their study demonstrated something, and the current work builds upon it. That sounds like the cited work is foundational because the current research is building upon it. The cited study introduced a concept or finding that the current work is expanding on. 
+
+Looking at the definitions, the Basis class is when the citation references the intellectual foundation. The example given for Basis is about replicating previous results, which is similar here because building upon prior work would be foundational. 
+
+Alternatively, could it be Support? Because the cited study's findings are being used as a basis. But Support is when the citation supports the current work's results. Here, the current work is extending the cited work, so it's more foundational. 
+
+The second part of the passage mentions another citation where the mechanism is questioned, but that's a different citation. The first citation is being built upon, so the intent is foundational. 
+
+Therefore, the general intent would be Foundational → Basis. Then, according to step 3, the specific rhetorical class would be Basis. 
+
+Wait, but let me check if there's another possibility. The second sentence says "Our experiments built upon this..." which indicates that the cited work is the basis for their current experiments. So yes, the cited work is the foundation. 
+
+Alternatively, if the current study is just using the method from the cited work, then it would be Usage, but here it's about building upon the findings, not just the method. 
+
+Therefore, the correct label should be Basis.
+</think>
+
+Basis

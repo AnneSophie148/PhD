@@ -1,0 +1,95 @@
+Okay, let's tackle this step by step. First, I need to look at the user's query and understand what exactly they're asking. The task is to classify a citation in a scientific article's context into one of the predefined rhetorical classes. The example given here is about plant health, but the process should be the same regardless of the domain.
+
+Starting with Step 1: Extracting the context around the citation tagged @@CITATION@@. The user provided a passage within backticks, so I need to parse that to get the exact sentence or paragraph where the citation is mentioned. The context should be the part of the text that discusses why the citation was included. For instance, if the citation is in a sentence that compares the cited work's results with the current study's results, that's crucial for determining the class.
+
+Moving to Step 2: Identifying the general intent. The user outlined seven categories here: Foundational, Comparative, Motivational, Supportive, Technical, Critical/Analytical, and Descriptive. I have to first categorize the citation's intent into one of these broader groups before narrowing down to the specific class. 
+
+For example, if the context states that the cited work laid the groundwork for the current research, that's Foundational (Basis). If the citation is part of a discussion contrasting methods with another study, that would fall under the Comparative category, and then further to CoCoGM. 
+
+The key here is understanding the relationship between the citing paper and the cited work based on the context. Let's assume the context given by the user was something like: "Previous studies have shown that certain plant pathogens exhibit varying virulence levels depending on environmental conditions @@CITATION@@, which aligns with our findings here." 
+
+Step 3 requires selecting the most appropriate class from the list provided. Looking at the example I just thought of, since it's pointing out an alignment between the cited study and the current one, the general intent is Supportive, and the specific class would be Support or Similar. Depending on whether it's about the findings (results) or just a general observation of similarity, Similar could be more appropriate if the example mentions alignment in results, but if it's supporting the current findings, Support might be better. 
+
+Alternatively, if the context says "Unlike previous studies that focused on soil conditions @@CITATION@@, our research examines the atmospheric factors influencing plant diseases," this would be Comparative (CoCoGM) since it's contrasting the goals or methods.
+
+Now, considering the strict format required, I need to make sure the reasoning is thorough but concise. Let's think through a hypothetical example given by the user to apply this. Suppose the user's input was:
+
+Context: Previous research has demonstrated the effectiveness of magnetic treatment in reducing plant disease occurrence @@CITATION@@. Our study builds on this by exploring the underlying mechanisms.
+
+Step 1: The context is the sentence mentioning the citation, which discusses a prior study's effectiveness and the current study building on it. 
+
+Step 2: The general intent here is Foundational because the current research is based on the cited work's results. 
+
+Step 3: The specific class would be Basis since the citation provides the foundation for the new research.
+
+Another example: If the context is "Our results contradict those of @@CITATION@@ who found no correlation between temperature and disease spread," then Step 2 would be Comparative (specifically CoCoRes, because comparing results), leading to the label CoCoRes.
+
+Wait, but the user's example for CoCoRes was contrasting results, which fits here. 
+
+Alternatively, if the context is "The methodology from @@CITATION@@ was adopted in this study to ensure consistency," then Step 2 is Technical, leading to Usage.
+
+I need to make sure I'm distinguishing between the general intent categories and their subcategories. Let me ensure I understand each definition again:
+
+Basis: Foundation of current research.
+
+CoCoGM: Comparing goals or methods between cited and current.
+
+CoCoRes: Comparing results between cited and current.
+
+CoCoXY: Comparing explanations/claims between cited works (not with the current).
+
+Motivation: Justifying why current research is done, like a gap identified.
+
+Future: Suggesting future research directions based on the cited work.
+
+Support: Backing up the current findings with cited work's results.
+
+Similar: Pointing out a similarity between cited and current (in results or observations, except in methods).
+
+Usage: Using a method/tool from the cited work.
+
+Weakness: Criticizing cited work's flaws, limitations, etc.
+
+Neutral: Just mentioning without any comparison, support, etc.
+
+So, in each case, first identify the context's intent towards the citation. 
+
+Let me think of a Weakness example. If the context is "Despite claims of efficacy @@CITATION@, the approach has several unresolved issues..." then it's critical, so Weakness.
+
+If the context is "The importance of this approach was highlighted by @@CITATION@@ in their study of..."
+That might be Motivation, as it's justifying why the current research is needed based on that citation's previous work.
+
+Now, applying this to the actual example the user might provide. Suppose the given context is within backticks and the citation is mentioned as follows:
+
+"The previous model by Smith et al. @@CITATION@@ assumes constant growth rates, a limitation addressed in this study."
+
+Step 1: The context is discussing a limitation in the cited work's model (assuming constant rates) that the current study addresses.
+
+Step 2: The general intent is Critical/Analytical, since it's pointing out a weakness in the cited work.
+
+Step 3: The specific class would be Weakness.
+
+Another example: "Building upon the foundational studies @@CITATION@@, which first identified the pathogenic agent, we sought to determine..."
+
+Step1: The context states that the cited works first identified something.
+
+Step2: Foundational (Basis).
+
+Step3: Basis.
+
+If the user's context is: "Similar to the approach in @@CITATION@, we used machine learning to predict plant diseases, but our dataset incorporated more variables."
+
+Step2 here is Comparative (since comparing approach/methods), so CoCoGM (comparison of methods).
+
+Alternatively, if the context says "The experimental setup utilized here was similar to that in @@CITATION@@", that's Usage if they are using the same setup (Usage) versus comparing methods (CoCoGM).
+
+Wait the Usage class is when a method/tool is directly used. So if they said "we used the same experimental setup as described in @@CITATION@@", that's Usage. But if they are pointing out the similarity in methods between their and another's work to highlight something (e.g., "Our approach differed from previous techniques by..."), then that's CoCoGM.
+
+Hmm, tricky. Let me look back at the example for Usage: "The experimental set-up was described in detail previously @@CITATION@@." So that's using the setup from the cited paper, so Usage.
+
+Therefore, if they describe their own method as similar to a previous one, maybe that's CoCoGM, but if they explicitly adopted the method from the citation, then it's Usage.
+
+Alright, this should help in making accurate classifications.
+</think>
+
+{"label":"Support"}

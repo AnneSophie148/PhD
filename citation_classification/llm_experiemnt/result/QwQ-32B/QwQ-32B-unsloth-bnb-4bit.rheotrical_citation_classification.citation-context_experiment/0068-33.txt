@@ -1,0 +1,92 @@
+Okay, let's tackle this classification problem. The user provided a scientific article citation passage where I need to determine the rhetorical class of the (CITSEG) citation. The task is to choose the most appropriate class from the predefined list. Let me start by carefully reading the example given and the different classes again to make sure I understand each one properly.
+
+The example given is: "The results obtained in the present work substantially differ from the results of the experiments conducted with the use of deuterium saturated metal targets (TiD, TaD, ZrD, PtD) (CITSEG)." The correct class here is CoCoRes (Comparison of Results). That makes sense because it's directly comparing the results of the current work with those of the cited study.
+
+Now, looking at the classes again to ensure I have them straight:
+
+- **Basis**: The cited work is the foundation of the current research.
+- **CoCoGM**: Comparing goals or methods between cited work and the current paper.
+- **CoCoRes**: Comparing results between the two.
+- **CoCoXY**: Comparing two cited studies with each other, not the current paper.
+- **Future**: Suggesting future research directions.
+- **Motivation**: Justifying why the current research is done, like filling a knowledge gap.
+- **Neutral**: Just a neutral mention without supporting or comparing.
+- **Similar**: Pointing out similarities between the cited work and the current paper.
+- **Support**: Cited work supports the authors' claims.
+- **Usage**: The cited work's method/tool is used in the current study.
+- **Weakness**: Criticizing the cited work's limitations.
+
+The user's example for CoCoRes clearly states a difference in results, so that's straightforward. Let me think of another example to test my understanding. Suppose the passage says, "Previous studies (CITSEG) also found increased yields under these conditions, which aligns with our findings." That would be **Support** because it's reinforcing the authors' results with the cited work.
+
+Another example: "Unlike the approach taken by (CITSEG), our method uses a different algorithm to improve accuracy." Here, they're contrasting methods, so that's **CoCoGM**.
+
+If the citation is just mentioned as a prior study without any comparison, like "Earlier research (CITSEG) first identified this phenomenon," that might be **Basis** if it's foundational, or **Neutral** if it's just a mention.
+
+Wait, the **Motivation** class is when the citation points out a gap the current work addresses. Like, "Despite prior efforts (CITSEG), the mechanism remains unclear, prompting our investigation." That's Motivation.
+
+**Similar** would be if the current findings match the cited study, e.g., "Our results are consistent with those of (CITSEG), showing similar patterns in bacterial communities."
+
+**Usage** is when they actually used a method from the cited work, like "We employed the protocol described by (CITSEG) to analyze the samples."
+
+**Weakness** would be if they say, "However, (CITSEG) failed to account for environmental factors, which we address here." That's pointing out a flaw.
+
+Alright, now let's apply this to the user's example. The user's example for CoCoRes is a direct comparison of results differing. So when I get a new passage with (CITSEG), I need to see if it's comparing results, methods, goals, or something else.
+
+Suppose the passage is: "Our study confirms the earlier findings of (CITSEG) regarding the effectiveness of the treatment." That would be **Support**, because it's supporting their own results with the cited work.
+
+Another scenario: "The current method improves upon the one proposed by (CITSEG) by reducing computational time." Here, they are comparing their method to the cited work's, so that's **CoCoGM** (Comparison of Goals/Methods).
+
+If the passage says, "The conflicting conclusions between (CITSEG) and (CITSEG2) highlight the need for further research," that would be **CoCoXY** because it's comparing two cited studies, not the current paper.
+
+Now, the key is to read the given citation passage and determine which of these classes fits best. The user hasn't provided a specific passage here, but in the initial prompt, the example for CoCoRes is clear. Let me think of another example to test.
+
+Suppose the passage is: "In contrast to the previous study (CITSEG), our experiments under similar conditions showed no significant correlation between temperature and growth rate." Here, the comparison is of results, so **CoCoRes**.
+
+Another one: "The dataset used here (CITSEG) allowed for a more comprehensive analysis than previous studies." That's **Usage** if they're using the dataset from the cited work. But if they're just saying the dataset is better, maybe **Support**? Wait, no, **Usage** is when the method/tool/dataset is directly used in the current study. So if they used the dataset from CITSEG, then it's **Usage**. If they're just comparing their dataset's quality, then it's **CoCoRes** or **CoCoGM**, depending on what's being compared.
+
+Hmm, need to be careful with that. Let me make sure I understand each class precisely.
+
+The **Usage** class is when the cited work's method/tool is actually used in the current study. So if they say "We used the method from (CITSEG) to analyze our data," that's Usage. If they mention another study's method but don't use it themselves, maybe for comparison, that's CoCoGM.
+
+Alright, so to approach a given passage, first, I need to read the sentence with (CITSEG) and see the context. Look for keywords like "compared," "contrasted," "similar," "supports," "used," "foundation," "future," "problematic," etc.
+
+For instance, if the sentence says, "(CITSEG) first proposed this theory, which we build upon in this study," that's **Basis**.
+
+If it's "Our results differ from (CITSEG)'s as they used a different sample size," that's **CoCoRes**.
+
+If the passage is "The cited work (CITSEG) did not consider seasonal variations, which we address here," that's **Weakness**.
+
+"Further studies (CITSEG) should explore the long-term effects," is **Future**.
+
+"Earlier studies (CITSEG) have shown this effect, supporting our hypothesis," is **Support**.
+
+"Similar to (CITSEG), we observed increased activity in the treatment group," is **Similar**.
+
+"Unlike (CITSEG), we used a controlled environment to eliminate confounding variables," is **CoCoGM** (comparing methods).
+
+If the citation is just mentioned without any argumentative role, like "The discovery of the species was first reported in (CITSEG)," that's **Neutral**.
+
+"Despite prior efforts (CITSEG), the cause remains unknown, motivating our research," is **Motivation**.
+
+"Studies have conflicting conclusions (CITSEG vs. CITSEG2) about the role of temperature," would be **CoCoXY** since it's comparing two cited works.
+
+Okay, so the key is to identify the function the citation serves in the sentence. Let me try to think of edge cases. Suppose the passage says, "Previous attempts (CITSEG) to replicate this result were unsuccessful, but we achieved it using a modified protocol." Here, they are pointing out a difference in results, so **CoCoRes**, but also maybe implying their method is better, but the primary comparison is the result, so CoCoRes holds.
+
+Another edge case: "Building on the framework of (CITSEG), we extended their model to include environmental factors." Here, the cited work is the foundation, so **Basis**.
+
+If the passage says, "(CITSEG) reported similar findings, though their sample size was smaller," then it's both **Similar** and maybe **CoCoRes** (comparing sample sizes leading to results). But the primary function here is pointing out similarity in findings despite methodological differences, so **Similar** might be better.
+
+Wait, the **Similar** class is for pointing out similarities between the cited work and the current paper. So if the current paper's results are similar to the cited work's, that's Similar. The mention of sample size might be a CoCoGM, but the main point is the similarity in results, so Similar is the right class.
+
+Another example: "The method proposed by (CITSEG) is widely used, but we argue it has limitations (CITSEG2)." Here, the first CITSEG is **Usage** if they use it, or **Basis** if it's foundational. The second CITSEG2 is pointing out a weakness, so **Weakness**. But the user's task is for each (CITSEG) instance. So if the first CITSEG is just mentioned as a widely used method without being used here, it might be **Neutral** or **Support** if it's backing the method's popularity. Hmm, this is getting a bit complex, but the key is to stick strictly to the definitions provided.
+
+In any case, when the user provides a specific citation passage, I need to parse it for keywords and context, then match to the class definitions. Since the output requires only the label without explanation, I must ensure accuracy by carefully matching the example and definitions.
+
+Let me try applying this to the initial example given by the user for CoCoRes. The sentence is: "The results obtained in the present work substantially differ from the results of the experiments conducted with the use of deuterium saturated metal targets (TiD, TaD, ZrD, PtD) (CITSEG)." Here, the key is "differ from the results," so comparing results directly, hence CoCoRes.
+
+Another test case: "Our approach (CITSEG) uses machine learning to predict outcomes, which is a departure from traditional statistical methods (CITSEG2)." Here, the first CITSEG is their own previous work, so maybe not applicable here since the user's task is about citing others. Assuming CITSEG is the cited work, if the sentence is comparing their method to the cited work's traditional methods, then that's **CoCoGM** (comparing methods).
+
+Alright, I think I have a good grasp. Now, when the user provides a specific passage with (CITSEG), I'll analyze the context, identify the role the citation plays, and assign the appropriate class label based on the definitions.
+</think>
+
+CoCoRes
