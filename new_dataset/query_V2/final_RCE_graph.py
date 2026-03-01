@@ -178,7 +178,7 @@ def get_rhetoric_class_distribution(graph):
 
 
 if __name__ == "__main__":
-    graph_output = "graph_with_citations_V2.json"
+    graph_output = "graph_with_classified_citations_V1_BIOBERT.json"
     graph_path = "Rhetorical_Citation_Event_Graph.json"
     graph_data = load_graph(graph_path)
     findings = graph_data.get("findings", [])

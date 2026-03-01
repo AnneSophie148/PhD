@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
     print("Loading dataset")
 
-    entry_graph_path = "../new_corpus/graph_with_citations_V2.json"
+    entry_graph_path = "graph_with_citations_V2.json"
     output_graph_path = "graph_with_classified_citations_V1_BIOBERT.json"
 
     graph = load_graph(entry_graph_path)
