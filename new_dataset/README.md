@@ -39,3 +39,19 @@ The 8,181 results were dowloaded on the 05/08/2025 in tsv format and correspond 
 
    get_references.py --input_csv info_reference_openalex_dedup.tsv --source openalex
    get_references.py --input_csv info_reference_openalex_dedup.tsv --source coci
+
+
+## Create graph
+1. **Create a first version of the citation graph with citing and cited doi linked as edges**  
+   Use the script `build_graph.py`
+2. **Create second version of the graph enriched with citation passages : identify correct citation in-text and enrich edges**    
+   Use the script `enriche_graphV2.py`
+3. **Classify citations from the graph using a fine-tuned BioBERT model and adds the rhetorical citation function to the graph for each citation**    
+   Use the script `classify_citations_from_graph.py`    
+4. **Create final version of the graph with one edge per Citation Event : the PLIN graph based-on the RCE graph model**    
+   Use the script `final_RCE_graph.py`
+
+
+## Final graph available :
+Rhetorical_Citation_Graph.zip file
+
