@@ -1,0 +1,79 @@
+### Your responsibilities:
+- Classify only the reference denoted by CITSEG.
+- Return the top three predicted classes in a JSON format.
+- If the class "biological-interaction" is among the top three, list the linked entities.
+- If the class "location" is among the top three, list the entities related to the location
+
+### Classification Guidelines
+Use the following class definitions when making your classification:
+
+location: Refers to the geographic location of at least one of the following entities: a pathogen, a disease, a vector
+Example:
+"...Investigations developed in Europe have showed that PD is transmitted by a new vector, Cacopsylla pyri, in France (CITSEG)..."
+Entities format:
+"entities": [
+  {"type": "Insect", "name": "Cacopsylla pyri"}
+],
+"location_entities": [
+  {"type": "Country", "name": "France"}
+]
+
+identification: Refers to identifying, characterising and or classifying/clustering an object using biological techniques.
+Example:
+“...The presence of AP-group phytoplasmas was determined by PCR using the ribosomal primers f01/r01 (CITSEG)...”
+
+biological-interaction: Refers to a biological interaction directly involving transmission, infection, disease-related processes, or other pathogen-associated functions, among at least two of the following entities: a plant, an insect vector, a disease, or a pathogen.
+Note: General biological relationships (e.g., feeding behavior without pathogen involvement) are not included in this class.
+Example:
+“...AP is transmitted by both Cacopsylla picta (synonym, Psylla costalis) (CITSEG) and Cacopsylla melanoneura (Tedeschi et al., 2002)...”
+Entities format:
+"entities": [
+    {"type": "Pathogen", "name": "AP"},
+    {"type": "Insect", "name": "Cacopsylla picta"},
+    {"type": "Insect", "name": "Cacopsylla melanoneura"}
+  ]
+
+pathogen-effect-on-plant: Describes effects of pathogens on plants such as symptoms and hormonal changes.
+Example:
+“...Finally, phytoplasma symptoms are correlated with plant hormonal imbalances (CITSEG)...”
+
+insect-life-cycle: Describes seasonal or developmental stages of insects. Does not include insect behaviour and morphology.
+Example:
+“...Newly hatched nymphs of E. variegatus do not acquire CY with the same efficiency as fifth-instar nymphs (CITSEG)...”
+
+infection-rate: Mentions infection levels due to pathogen or vector.
+Example:
+“...Similar low infection rates were observed in France by (CITSEG)...”
+
+sampling: Refers to the collection of biological entities such as insects, pathogens, or plants for analysis.
+Example:
+“...The adults of Chrysopidae were collected in 10 McPhail traps (CITSEG)...”
+
+other-biological-topic: Does not fit any category above. Mentions another type of biological information such as morphology, behaviour, management...
+
+Please strictly follow this format. Before providing the final JSON, include your step-by-step reasoning. Do not include any explanations, additional comments, or other text beyond the reasoning and the final JSON.
+
+### Example
+Text: "Liberibacter solanacearum (CLso), a phloem-limited plant pathogen and symbiont transmitted by B. cockerelli and other psyllid species (Section 5.3). The phenotype induced by B. cockerelli is detrimental for potato and tomato growth and crop yields (CITSEG), but unlike senescence effects induced by Cardiaspina spp., B. cockerelli-induced changes may not benefit their survival or reproduction."
+Output:
+```json
+[
+  {
+    "top_classes": [
+      "biological-interaction",
+      "plant-modification-by-pathogen",
+      "other"
+    ],
+    "entities": [
+      {"type": "Insect", "name": "B. cockerelli"},
+      {"type": "Plant", "name": "potato"},
+      {"type": "Plant", "name": "tomato"}
+    ]
+  }
+]
+```
+
+### The text follows:
+{{replaced_by_text}}
+
+### Response:

@@ -1,0 +1,222 @@
+Okay, let me try to work through this step by step. The user provided a task where I need to classify a citation in a scientific article passage into one of the predefined rhetorical classes. The example given is about plant health, but the process should be the same regardless of the domain. 
+
+First, the steps outlined are: extract the context around the citation, identify the general intent, and then choose the specific class. Let me make sure I understand each part.
+
+The first step is to extract the context discussing the citation tagged as @@CITATION@@. The user says to keep only the semantic context useful for understanding the citation's intent. So I need to look at the sentence or sentences around the citation to see how it's being used in the passage.
+
+Next, the general intent. The categories here are Foundational, Comparative, Motivational, Supportive, Technical, Critical/Analytical, or Descriptive. Each of these maps to a broader category, which then narrows down to the specific classes like Basis, CoCoGM, etc.
+
+The third step is selecting the specific rhetorical class based on the definitions provided. The key is to match the citation's usage in the context to the definitions. Let me go through each possible class again to be clear.
+
+For instance, if the citation is foundational, that's Basis. If they're comparing goals or methods, it's CoCoGM. Comparing results would be CoCoRes. Comparing explanations between two studies (not with the citing paper) is CoCoXY. Motivation is when the citation justifies the current research. Future suggests directions. Support is when the citation backs up the authors' work. Similar points out similarities. Usage refers to using a method/tool from the cited work. Weakness is criticizing the cited work, and Neutral is just descriptive without any of those.
+
+The output needs to be only the label, so I need to make sure I don't get confused between similar classes. Let me think of an example they provided. For Support, the example says the citation supports the current work's findings. The Similar example points out a similarity in results. Usage is about using a method. Weakness is criticism.
+
+Now, let's suppose I have a test case. Let me imagine a citation in a passage like this (made up):
+
+"In our study, we observed that the application of magnetic fields reduced plant disease incidence. This aligns with earlier findings by @@CITATION@@, who noted similar effects in tomato crops under controlled conditions."
+
+Breaking it down: The context is that the current study's results are similar to the cited work. The general intent would be Supportive, since it's supporting their results. But looking at the specific classes, Support and Similar are both in the Supportive category. The example for Similar says it's when pointing out similarity in results, etc. The example for Support is when the cited work supports the authors' findings. Wait, the example given for Support is: "All subscales were consistent with previous research... also using a U.S. sample..." So that's similar to the test case here. Hmm, but the Similar example is about supporting with similar findings in other studies. Wait, the Similar class example says "Our finding... is supported by recent cross-taxon investigations... @@CITATION@@." So maybe Support and Similar are close. Wait, the definitions:
+
+- Support: the citation supports the citing authors' work.
+
+- Similar: points out a similarity between cited and citing work's results, etc.
+
+Wait, in the example given for Similar, the authors' finding is supported by the citation, so that's actually Support? Or is it Similar because they're pointing out the similarity? Let me check the definitions again.
+
+The Similar example says: "Our finding... is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks... @@CITATION@@." The key here is that Similar is when the similarity is noted between the two studies. The Support example is when the cited work's results are consistent with the current one. Maybe the difference is that Similar is when the similarity is explicitly stated as a point of comparison, while Support is using the citation to back up the current work's claims. Hmm, maybe in my test case, since the current study's results "align" with the cited work, that's Similar. But the example for Support also mentions consistency. I might need to be careful here. Alternatively, maybe if the citing paper is using the citation to back up their own results, that's Support, while Similar is when they are just noting the similarity without necessarily using it to support their own findings. Maybe in the test case, since they say "aligns with earlier findings," that's pointing out similarity, so Similar? Or is it Support? Let me check the examples again.
+
+Looking at the Support example: "All subscales were consistent with previous research, particularly that of @@CITATION@@ also using a U.S. sample..." So the citation supports their results, so Support. The Similar example is when the current study's finding is supported by another study, so maybe that's also Support? Wait, the Similar example's wording is: "Our finding... is supported by recent cross-taxon investigations... @@CITATION@@", which would fit Support. But the Similar class's definition says "point out a similarity between the cited work and the citing paper." Hmm, perhaps the difference is that Similar is when the similarity is the main point, like "similar results have been found elsewhere," whereas Support is when the cited work is used to back up the current study's claims. Maybe the line is blurry here, but according to the definitions, Similar is for pointing out similarity in results, etc., while Support is using the citation to confirm or support the authors' own findings. 
+
+Alternatively, maybe the Similar class is when the cited work and the citing work have similar findings, and the citation is pointing that out. The Support class is when the cited work's findings support the current work's conclusions, perhaps as prior evidence. 
+
+In my test case, the current study's results align with the cited work's, so that's pointing out a similarity, hence Similar. But maybe the example given for Support includes such a case. Wait the example for Support says "supported by previous research... as before..." So perhaps both Similar and Support can apply here, but the key is in the wording. 
+
+Alternatively, perhaps Similar is when the cited work and the current work are both doing similar things, and the citation is noting that similarity, whereas Support is when the cited work's findings back up the current ones. Maybe in the example, the current work is using the citation to support their results, so it's Support. 
+
+Hmm, this is a bit confusing. Let me think of another example. Suppose the citation says "Our results confirm the earlier findings of @@CITATION@@, which also observed this effect." That would be Support. If it's "Our results are similar to those found in @@CITATION@@", that's Similar. So the wording might matter here. 
+
+The user's example for Similar is "Our finding... is supported by recent cross-taxon investigations... @@CITATION@@", so that's actually Support. Wait, perhaps the Similar class is when two other studies are being compared, like in the CoCoXY example where two citations are compared. Wait the CoCoXY example is when comparing two cited studies. Wait no, the Similar example is between the current study and the cited one. So maybe I need to re-examine the definitions again.
+
+Looking back, the Similar class's example says "Our finding... is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks... @@CITATION@@", so the citation is supporting their finding, so that's Support. Wait, but the class is called Similar, so perhaps there's a confusion here. Wait the example given for Similar says "point out a similarity between the cited work and the citing paper." The example given does that, so maybe in that case, even though it's supporting, it's classified as Similar because the focus is on the similarity. Alternatively, perhaps the example is a Support case but mislabeled? That can't be. Let me check the exact wording of the example again:
+
+The Similar example says: "Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@."
+
+Wait, the citation here is supporting their finding, so that's Support. But the class is Similar. Hmm, perhaps the key is that in this example, the cited work's findings are similar to theirs, so it's pointing out the similarity. The Support class's example is when the cited work's results are consistent with the current work. Maybe the difference is that in Similar, the cited work's findings are similar to the current ones, and that's the main point, while in Support, the cited work's results are used to back up the current ones. But in the example for Similar, they do use it to support their finding, so perhaps the line is thin. Alternatively, maybe Similar is a subset of Support, but the definitions distinguish them. 
+
+Alternatively, maybe the Similar class is when the cited work and the current work have similar results, and the citation is highlighting that similarity as a point, whereas Support is when the cited work's findings are used as evidence to support the current study's claims. 
+
+This is a bit tricky. Let me try to proceed with the actual problem. Since the user's task is to assign the correct label based on the context, I need to follow the definitions precisely. Let me go back to the problem statement.
+
+Wait, the user provided an example for Similar: "Our finding... is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks... @@CITATION@@", so the citation is supporting their finding, but the class is Similar. The reason given is that it's pointing out a similarity between the cited work and the current study's results. Therefore, the key is that the similarity is the main point here. The Support class is when the cited work's results confirm or back up the current work's findings. So in that example, since the similarity is highlighted, it's Similar. But if the citation is used to provide prior evidence that supports the current work's findings, that's Support. 
+
+Hmm, perhaps the difference is subtle. Let me think of another example. Suppose the citing paper says, "Earlier studies have shown that X causes Y @@CITATION@@, which supports our current findings." That would be Support. If they say, "Our results show X causes Y, which is similar to what was found in @@CITATION@@", that's Similar. 
+
+Okay, so in the first case, the citation's result is used to support the current one. In the second, it's pointing out that they are similar. So the wording matters here. 
+
+Alright, now let's think of another scenario. Suppose the citation is used to compare the methods. Like, "Unlike @@CITATION@@ who used method A, we employed method B to achieve..." That would be CoCoGM (Comparative, comparing goals or methods). 
+
+If the citation is pointing out a limitation in previous work, like "Previous attempts @@CITATION@@ failed to account for temperature effects, which we address here," that would be Weakness. 
+
+If the citation is the basis for the current work, like "Building on the framework established by @@CITATION@@, we..." that's Basis. 
+
+If the current work uses a method from the cited work, like "We used the experimental setup from @@CITATION@@ to measure..." that's Usage. 
+
+Alright, so the key is to look at the context of the citation in the passage and see how the authors are using it. 
+
+Now, assuming I have a passage like this:
+
+"The use of magnetic fields in agriculture has been suggested to reduce plant pathogens @@CITATION@@. However, our results show that this approach is ineffective under high humidity conditions, unlike the findings reported in @@CITATION@@", 
+
+Here, the second citation is being compared in terms of results, so CoCoRes. 
+
+Another example: "To analyze the phytoplasma strains, we employed the PCR method described by @@CITATION@@." That's Usage. 
+
+Alright, let me try applying this to the user's example. The user provided a specific example for each class. Let me see if I can map the steps correctly. 
+
+Suppose the context is: "Previous studies have shown that aphids can transmit viruses @@CITATION@@. This phenomenon is critical for understanding disease spread in crops." 
+
+Step 1: Extract context: The citation is about previous studies showing aphids transmit viruses, and the current paper states this is critical for understanding disease spread. 
+
+Step 2: The general intent here is to Motivate the current research, because it's pointing out a knowledge point (aphids transmitting viruses) that is important, possibly indicating a need for further research. Wait, but the example for Motivation is when the citation is used to justify why the current research is conducted. If the current paper is building on this, maybe it's Basis? Or Motivation? 
+
+Alternatively, if the current paper is saying that because previous studies showed aphids transmit viruses, the current work is studying how to prevent that, then Motivation. But in the example given, it's just stating that the phenomenon is critical, which might be a foundational basis. Hmm, this is getting confusing. 
+
+Alternatively, maybe the example is Neutral if it's just stating a fact without any argumentative use. 
+
+Wait, the Motivation example given is: "Our previous research @@CITATION@@ has shown that... the explanation of the phenomena is not yet offered and the purpose of this work is to try to understand..." So the citation is pointing out a knowledge gap that the current work addresses. 
+
+In my example, if the current paper says "Previous studies have shown that aphids transmit viruses, motivating our research into control methods," then that's Motivation. If it's just stating a fact without indicating it's the basis or motivation, it might be Neutral. 
+
+This shows how crucial the exact wording is. 
+
+Alright, perhaps I need to go through each possible class again, ensuring I understand them. 
+
+Let me try to parse an example given by the user for each class to get a better grasp. 
+
+Basis: The citation introduced the IAT, and the current work replicates it. So the cited work is the foundation. 
+
+CoCoGM: Comparing methods between the current work and the cited one. 
+
+CoCoRes: Comparing results between current and cited. 
+
+CoCoXY: Comparing two cited studies' explanations. 
+
+Motivation: The cited work identifies a knowledge gap that the current work addresses. 
+
+Future: The cited work suggests a direction for future research. 
+
+Support: The cited work's findings are consistent with current ones, supporting them. 
+
+Similar: The current work's findings are similar to the cited work's. 
+
+Usage: The cited work's method is used in the current study. 
+
+Weakness: The cited work's flaws are pointed out. 
+
+Neutral: Just mentions the cited work without argumentative use. 
+
+Alright, so now, if I have a passage like: 
+
+"Despite previous reports @@CITATION@@ that magnetic treatment increases crop yield, our experiments under controlled conditions failed to replicate these results." 
+
+Step 1: The context is that previous reports showed an effect, but current study didn't replicate it. 
+
+Step 2: The general intent is Comparative (comparing results with cited work). 
+
+Step 3: So the specific class would be CoCoRes (Comparison of Results). 
+
+Another example: 
+
+"To assess the phytoplasma strains, we used the method outlined by @@CITATION@@, which has been validated in previous studies." 
+
+Here, the method from the citation is being used, so Usage. 
+
+Another case: 
+
+"The hypothesis that aphids transmit viruses was first proposed by @@CITATION@@, forming the basis of our experimental design." 
+
+Basis. 
+
+Alright, I think I have a better grasp. Now, let's try applying this to a real example provided by the user. Wait, actually, the user hasn't provided a specific example to classify yet. The user's message is the problem setup, and they want me to process a given citation context. Since the user hasn't provided the actual citation passage, perhaps this is a test to see if I can outline the process. Wait, looking back, the user's message ends with the output format instructions. Wait, maybe the actual query is in the problem description, but I need to check again. 
+
+Wait, no, the user provided the task and the setup, but the actual example to classify is missing. Wait, looking back at the original user's message, perhaps I missed the actual citation passage. Let me check again. 
+
+Wait, the user's message starts with "You are a classifier...", then the task, steps, definitions, and output format. The user hasn't provided the actual citation passage with @@CITATION@@, so maybe this is a setup for when they will provide an example next. But in the current context, since this is a test, perhaps I need to simulate an example. 
+
+Wait, perhaps the user expects me to outline the process, but since the user's message ends with "Please reason step by step...", perhaps the actual example is part of the hidden test case. Wait, no, in the current setup, the user provided the problem and the example definitions but not an actual citation passage to classify. 
+
+Hmm, maybe I need to wait for the user to provide an example. Wait, perhaps the user intended to provide a test case but forgot? 
+
+Alternatively, maybe the user is asking me to explain how I would approach it, but the instructions say to return only the label. 
+
+Wait, perhaps the user's message is a template, and the actual test case is in the problem prompt. Let me recheck the original input:
+
+The user's message includes all the setup and definitions but doesn't have an example to classify. Therefore, perhaps this is a setup for when the user will provide a specific citation passage in a follow-up. Since I can't proceed without the actual text, perhaps I should ask for the citation passage. However, the user's final instruction says to return only the label, so maybe this is a mistake. 
+
+Alternatively, maybe the user intended to include a test case but it's missing. Since I can't proceed without the example, I need to inform them. But since this is an exercise, perhaps I should simulate a possible example. 
+
+Wait, let me think again. The user's message is structured as a task for me to perform classification when given a citation passage. Since they haven't provided the actual passage with @@CITATION@@, maybe this is a test of my understanding of the process. 
+
+Alternatively, perhaps the user wants me to outline the steps as per the instructions. But the output requires only the label, so perhaps the example is missing. 
+
+Given the ambiguity, perhaps I should proceed by creating a hypothetical example to demonstrate the process. 
+
+Suppose the citation passage is: 
+
+"Earlier studies have demonstrated the effectiveness of magnetic treatments in reducing bacterial growth @@CITATION@@. However, our findings indicate that this method may not be applicable to fungal pathogens, suggesting a need for further research into pathogen-specific treatments."
+
+Step 1: Extract context discussing the citation: "Earlier studies have demonstrated the effectiveness of magnetic treatments in reducing bacterial growth @@CITATION@@. However, our findings indicate that this method may not be applicable to fungal pathogens, suggesting a need for further research into pathogen-specific treatments."
+
+Step 2: Identify general intent. The citation is cited to contrast with the current study's findings. The current study's results differ from the cited work's. This is a comparative intent, specifically comparing results. 
+
+Step 3: The specific class would be CoCoRes (Comparison of Results). 
+
+So the output is CoCoRes. 
+
+Another example: 
+
+"The experimental setup used in this study was based on the methodology described by Smith et al. @@CITATION@@, with minor modifications to accommodate the specific plant species under investigation."
+
+Step 1: The context is that the current study's setup is based on the cited work's methodology. 
+
+Step 2: The general intent is Technical, as the cited work's method is being used. 
+
+Step 3: The specific class is Usage. 
+
+Another example for Weakness: 
+
+"While previous work @@CITATION@@ claimed to eliminate phytoplasma infections using a specific antibiotic regimen, subsequent studies have raised concerns about the reproducibility of these results @@CITATION@@."
+
+Wait, here the first citation is being criticized for reproducibility issues. The second citation might be the subsequent studies, but focusing on the first citation: 
+
+The first citation is mentioned with a criticism, so that would be Weakness. 
+
+Alright, I think I can proceed with this understanding. Now, if given a specific citation context, I can apply these steps.
+</think>
+
+To classify the citation @@CITATION@@, follow these steps:
+
+1. **Extract Context**: Identify the sentences discussing the citation to understand its role.
+2. **General Intent**: Determine if it’s foundational, comparative, motivational, supportive, technical, critical, or neutral.
+3. **Specific Class**: Match the context to the predefined labels (e.g., Basis, CoCoGM, etc.).
+
+### Example Workflow (Hypothetical Passage):
+**Passage**:  
+"Prior studies have shown that magnetic fields reduce plant pathogens in controlled environments @@CITATION@@. However, our experiments under field conditions revealed no significant effect, contrasting with these earlier results."
+
+**Step 1 – Extract Context**:  
+The citation is referenced to highlight prior results, which the current study contrasts with its own findings.
+
+**Step 2 – General Intent**:  
+The intent is **Comparative** (comparing results between the cited work and the current study).
+
+**Step 3 – Specific Class**:  
+The comparison directly contrasts results, so the label is **CoCoRes**.
+
+---
+
+### Output Format (Replace with Actual Passage Analysis):
+**Final Label**: [Basis/CoCoGM/CoCoRes/CoCoXY/Motivation/Future/Support/Similar/Usage/Weakness/Neutral]  
+
+*(Example for the hypothetical passage above: CoCoRes)*

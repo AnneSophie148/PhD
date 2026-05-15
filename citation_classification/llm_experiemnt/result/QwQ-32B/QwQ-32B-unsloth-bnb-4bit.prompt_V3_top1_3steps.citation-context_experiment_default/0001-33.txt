@@ -1,0 +1,44 @@
+Okay, let me work through this step by step. The user provided a scientific article citation passage and wants me to classify the citation's rhetorical class. Let me start by understanding the steps they outlined.
+
+First, I need to extract the context around @@CITATION@@. The passage given is:
+
+"In contrast, a number of studies have reported that glyphosate application has no negative impact on symbiotic nitrogen-fixing bacteria, such as studies on Bradyrhizobium japonicum in soybean roots @@CITATION@@ and Azospirillum brasilense in wheat crops @@CITATION@@. However, the current study's findings suggest differential effects based on the host plant species and application frequency. These inconsistencies could be attributed to variations in experimental conditions, such as concentration and formulation of glyphosate @@CITATION@@", but this last citation is different and not the one to focus on here.
+
+Wait, actually, the user mentioned only one citation @@CITATION@@ here, but the example has two. Wait, the user wrote: "the citation @@CITATION@@", but in the passage there are two instances. Hmm, maybe each is a placeholder. The question is about the citation tagged as @@CITATION@@, so I need to assume that's the one in the context provided here. The user example includes two citations, but the task is to process the one in the given backticks.
+
+Wait, the user's input is:
+
+In the task, the citation is tagged as @@CITATION@@. The given passage is:
+
+"In contrast, a number of studies have reported that glyphosate application has no negative impact on symbiotic nitrogen-fixing bacteria, such as studies on Bradyrhizobium japonicum in soybean roots @@CITATION@@ and Azospirillum brasilense in wheat crops @@CITATION@@. However, the current study's findings suggest differential effects based on the host plant species and application frequency. These inconsistencies could be attributed to variations in experimental conditions, such as concentration and formulation of glyphosate @@CITATION@@", but this last one is a different citation.
+
+Wait, perhaps the citation in question is the one mentioning Bradyrhizobium and Azospirillum? The user says to extract the context discussing the citation @@CITATION@@. Let me check the exact input given by the user.
+
+Wait, looking back at the user's message, the passage provided is enclosed in backticks:
+
+`"In contrast, a number of studies have reported that glyphosate application has no negative impact on symbiotic nitrogen-fixing bacteria, such as studies on Bradyrhizobium japonicum in soybean roots @@CITATION@@ and Azospirillum brasilense in wheat crops @@CITATION@@. However, the current study's findings suggest differential effects based on the host plant species and application frequency. These inconsistencies could be attributed to variations in experimental conditions, such as concentration and formulation of glyphosate @@CITATION@@."`
+
+So there are three @@CITATION@@ markers here, but perhaps the task is about the first one (or each one, but the user might have intended only one example). Wait, no, the user probably provided a single citation tag here, but maybe in their example, there are two, but let's focus on one. Alternatively, perhaps each @@CITATION@@ refers to a single study being discussed here, so maybe the context is comparing the cited studies with the current one, but the task is to classify each?
+
+Wait, the user instruction says "assign to a rhetorical class the citation tagged @@CITATION@@", so each instance of @@CITATION@@ in the passage would need to be classified. However, in the provided example, it's possible that all three are part of the same context. Wait, but the user instruction says to focus on the citation tagged @@CITATION@@, so let me see.
+
+Step 1: Extract context discussing @@CITATION@@. In the given passage, the sentence starts with "In contrast, a number of studies have reported that..." and mentions two studies cited with @@CITATION@@. The rest talks about inconsistencies in findings between their study and previous ones.
+
+So the context around the citation (the first ones) are the studies reporting no negative impact, whereas the current study finds differences. The next sentence mentions that inconsistencies could be due to experimental conditions.
+
+So, the citation is being compared with current findings. The current study's results contradict or differ from those cited. So the general intent would be comparative. Then, looking at the fine-grained classes:
+
+For comparative, it can be CoCoRes (comparison of results). Because the current study is contrasting their results with those of the cited studies. The citations are mentioned as "studies that reported no negative impact", but the current study finds differential effects. The key here is that the cited studies' findings are presented as differing from the current study's findings. So that would fall under CoCoRes, as it's comparing results (CoCoRes is for comparing results between cited and citing papers). 
+
+Alternatively, maybe CoCoGM if it's about methods, but the example given in CoCoRes is about differing results, which matches here. The context says "the current study's findings suggest differential effects... These inconsistencies could be attributed to..." which is pointing out differences in results between the cited studies (no negative impact) and the current work (differential effects based on host plant and frequency). So definitely CoCoRes, comparing their results with the cited works. 
+
+Alternatively, could it be CoCoGM? But that's about comparing methodologies or goals. The example for CoCoRes says "directly compare or contrast the results". The current work is noting that their results differ from the cited ones (which reported no negative impact). So that's comparing the results, so CoCoRes.
+
+So step 2: general intent is comparative, so the specific class would be CoCoRes.
+
+Wait, but let me check the examples again. The example for CoCoRes: "The results obtained in the present work substantially differ from the results...". Which is exactly what's happening here. The current work's findings contrast with the cited studies, so that is CoCoRes.
+
+Yes, that's the correct one. So the output should be CoCoRes.
+</think>
+
+CoCoRes
