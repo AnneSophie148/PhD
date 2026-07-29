@@ -1,0 +1,69 @@
+Your task is to identify all named entities and relationships from text, adhering strictly to the schema below.
+
+Information to be extracted
+Entities
+Entities must be of the following types :
+Pest: a specific plant pest that is susceptible to infect or cause damage to a host plant
+Vector: an insect that is susceptible to transmit a pest to a host plant
+Plant: a plant
+Disease: a plant disease
+Geographic: political or physical location
+
+Relationships
+- Located in: Describes the geographical location where a plant, a pest, or a disease is found.
+Example: "The pest 'Bursaphelenchus xylophilus' is located in Japan."
+- Causes: Indicates that a pest is responsible for causing a particular disease.
+Example: "The pest 'Bursaphelenchus xylophilus' causes pine wilt disease."
+- Have been found on: Describes instances where a pest, or a vector has been detected on a specific plant.
+ Example: "The pest 'Bursaphelenchus xylophilus' has been found on pine trees."
+- Affects: Indicates that a disease affects a plant.
+Example: "Pine wilt disease affects pine trees."
+- Transmits: Describes instances where a specific vector transmits a pest.
+Example: "The vector 'Monochamus alternatus' transmits the pest 'Bursaphelenchus xylophilus'."
+Relationship arguments
+The types of entities that are arguments of the relationships are fixed. The argument type for each relationship is specified below in brackets. The type of the first argument is before the relationship. The type of the second argument is after the relationship. I have denoted alternative entity types by a comma.
+- [plant, pest, disease] Located in [geographic]
+- [pest] Causes [disease]
+- [pest, vector] Has been found on [plant].
+- [disease] Affects [plant]
+- [vector] Transmits [pest]
+
+Format
+Each named entity and relationship appears as an entry in a JSON-formatted list. The structure is as follows:
+Each entity must have two properties, type and name.
+Each relationship must have three properties, source argument, relationship label, and target argument.
+Any of these JSON-formatted lists can remain empty.
+
+Example
+Text: “Bursaphelenchus xylophilus, is a notorious parasitic nematode of pine trees that causes pine wilt disease (PWD), leading to extensive mortality of different pine trees around the world and considerable economic losses”
+Output:
+```json
+[
+  {
+    "entities": [
+      {"type": "Pest", "name": "Bursaphelenchus xylophilus"},
+      {"type": "Plant", "name": "pine trees"},
+      {"type": "Disease", "name": "pine wilt disease"}
+    ],
+  },
+{
+    "relationships": [
+      {"source": "Bursaphelenchus xylophilus", "type": "Causes", "target": "pine wilt disease"},
+      {"source": "pine wilt disease", "type": "Affects", "target": "pine trees"},
+      {"source": "Bursaphelenchus xylophilus", "type": "Have been found on", "target": "pine trees"}
+    ]
+  }
+]
+```
+
+Additional instructions, special cases
+Only include entity names that appear in the text. Do not modify their writing. Treat synonyms as separate entities unless text equates them.
+The entity names must be precise, avoid generic terms such as “insect”, or “Western countries”.
+Entity names that denote living organisms i.e. plants, pest and vector, must be extracted if they denote genera(not families), species or subspecies. This includes genetically modified organisms and specific common names.
+Geographic entities are not institutions.
+Extract all entities of the requested types, including those that are not arguments of any relationship.
+Ensure relationship arguments are entities that you have extracted.
+Absolutely respect the type of relationship arguments. This is very important. For instance you must not extract relations between vectors and diseases.
+The extracted relationships encompass not only stated ones, but also those that the text presents as hypothetical, uncertain, or even negated.
+
+The text follows:
