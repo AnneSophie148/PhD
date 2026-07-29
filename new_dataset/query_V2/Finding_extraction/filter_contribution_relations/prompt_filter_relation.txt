@@ -1,0 +1,130 @@
+You are an expert in plant epidemiology and information extraction from scientific literature. Your task is to classify each extracted relation as either "contribution" or "background" based on the article title and abstract.
+
+Definitions
+
+Contribution: The relation is explicitly supported by the novel results, observations, discoveries, or conclusions of the current study. The relation itself must be one of the scientific claims made by the paper.
+
+
+Background information : The relation describes prior knowledge, previously reported findings, or information used to introduce, motivate, or conduct the study. This includes relations that are only part of the experimental setup, materials, methods, or are merely implied by the experiments, rather than presented as a novel finding.
+
+Guideline: If the relation is not itself a reported finding or conclusion of the current study, classify it as background.
+
+Input
+You are given:
+- the article title,
+- the abstract,
+- a list of extracted relations.
+
+Output
+Assign each relation exactly one label:
+- contribution
+- background
+
+Example :
+
+Title:
+Identification of Dialeurodes citri as a Vector of Citrus yellow vein clearing virus
+in China
+
+Abstract :
+"
+In 2009, a new citrus viral disease caused by Citrus yellow vein clearing virus (CYVCV) was first discovered in China and now CYVCV is widely distributed in the field. CYVCV is transmissible by grafting and is spread by aphids from lemon to bean, and from bean to bean. However, until now, no vector has been shown to transmit CYVCV from citrus to citrus. In this study, after a 24-h acquisition access period (AAP), CYVCV was tested for in Dialeurodes citri (Ashmead), Panonychus citri McGregor, and Aphis citricidus (Kirkaldy) by quantitative RT-PCR. After an AAP of 48 h, groups of adults of D. citri, P. citri, and A. citricidus were given a 48 h inoculation access period on cultivar Daidai sour orange seedlings. Three, 6, and 12 months post-transmission by D. citri, CYVCV was detected in the receptor plants, and the mean incidence of infected trees was 31.9, 39.1, and 39.1%, respectively. CYVCV was not transmitted to citrus by P. citri or A. citricidus. This is the first report of the ability of D. citri to transmit CYVCV from infected to healthy citrus under laboratory conditions.
+"
+
+Extracted relations : 
+
+[
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Causes",
+        "target": "citrus viral disease"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Located in",
+        "target": "China"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "lemon"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "bean"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "citrus"
+    },
+    {
+        "source": "Dialeurodes citri",
+        "type": "Transmits",
+        "target": "Citrus yellow vein clearing virus"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Affects",
+        "target": "citrus"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "Daidai sour orange"
+    }
+]
+
+Output : 
+
+[
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Causes",
+        "target": "citrus viral disease",
+        "label": "background"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Located in",
+        "target": "China",
+        "label": "background"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "lemon",
+        "label": "background"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "bean",
+        "label": "background"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "citrus",
+        "label": "background"
+    },
+    {
+        "source": "Dialeurodes citri",
+        "type": "Transmits",
+        "target": "Citrus yellow vein clearing virus",
+        "label": "contribution"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Affects",
+        "target": "citrus",
+        "label": "background"
+    },
+    {
+        "source": "Citrus yellow vein clearing virus",
+        "type": "Have been found on",
+        "target": "Daidai sour orange",
+        "label": "background"
+    }
+]
