@@ -4,7 +4,6 @@ import pandas as pd
 import json
 import os
 from tqdm import tqdm
-
 import config_llm
 
 print(torch.__version__)
@@ -13,7 +12,6 @@ print(torch.cuda.is_available())
 print(torch.cuda.memory_allocated())
 
 model_name = "Qwen/Qwen3-32B"
-
 THINKING = False
 
 generation_params = {
@@ -43,12 +41,10 @@ with open(Prompt_fname, "r", encoding="utf-8") as f:
 
 query_rslt = "../references_WOS.tsv"
 df_wos = pd.read_csv(query_rslt, sep="\t").fillna("")
-
 abstracts = df_wos["AB"].to_list()
 DOIs = df_wos["DI"].to_list()
 
 os.makedirs("output_prompt_epop", exist_ok=True)
-
 output_file = f"output_prompt_epop/relation_prediction_{model_key}.json"
 
 if THINKING:
@@ -67,7 +63,6 @@ new_count = 0
 for i in tqdm(range(len(abstracts)), desc="Processing abstracts"):
     abstract = abstracts[i]
     doi = DOIs[i]
-
     if doi in processed_dois:
         continue
 
@@ -78,24 +73,9 @@ for i in tqdm(range(len(abstracts)), desc="Processing abstracts"):
         continue
 
     messages = [{"role": "user", "content": instruction + "\nMessage: " + abstract}]
-
-    text = tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True,
-        enable_thinking=THINKING
-    )
-
-    inputs = tokenizer(
-        text,
-        return_tensors="pt",
-        truncation=False
-    )
-
-    inputs = {
-        key: value.to(input_device)
-        for key, value in inputs.items()
-    }
+    text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True, enable_thinking=THINKING)
+    inputs = tokenizer(text, return_tensors="pt", truncation=False)
+    inputs = {key: value.to(input_device) for key, value in inputs.items()}
 
     with torch.inference_mode():
         generated_ids = model.generate(
