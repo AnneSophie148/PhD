@@ -40,6 +40,12 @@ The 8,181 results were dowloaded on the 05/08/2025 in tsv format and correspond 
    get_references.py --input_csv info_reference_openalex_dedup.tsv --source openalex
    get_references.py --input_csv info_reference_openalex_dedup.tsv --source coci
 
+## Citation classification module
+Scripts related to the citation classification module are in query_V2/citation_function_classification
+The folder contains the codes for the BERT-models fine-tuning, the prompts - citations - codes for refining the "Comparison / Contrast" class, and the Qwen experiment on PD100cit.
+
+## Finding extraction module
+Related prompts and scripts are available in the query_V2/Finding_extraction folder.
 
 ## Create graph
 1. **Create a first version of the citation graph with citing and cited doi linked as edges**  
