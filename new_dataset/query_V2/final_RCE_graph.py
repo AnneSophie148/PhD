@@ -55,7 +55,7 @@ def get_contribution_relation(cited_doi, dic_relation_by_doi):
     return filtered_relations_for_doi
 
 
-def recreatre_structure_graph(findings, citing_articles, old_edges, finegrained_passages, dic_relation_by_doi):
+def recreatre_structure_graph(findings, citing_articles, old_edges, dic_relation_by_doi):
     '''Function to restructure the graph for modeling Citation Event from the Enriched graph'''
 
     nodes = {"articles": [], "findings": [],
@@ -379,7 +379,7 @@ if __name__ == "__main__":
     print("V1 GRAPH :")
     print_graph_summary_v1(graph_data)
 
-    new_graph = recreatre_structure_graph(findings, citing_articles, edges, finegrained_passages, dic_relation_by_doi)
+    new_graph = recreatre_structure_graph(findings, citing_articles, edges, dic_relation_by_doi)
     rhetoric_class_proportion = get_rhetoric_class_distribution(new_graph)
     plot_rhetoric_class_counts(rhetoric_class_proportion)
 
