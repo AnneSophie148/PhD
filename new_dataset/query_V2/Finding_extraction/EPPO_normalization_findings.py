@@ -53,7 +53,7 @@ def main():
     """Script to match extracted entities to EPPO entities and attribute an EPPO code for comparison to extracted citation entities"""
 
     extracted_relations_from_abstracts_file = "output_prompt_epop/relation_prediction_Qwen_Qwen3-32B.json"
-    input_graph_with_rc_file = "../../scripts/Experiment_Citation_functionV2/graph_citations/graph_with_Jurgens_cfunc_BIOBERT.json"
+    input_graph_with_rc_file = "../graph_citations/graph_with_Jurgens_cfunc_BIOBERT.json"
 
     graph_abstract_info = load_json(extracted_relations_from_abstracts_file)
     graph_with_rc = load_json(input_graph_with_rc_file)

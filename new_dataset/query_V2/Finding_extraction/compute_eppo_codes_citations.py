@@ -65,7 +65,7 @@ def extract_relations_from_citations(graph: Dict[str, Any], entries):
 
 
 extracted_relations_from_abstracts_file = "output_prompt_epop/relation_prediction_Qwen_Qwen3-32B.json"
-input_graph_with_rc_file = "../../scripts/Experiment_Citation_functionV2/graph_citations/graph_with_Jurgens_cfunc_BIOBERT.json"
+input_graph_with_rc_file = "../graph_citations/graph_with_Jurgens_cfunc_BIOBERT.json"
 
 graph_abstract_info = load_json(extracted_relations_from_abstracts_file)
 graph_with_rc = load_json(input_graph_with_rc_file)
@@ -93,7 +93,7 @@ for item in eppo_codes:
 
 #V1 --> the relation extract will be updated with the Qwen relation extraction output
 updated_graph = extract_relations_from_citations(graph_with_rc, entries)
-output_graph_file = "graph_citations/graph_with_EPPO_entities.json"
+output_graph_file = "../graph_citations/graph_with_EPPO_entities.json"
 with open(output_graph_file, "w", encoding="utf-8") as file:
     json.dump(updated_graph, file, ensure_ascii=False, indent=2)
 
