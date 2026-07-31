@@ -27,57 +27,6 @@ def get_abbreviated_name(name):
 
     return genus_initial + ". " + species_or_rest
 
-def extract_json(text: Any):
-    text = str(text).strip()
-    # 1. Extract content inside ```json ... ```
-    match = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
-
-    if match:
-        text = match.group(1)
-
-    # 2. Try parsing the complete text
-    try:
-        parsed = json.loads(text)
-        if isinstance(parsed, dict):
-            return [parsed]
-
-        if isinstance(parsed, list):
-            return parsed
-
-    except (json.JSONDecodeError, TypeError):
-        pass
-
-    #3. otherwise extract multiple JSON objects
-    objects = []
-    brace_level = 0
-    start = None
-
-    for i, character in enumerate(text):
-        if character == "{":
-            if brace_level == 0:
-                start = i
-
-            brace_level += 1
-
-        elif character == "}":
-            brace_level -= 1
-
-            if brace_level == 0 and start is not None:
-                chunk = text[start:i + 1]
-
-                try:
-                    objects.append(json.loads(chunk))
-                except json.JSONDecodeError:
-                    pass
-
-                start = None
-
-    if not objects:
-        print("\nERROR parsing:")
-        print(text)
-        raise ValueError("No valid JSON objects found")
-
-    return objects
 
 def get_eppo_codes_abstracts(dic_relations_per_doi:list):
     eppo_entries_file = ""
@@ -133,94 +82,90 @@ def main():
     proj = Projector(regularizers=(projector.regularizers.ignore_case,))
     proj.set_entries(entries.items())
 
-    dic_relations_per_doi = {}
-    parsing_error_count = 0
+    invalid_relation_count = 0
+    missing_contribution_relations_count = 0
 
-    for item in tqdm(graph_abstract_info, desc="Abstract relation predictions"):
+    for item in tqdm(graph_abstract_info, desc="Attributing EPPO codes"):
         if not isinstance(item, dict):
             print("\nSkipping invalid item:", item)
             continue
 
-        item["relationships"] = []
-        item["EPPO_entities"] = []
+        item_relationships = []
 
-        doi = item.get("DOI")
-        content = item.get("content", "")
+        doi = str(item.get("DOI", "")).strip()
 
         if not doi:
-            print("Skipping item without DOI")
+            print("\nSkipping item without DOI")
             continue
 
-        try:
-            parsed = extract_json(content)
+        contribution_relations = item.get("contribution_relations", [])
 
-        except ValueError as error:
-            parsing_error_count += 1
-            print("\n--------------------------------")
-            print("PARSING ERROR")
-            print("DOI:", doi)
-            print("Error:", error)
-            print("Content:")
-            print(content)
-            print("--------------------------------")
-
+        if not isinstance(contribution_relations, list):
+            print("\nInvalid contribution_relations for DOI:", doi)
+            missing_contribution_relations_count += 1
             continue
 
-        dic_relations_per_doi[doi] = parsed
-
-        for parsed_object in parsed:
-            if not isinstance(parsed_object, dict):
+        for relation in contribution_relations:
+            if not isinstance(relation, dict):
+                invalid_relation_count += 1
                 continue
 
-            relationships = parsed_object.get("relationships", [])
-            if relationships:
-                for relation in relationships:
-                    if not isinstance(relation, dict):
-                        continue
+            source = str(relation.get("source", "")).strip()
+            target = str(relation.get("target", "")).strip()
+            relation_type = str(relation.get("type", "")).strip()
+            label_contribution = str(relation.get("label", "")).strip()
 
-                    source = str(relation.get("source", "")).strip()
-                    target = str(relation.get("target", "")).strip()
-                    relation_type = str(relation.get("type", "")).strip()
-                    code_source = None
-                    code_target = None
+            if not source or not target or not relation_type:
+                print("\nSkipping incomplete relation:", relation)
+                invalid_relation_count += 1
+                continue
 
-                    all_matches = list(proj.search(source))
-                    entire_matches = [(start, end, value) for start, end, value in all_matches if start == 0]
-                    large_matches = remove_overlaps(entire_matches)
+            code_source = None
+            code_target = None
 
-                    for start, end, (name, code) in large_matches:
-                        found_couple = (name, code)
-                        code_source = code
+            all_matches = list(proj.search(source))
+            entire_matches = [(start, end, value) for start, end, value in all_matches if start == 0]
+            large_matches = remove_overlaps(entire_matches)
 
-                    all_matches = list(proj.search(target))
-                    entire_matches = [(start, end, value) for start, end, value in all_matches if start == 0]
+            print("\nSource matches:")
+            for start, end, (name, code) in large_matches:
+                print("Found couple:")
+                print((name, code))
+                code_source = code
 
-                    #keep only the lnogest match when terms overlap
-                    large_matches = remove_overlaps(entire_matches)
+            all_matches = list(proj.search(target))
+            entire_matches = [(start, end, value) for start, end, value in all_matches if start == 0]
+            large_matches = remove_overlaps(entire_matches)
 
-                    for start, end, (name, code) in large_matches:
-                        found_couple = (name, code)
-                        code_target = code
+            print("\nTarget matches:")
+            for start, end, (name, code) in large_matches:
+                print("Found couple:")
+                print((name, code))
+                code_target = code
 
-                    relation_with_codes = {"source": source,
-                        "type": relation_type,
-                        "target": target,
-                        "code_source": code_source,
-                        "reltype": relation_type,
-                        "code_target": code_target}
+            relation_with_codes = {
+                "source": source,
+                "type": relation_type,
+                "target": target,
+                "code_source": code_source,
+                "reltype": relation_type,
+                "code_target": code_target,
+                "contribution": label_contribution
+            }
 
-                    item["relationships"].append(relation_with_codes)
+            item_relationships.append(relation_with_codes)
 
-                    if code_source is not None and code_target is not None:
-                        item["EPPO_entities"].append(relation_with_codes)
-
+        print("\nContribution relations with EPPO codes:")
+        print(item_relationships)
+        item["contribution_relations"] = item_relationships
 
     print("\n================================")
-    print("Total parsing errors:", parsing_error_count)
-    print("Successfully parsed DOIs:", len(dic_relations_per_doi))
+    print("Invalid relations:", invalid_relation_count)
+    print("Invalid contribution_relations fields:", missing_contribution_relations_count)
+    print("================================")
 
-    #create output with the attributed codes
     output_path = "output_prompt_epop/eppo_codes_relation_prediction_Qwen_Qwen3-32B.json"
+
     with open(output_path, "w", encoding="utf-8") as file:
         json.dump(graph_abstract_info, file, ensure_ascii=False, indent=2)
 
