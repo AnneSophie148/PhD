@@ -7,20 +7,6 @@ from spanlib.spanseq.overlap import remove_overlaps
 from projector import Projector
 import projector.regularizers
 
-
-
-def get_citation_text(passage: Dict[str, Any]) -> str:
-    """
-    Read the citation text from the graph passage.
-    """
-    value = passage.get("Full-text")
-
-    if value is not None and str(value).strip():
-        return str(value)
-
-    return ""
-
-
 def clean_sentence(sentence: Any) -> str:
     """Remove XML/HTML tags while preserving their textual content."""
     if sentence is None:
@@ -35,7 +21,40 @@ def clean_sentence(sentence: Any) -> str:
 
     return cleaned_sentence.strip()
 
-def extract_relations_from_citations(graph: Dict[str, Any], entries):
+def get_corrected_rhetorical_class(passage, finegrained_passage=None):
+    rhetorical_class = passage.get("predicted_rhetorical_class")
+
+    if rhetorical_class is None or str(rhetorical_class).strip().lower() in {"", "none", "null", "nan"}:
+        return "unknown"
+
+    rhetorical_class = str(rhetorical_class).strip()
+
+    if rhetorical_class.lower() != "compareorcontrast":
+        return rhetorical_class
+
+    if finegrained_passage is not None:
+        label2 = str(finegrained_passage.get("label2", "")).strip().lower()
+        label3 = str(finegrained_passage.get("label3", "")).strip().lower()
+    else:
+        label2 = str(passage.get("label2", "")).strip().lower()
+        label3 = str(passage.get("label3", "")).strip().lower()
+
+    if label2 == "method":
+        return "CoCoGM"
+
+    if label2 == "result":
+        label3_mapping = {
+            "other": "background",
+            "compare": "compare results",
+            "contrast": "contrast results",
+            "contrast - contradictory results": "contrast – contradictory results"
+        }
+
+        return label3_mapping.get(label3, rhetorical_class)
+
+    return "compareorcontrast"
+
+def extract_relations_from_citations(graph: Dict[str, Any], entries, finegrained_passages):
     """
     Iterate through the citation passages in the graph.
     Add the relation-processing code as EPPO_entities
@@ -51,7 +70,7 @@ def extract_relations_from_citations(graph: Dict[str, Any], entries):
             if not isinstance(passage, dict):
                 continue
 
-            original_citation = get_citation_text(passage)
+            original_citation = passage.get("Full-text")
             citation = clean_sentence(original_citation)
             text = citation
             all_matches = list(proj.search(text))
@@ -61,11 +80,16 @@ def extract_relations_from_citations(graph: Dict[str, Any], entries):
                 found_couple = (name, code)
                 if found_couple not in passage["EPPO_entities"]:
                     passage["EPPO_entities"].append(found_couple)
+                    passage_key = (normalize_doi(citing_doi), normalize_doi(cited_doi), str(text).strip())
+                    finegrained_passage = finegrained_passages.get(passage_key)
+                    rhetorical_class = get_corrected_rhetorical_class(finegrained_passage=finegrained_passage, passage=passage)
+                    passage["predicted_rhetorical_class"]=rhetorical_class
     return graph
 
 
 extracted_relations_from_abstracts_file = "output_prompt_epop/relation_prediction_Qwen_Qwen3-32B.json"
 input_graph_with_rc_file = "../graph_citations/graph_with_Jurgens_cfunc_BIOBERT.json"
+graph_with_finegrained_rc = load_json("V2_graph_with_Jurgens_finegrained_coco_compare_contrast_label3_without_thinking.json")
 
 graph_abstract_info = load_json(extracted_relations_from_abstracts_file)
 graph_with_rc = load_json(input_graph_with_rc_file)
@@ -92,6 +116,7 @@ for item in eppo_codes:
                 entries[abbreviated_name] = code
 
 #V1 --> the relation extract will be updated with the Qwen relation extraction output
+finegrained_passages = get_finegrained_passages(graph_with_finegrained_rc)
 updated_graph = extract_relations_from_citations(graph_with_rc, entries)
 output_graph_file = "../graph_citations/graph_with_EPPO_entities.json"
 with open(output_graph_file, "w", encoding="utf-8") as file:
