@@ -359,35 +359,17 @@ def get_rhetoric_class_distribution(graph):
     
     return dict(Counter(labels))
 
-def get_finegrained_passages(graph_with_finegrained_rc):
-    finegrained_passages = {}
-
-    for edge in graph_with_finegrained_rc.get("edges", []):
-        cited_doi = normalize_doi(edge.get("cited_doi"))
-        citing_doi = normalize_doi(edge.get("citing_doi"))
-
-        for passage in edge.get("citation_passages", []):
-            if not isinstance(passage, dict):
-                continue
-
-            text = str(passage.get("Full-text", "")).strip()
-            finegrained_passages[(citing_doi, cited_doi, text)] = passage
-
-    return finegrained_passages
-
 
 if __name__ == "__main__":
     graph_output = "graph_restructured_with_finding.json"
 
     graph_with_citations_file = "graph_with_EPPO_entities.json"
-    graph_with_finegrained_rc = load_json("V2_graph_with_Jurgens_finegrained_coco_compare_contrast_label3_without_thinking.json")
     info_abstracts_file = "eppo_codes_relation_prediction_Qwen_Qwen3-32B.json"
 
     #graph_path = "Rhetorical_Citation_Event_Graph.json"
     graph_path = "graph_citations/graph_with_EPPO_entities.json"
     graph_data = load_json(graph_path)
     graph_abstract_info = load_json(info_abstracts_file)
-    finegrained_passages = get_finegrained_passages(graph_with_finegrained_rc)
 
     findings = graph_data.get("findings", [])
     citing_articles = graph_data.get("articles", [])
