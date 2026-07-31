@@ -384,7 +384,7 @@ if __name__ == "__main__":
     info_abstracts_file = "eppo_codes_relation_prediction_Qwen_Qwen3-32B.json"
 
     #graph_path = "Rhetorical_Citation_Event_Graph.json"
-    graph_path = "graph_with_EPPO_entities.json"
+    graph_path = "graph_citations/graph_with_EPPO_entities.json"
     graph_data = load_json(graph_path)
     graph_abstract_info = load_json(info_abstracts_file)
     finegrained_passages = get_finegrained_passages(graph_with_finegrained_rc)
