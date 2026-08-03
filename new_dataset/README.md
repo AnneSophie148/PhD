@@ -45,7 +45,26 @@ Scripts related to the citation classification module are in query_V2/citation_f
 The folder contains the codes for the BERT-models fine-tuning, the prompts - citations - codes for refining the "Comparison / Contrast" class, and the Qwen experiment on PD100cit.
 
 ## Finding extraction module
-Related prompts and scripts are available in the query_V2/Finding_extraction folder.
+
+Related prompts and scripts are available in the `query_V2/Finding_extraction` folder.
+
+### Steps
+
+1. **Extract relations from the abstracts**
+   - Script: `run_qwen_finding_extraction_EPOP_prompt.py`
+   - Output: `relation_prediction_Qwen_Qwen3-32B.json`
+
+2. **Filter the extracted relations to retain contributions**
+   - Script: `run_qwen_relation_filter.py`
+   - Output: `predicted_contribution_relation.json`
+
+3. **Assign EPPO codes to the entities in the extracted relations**
+   - Script: `EPPO_normalization_findings.py`
+   - Output: `eppo_codes_relation_prediction_Qwen_Qwen3-32B.json`
+
+4. **Extract relations from citation contexts and assign EPPO codes**
+   - Script: `compute_eppo_codes_citations.py`
+   - Output: `graph_with_EPPO_entities.json`
 
 ## Create graph
 1. **Create a first version of the citation graph with citing and cited doi linked as edges**  
@@ -59,5 +78,5 @@ Related prompts and scripts are available in the query_V2/Finding_extraction fol
 
 
 ## Final graph available :
-Rhetorical_Citation_Graph.zip file
+graph_restructured_with_finding.zip file
 
