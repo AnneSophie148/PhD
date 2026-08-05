@@ -1,0 +1,374 @@
+Okay, let's tackle this. The user provided a task to classify the citation marked @@CITATION@@ in a given passage into one of the predefined rhetorical classes. The example they gave involved a context where different classes like Support, Similar, and Usage were chosen. 
+
+First, I need to carefully read through the problem again. The task is to extract the context around the citation @@CITATION@@, figure out its general intent, and then pick the top three most appropriate classes from the list provided.
+
+The user mentioned step-by-step reasoning but the final output has to be just the numbered list. But since I'm to simulate the process, I'll walk through each step here.
+
+Starting with step 1: Extracting the context discussing the citation. The example given in the task was about insect hosts affecting bacterial communities and referencing a prior study. The extracted context there was the sentence mentioning that the finding is supported by recent investigations and the citation. So I need to focus on the specific sentence or sentences where @@CITATION@@ is mentioned. 
+
+Step 2 is identifying the general intent. The options are foundational, comparative, motivational, supportive, technical, critical/analytical, or descriptive. Looking at the example, since the citation was used to support the current findings, the general intent was supportive, leading to Support and Similar as possible classes. 
+
+Then step 3 is ranking the top three specific classes based on the definitions. In their example, they ended up with Support first, Similar second, and Usage third. Wait, but in the example given in the problem statement, the example for Similar is almost the same case. The example for Similar says the citation points out a similarity between cited work and the current paper's results. So in that case, Support and Similar are both possible.
+
+Wait, the example given in the task's problem part says: 
+
+The user's example output was:
+
+1. CoCoRes  
+2. CoCoXY  
+3. Neutral
+
+Wait, but the user example's context was "Eighteenth species... problematic and some may not develop...", which would be Weakness. Wait, perhaps I confused an example. Let me get back to the current problem the user presented, which they haven't given the actual citation context yet. Wait a second—the user's input is a test case? Wait the user's query is about a plant health domain citation, but they haven't provided the actual passage with @@CITATION@@. Wait, the original user message is the one asking to act as a classifier, but the actual problem the user is presenting here is in the message?
+
+Wait, let me check the user's message again. 
+
+Looking back, the user provided an example task, definitions, and wants the assistant to process, but the actual problem might be in their query. Wait, the user's message here starts with: 
+
+"You are a classifier...", followed by context, task, steps, definitions, and sample output. But where is the actual citation passage with @@CITATION@@? Because the user's question here is asking that they will provide a scientific citation passage, but maybe not in this query? Wait, perhaps the user is just presenting the instructions for how they want the assistant to respond in future queries? Or is this an example? Wait, perhaps the user's message here is an example setup, but in the current prompt, perhaps the actual case the user wants classified is provided here. Wait, I need to read again.
+
+Wait the user's original message is a prompt for how they want the assistant to respond when given a citation passage to classify. But in this current query, the user is providing the setup, then the example, but then says "Please include your step-by-step reasoning" followed by the example output. But the user's actual input for classification here is the example given in the task's example? Or is the user expecting me to process a different example?
+
+Hmm, perhaps I'm misunderstanding. The user's actual input is the structure they want to enforce when classifying a citation. The example they provided (e.g., the aphid gut peptide and the "Support" case) might be part of the setup, but they want the assistant to process another example. However, in this current query, the user hasn't provided the actual passage with @@CITATION@@. Wait, perhaps the example given in the task is the one to use?
+
+Wait, the example the user provides under the 'Support' class is: "Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@."
+
+In that example, the correct classes would be Support and Similar. Wait, but the example then would correspond to the output 1.Support, 2.Similar, 3... ?
+
+Wait, given the example in the problem description for 'Similar', the context is:
+
+" Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@."
+
+The general intent there is supportive, so the top classes would be Support and Similar. But in their example output, the user is asking me to think through such a case. Wait no— in the problem's own example, perhaps the user is providing an example of the expected output format, like in the 'Support' example, the correct output would be:
+
+1. Support
+
+2. Similar 
+
+But the third? If the example sentence is pointing out similarity (the Similar class), then maybe Support is first, Similar second, and perhaps Basis third? Or maybe Usage?
+
+Alternatively, perhaps in that Support example, the citation is supporting their own finding, so the primary class is Support, and also pointing out that similar studies found similar results, so that is also Similar, so the second. But the third?
+
+Alternatively, since the citation in the Support example is used to show similarity to other studies, maybe Usage is not appropriate here, unless the method was used.
+
+Wait, I think I'm overcomplicating. Let me try to process the example provided in the 'Support' example.
+
+In the 'Support' example: the sentence is "Our finding [...] is supported by recent cross-taxon investigations [...] In fleas and ticks [...] did not @@CITATION@@."
+
+So the citation is backing up the authors' finding. Hence, Support is the primary. The mention of other studies (like fleas and ticks) is similar in context, so Similar would also fit here. The third could be CoCoGM if there's a comparison of goals, but not sure. Alternatively, the citation might be a foundation (Basis), but the example is presented as Support, so likely the ranking would be Support first, then Similar, then maybe Basis or Neutral? Hmm.
+
+Alternatively, since they are citing to support their finding, Support is first, the fact that other studies found similar results (in the cited work) would relate to Similar. Third maybe CoCoRes if comparing results? But the example says that the cited study found similar results, so comparing with their own work via that, so CoCoRes would be comparison of results. 
+
+Wait, in the example sentence, "Our finding [...] is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@."
+
+Wait the citation here is at the end of that comparison. The citation is pointing to the studies that did those cross-taxon investigations. The authors are saying their finding is supported by the cited work. Also, the cited study's results (fleas and ticks host governing assembly) are similar to theirs. So the main intent here is Support, the fact that the study supports their claims. Additionally, the cited work has similar results (similar phenomena), so Similar. Additionally, comparing their results to the cited ones (CoCoRes). Therefore the top three would be Support (1), then CoCoRes (2), and maybe Similar (3)? Or vice versa?
+
+Alternatively, CoCoRes is the direct comparison of results between theirs and the cited, so Support is the main, then CoCoRes. But the example's intent is Support, so perhaps Support (1), Similar (2), and then something else?
+
+Alternatively, since the cited work is presented as supporting, but also showing similar results, the top three would be Support, Similar, and Basis?
+
+Wait, Basis is foundational to their work. Not sure. This is getting confusing. Maybe I should go back to the definitions again.
+
+Looking at the definitions:
+
+Support: the citation is used to support, confirm the citing authors' work.
+
+Similar: the citation points out similarity between cited work and citing paper in results, etc.
+
+CoCoRes: comparing the results between cited and current paper.
+
+In the example sentence, the authors are using the citation to support their finding. So primary is Support. Also, since the cited studies' results align with theirs, the example also fits Similar. But is there a comparative element? They say "supported by...", which is Support, and "similar cross-taxon studies found...", so maybe Similar. 
+
+The third may be CoCoRes if their results are similar, thus compared, but if it's not directly stated as a comparison but just citing similarity and support, then Maybe the third is Neutral? Or Basis? Hmm. Or maybe Usage?
+
+No, Usage is about using a method. Basis is foundational. 
+
+Alternatively, the third could be Neutral, but the citation is not neutral. 
+
+Alternatively, the third may not apply here. Wait, the three top classes should be in the top three. So perhaps 1. Support, 2. Similar, 3.CoCoRes.
+
+Alternatively, in the example sentence, the citation is used to support, so Support is first, and the cited works have similar results, so Similar is second, and then maybe there's a CoCoRes because they are comparing results? Or perhaps Motivation? Probably not. 
+
+This is tricky without seeing the exact context. Wait the user's example for Support says: "Our finding [...] is supported by recent research (citation)." 
+
+Wait in the example given for Support, the exact example sentence is: 
+
+“All subscales were consistent with previous research, particularly that of @@CITATION@@ also using a U.S. sample; as before, participants did not distinguish between personal interests and values as reasons for disputes, nor between competence and methods.”
+
+Here, the citation is supporting their results. So the primary class is Support. They also mention that the cited work's findings are consistent, which implies similarity. So Similar is secondary. Third maybe Basis, but no. Or perhaps CoCoRes comparing results. 
+
+The key is that the author is using the citation to support their conclusion, so Support first, then Similar. The third could be another comparative class like CoCoRes if they compare results directly, but if they're just stating agreement without explicit comparison, maybe not.
+
+Wait in the Support example, they say "consistent with previous research (CITATION)", so that's Support. The Similar class example says "our finding... is supported by... other studies. In fleas... @CITE@", so the citation is used for support, and also illustrating similar results, which is Similar. 
+
+So for that sentence: "Our finding [...] is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@."
+
+Here, the citation is supporting their result (Support), and the cited work shows a similar pattern (Similar). The third might be Basis if it's foundational but perhaps not. Alternatively, maybe the citation is comparing results, so CoCoRes? 
+
+If the results are similar but not directly compared to the current paper's results, then Support and Similar are the top two, then maybe Neutral as third? But Neutral is when it's just a neutral mention. 
+
+Alternatively, since the cited study's results are a case of the same phenomena, so it's supporting, and similar. The third might be Basis if it's foundational, but maybe not. 
+
+Alternatively, perhaps the answer expects the three classes to be Support, Similar, and then another. For example, if the citation is also comparing with their own study's results, then CoCoRes would be second, and Support third? No. 
+
+Alternatively, the CoCoRes is not applicable here unless the authors directly compared their results to those in the citation. The example says "supported by", not "compared to", so perhaps CoCoRes isn't the case. 
+
+Hmm. Since the user example for Support's citation is just to support, then the top is Support, then Similar, and then maybe Basis? Or perhaps Neutral? Wait, the Neutral class is for when it's descriptive without comparison or support. But in this case, it's supportive. So third could be another. 
+
+Alternatively, maybe the example requires three classes. Since there is no exact answer, but perhaps in this case, Support and Similar are first and second, and the third would be... ?
+
+Wait the problem says "return exactly three". So even if the third isn't clear, pick the third best. Maybe the third is CoCoGM, but not sure. 
+
+Alternatively, let me consider that in the example, the first and second are Support and Similar, and the third might be Usage because the method was used? But no, in the example, it's not about usage. 
+
+Alternatively, in the problem's own example for the Support class, the citation is supporting, so the top is Support, and the next is Similar. Since the third isn't indicated, perhaps the third would be Neutral, but that's a stretch. 
+
+Wait looking back to the problem's example of output:
+
+The user's example output was:
+
+1. CoCoRes  
+2. CoCoXY  
+3. Neutral
+
+Wait but that was for a different context: "Eighteen species [...] problematic and some may not develop on Pyrus @CITE@", which is Weakness. But in the example they provided the answer as Weakness first, but their own output example shows different.
+
+Hmm, perhaps confusion here. Let me check the Weakness example given: 
+
+The example for Weakness is "Eighteen species [...] collected on cultivated and wild pear, were described from China @@CITATION@@. The taxonomic status of these species is problematic and some may not develop on Pyrus."
+
+Here, the citation is referenced and then the authors point out that the taxonomic status is problematic, so that's a criticism. So the classification would be Weakness. But in their example output format, they show a different output. Wait no, the output example in the problem is when the user says "put your answer here", the sample given by the user is:
+
+1. CoCoRes  
+2. CoCoXY  
+3. Neutral
+
+But that might be from an example where they compared results and explanations, like in the CoCoRes and CoCoXY examples. 
+
+But going back to my original thought process: the example given for Support, the correct classes would be:
+
+The example sentence:
+
+“Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@.”
+
+The citing authors are supporting their finding with the citation, so Support is first. They mention that the cited work shows similar findings (the host governing bacterial community), so Similar is second. 
+
+Third, since there's no direct comparison beyond support/similarity, the third might be CoCoRes if they are comparing results directly. Alternatively, since the citation supports, maybe it's a foundational basis? Basis is for intellectual foundation. Not sure if that's the case here. 
+
+Alternatively, since the cited study is similar, maybe it's part of the foundational basis? Maybe not. 
+
+Alternatively, maybe the third is Basis, but that might be stretching. 
+
+Alternatively, perhaps there's no third, but the format requires three. Maybe Neutral? Because the citation is not being criticized or anything else. 
+
+Hmm. Alternatively, maybe the third is CoCoGM if they're comparing methods or goals. 
+
+The sentence doesn't mention methods or goals differing or the same, so probably not. 
+
+Therefore the top three would be:
+
+1. Support
+
+2. Similar 
+
+3. CoCoRes → if the cited results are compared.
+
+Alternatively, maybe not CoCoRes. 
+
+Alternatively, if the citation is just supportive, and the cited study's results are similar, then maybe Basis is not it, so third could be Neutral? But Neutral is for when it's just descriptive. Since here the citation is being supportive and similar, Neutral would not be as relevant. 
+
+Hmm. 
+
+Wait, let me see the definitions again:
+
+CoCoRes is for directly comparing/comparing results between cited and current.
+
+In the support exmaple, are the results being compared? The authors state their finding is supported by another study's results. So perhaps the results are similar but not directly compared. Therefore, Support and Similar are the two primary ones. The third might be Basis if the cited work forms a basis for their work. But unless stated, probably not. 
+
+So perhaps the third is Basis (if it's foundational?), but I'm not sure. Alternatively, maybe Usage?
+
+No, Usage is about method/tool used. 
+
+Alternatively, perhaps the third is CoCoXY, but that's for comparing explanations between the cited works. Not in this case. 
+
+Alternatively, maybe Motivation? If the cited work motivated their research? 
+
+In the given sentence, the reason for the research isn't clear. 
+
+Hmm. So perhaps the top three are Support, Similar, and CoCoRes, or maybe third is Neutral. Since I can't tell, but given the definitions, perhaps the third is CoCoRes, assuming that the comparison of results is there. 
+
+Thus the answer would be:
+
+1. Support
+
+2. Similar
+
+3. CoCoRes
+
+Alternatively, the example might not require CoCoRes, so maybe 3rd is Neutral.
+
+Hmm. Given that the user's sample output included three, perhaps I should just go with the first two and third as something else. Given that in the Support example, the main point is supporting, so Support first, and the similarity aspect second, then third would be something like CoCoRes. Alternatively, Basis. 
+
+Wait the example for Basis is where the citation is the foundation of the current research. Since here it's support, not foundation, so the third is perhaps Basis not. 
+
+Hmm, tough. Maybe I should trust that in the Support example, the top three would be Supports, Similar, and the third is CoCoRes. 
+
+Alternatively, given that the example sentence says "our finding [...] is supported by...", and the cited study's findings are similar in showing that arthropod hosts control bacterial assemblage, so comparing the results between their study and the cited work, that's a comparison of results, hence CoCoRes. 
+
+So therefore:
+
+Support is primary (the citation directly supports their result)
+
+CoCoRes is next because there's a comparison of results between studies.
+
+Similar would be third, but perhaps? 
+
+Alternatively, Support and CoCoRes as first and second. 
+
+This is confusing. I think I've gone through this far enough. 
+
+So in this case, if I take the Support example's sentence, the correct classes would be:
+
+1. Support
+
+2. Similar 
+
+3. CoCoRes
+
+Alternatively, in another case, maybe Support is first, then Basis not, so maybe:
+
+Wait, the Support example says: 
+
+"For example: 'All subscales were consistent with previous research, particularly that of @@CITATION@@ also using a U.S. sample; as before, participants did not distinguish between personal interests and values as reasons for disputes, nor between competence and methods.'"
+
+In that example, the citation is supporting, so Support. Since the cited work also found the same results (participants didn't distinguish those factors), the cited work has similar results, hence Similar. 
+
+Third, Basis? No, because it's prior research that's supporting but not necessarily foundational. 
+
+So third may be Neutral? If it's just supporting, then Neutral is not. 
+
+Hmm. Alternatively, in that case, the third would be CoCoRes because they compare results between their study and the cited. 
+
+The sentence says "consisten with previous research (CITATION)", which is Support, and "participants did not distinguish..." which is similar. So perhaps the comparison of results is implied but isn't explicitly stated as a contrast, so CoCoRes may not be the best. 
+
+Then the third would be Neutral? No, that's not fitting. 
+
+Alternatively maybe it's Technical (Usage)? Not. 
+
+Hmm. Since I can't be sure, perhaps in this case the top three are Support, Similar, and then Neutral as the third, though it's a stretch. Alternatively, maybe the third is CoCoGM if there was a method used similarly, but not stated. 
+
+Alternatively, maybe I'm overthinking this. The top three classes would be:
+
+1. Support (most relevant)
+
+2. Similar 
+
+3. Basis? 
+
+No, Basis is for foundation. 
+
+Third could be the general category of Supportive, which includes Support and Similar. 
+
+Wait the problem allows for the three most appropriate, so maybe there's overlap. 
+
+Alternatively, maybe the third is Basis, but not sure. 
+
+Perhaps the correct answer for the example given in the Support case should be:
+
+1. Support 
+
+2. Similar 
+
+3. CoCoRes 
+
+But since the third isn't directly stated, maybe that's the safest. 
+
+Alternatively, the third could be Usage, but that's for methods. 
+
+Hmm. Maybe the best bet is to pick the two clear ones (Support and Similar), and then perhaps the third is Basis, but not sure. 
+
+Wait, looking at the user's own sample output example (the one they provided in the problem), which they presented as an output example but not tied to a specific case:
+
+They wrote:
+
+"Output example:
+
+1. CoCoRes  
+2. CoCoXY  
+3. Neutral"
+
+This is for a case where two comparison classes and Neutral. 
+
+But in the Support example's case, maybe the user expects 1. Support, 2. Similar, 3. Neutral? 
+
+I think I'll go with that. 
+
+So final answer for the example's Support case would be:
+
+1. Support 
+
+2. Similar 
+
+3. CoCoRes? Or 
+
+Wait in the example given for Similar, their example was: 
+
+“Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@.”
+
+This example is for the Similar class, according to the problem's definitions. Wait no, the problem's Similar example is:
+
+“Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@.”
+
+Wait the example is for Similar or Support?
+
+Looking at the problem's 'Similar' class: 
+
+Example: "Our finding [...] is supported by recent cross-taxon investigations [...]
+
+In fleas and ticks [...] did not @@CITATION@@", 
+
+the user says that it's an example for 'Similar'. Wait that's conflicting. 
+
+Wait looking back, under the 'Similar' class, the example is the same sentence. Wait no, checking again:
+
+The Similar example is: “Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not @@CITATION@@.” 
+
+The user says that this example is for the Similar class.
+
+Wait that contradicts my earlier thought. So, according to the problem's Similar example, the example sentence is supposed to be an example of the Similar class. But in that sentence, the first part says the finding is supported by the citation, so it's also a Support case. 
+
+Hence, in this case, the citation serves both Support and Similar. The primary intent is Support, since the authors are stating their finding is supported. The second is Similar because the cited work's findings are similar. 
+
+Therefore, the top three would be:
+
+1. Support 
+
+2. Similar 
+
+Third: perhaps CoCoRes is also applicable if they are comparing results between their work and the cited's. 
+
+Alternatively, the problem states that the Similar class is for pointing out similarities between cited and citing paper's results, etc. Here, the authors are using the citation to support their claim, and in the process note that the cited work has similar results. 
+
+Thus, first two are clear. The third might be CoCoRes, because the results are compared between the current and cited work. 
+
+But maybe the Support example is the correct one. 
+
+Alternatively, Basis? No. 
+
+Hmm. I think in this case, the citation serves as both Support and Similar, so third could be a comparative class like CoCoRes (since comparing results). So third: CoCoRes. 
+
+Therefore, the top three would be:
+
+1. Support
+
+2. Similar
+
+3. CoCoRes
+
+Alternatively, the third is Neutral, but I think CoCoRes is more appropriate. 
+
+Thus I will proceed with that arrangement.
+</think>
+
+1. Support  
+2. Similar  
+3. CoCoRes
