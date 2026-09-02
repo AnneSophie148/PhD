@@ -1,0 +1,86 @@
+Alright, I'm going to tackle this problem step by step. The task is to classify a citation in a scientific article passage into a specific rhetorical class. Let's start by understanding the problem fully.
+
+First, the citation is tagged as @@CITATION@@ in a passage. My job is to extract the context around this citation, determine the general intent, and then assign it to the most appropriate rhetorical class from the predefined list. The list includes classes like Basis, CoCoGM, CoCoRes, etc., each with specific definitions and examples.
+
+The process involves three main steps. 
+
+Step 1: Extract the context discussing the citation. I need to focus on the parts of the passage that provide the semantic context necessary to understand why the citation is being used. This means looking at the sentences before and after the citation to see how it's being referenced.
+
+Step 2: Identify the general intent of the citation. The general intent can be foundational, comparative, motivational, supportive, technical, critical/analytical, or descriptive. Each of these corresponds to a category of rhetorical classes. For example, foundational intent maps to the Basis class, while motivational might be Motivation or Future.
+
+Step 3: Select the specific rhetorical class based on the definitions provided. Each class has its own criteria, so I'll need to match the context to the most fitting category.
+
+Now, looking at the example provided:
+
+"In the USA the use of magnetic water treatment devices has been spreading since 1975 @@CITATION@@."
+
+In this case, the citation is used neutrally to provide factual information about the spread of magnetic water treatment devices without supporting, comparing, or criticizing anything. This suggests a Neutral intent.
+
+Another example is the Motivation class. Here, the citation is used to justify why the current research is being conducted, often by pointing out a gap or a need. For instance, if a study references previous work showing a phenomenon and sets out to explain it, that would fall under Motivation.
+
+Another example is Support, where the citation is used to back up the current findings. For example, if the current paper's results align with previous studies, the citation supporting this alignment would be under Support.
+
+I also need to consider if the citation is comparing methods (CoCoGM), results (CoCoRes), or explanations (CoCoXY). For example, if the current paper and another study are compared in their goals, that's CoCoGM. If they're compared in their results, that's CoCoRes. Comparing two other studies without involving the current paper is CoCoXY.
+
+The Usage class refers to instances where the citation is about a method, tool, or dataset used directly in the current study. It's more about application than theoretical support.
+
+Weakness is used when the citation points out limitations or flaws in previous work, often to set up the current study's improvements.
+
+Neutral is when the citation is purely descriptive without any supporting, comparing, or critical intent.
+
+So, applying this to a given passage, I need to:
+
+1. Look at the sentences around @@CITATION@@ to understand the context.
+2. Determine the general intent based on how the citation is being used.
+3. Match this intent to the specific rhetorical class.
+
+Let me think of a hypothetical example. Suppose the passage is: "Previous studies have shown that magnetic fields can affect plant growth @@CITATION@@. Our research builds on this by examining the specific wavelengths involved." Here, the citation is used as a foundation for the current study, so the class would be Basis.
+
+Another example: "While previous work focused on soil composition @@CITATION@@, our study investigates the role of magnetic fields in plant growth." Here, the citation is comparing the goals or methods, so it's CoCoGM.
+
+Wait, no. Let me be precise. If the current work is highlighting a difference in approaches or goals compared to the cited work, that's CoCoGM. If it's the same as the cited work's method, perhaps Basis. If the current study is building on the cited work, that might be Basis or Support, depending on the exact wording.
+
+It's crucial to distinguish between using the citation to build upon previous work (Basis) and using it to support current findings (Support). Similarly, comparing results with another study is CoCoRes.
+
+I think I get the hang of it. The key is to look for the function of the citation within the argument of the current paper. Is it setting the stage (Foundational/Basis), comparing methods or results (Comparative classes), justifying the study (Motivation), supporting claims (Support), using a method/tool (Usage), pointing out weaknesses in prior work (Weakness), or just providing neutral background (Neutral)?
+
+Another example: "Despite previous attempts @@CITATION@@, the mechanism behind magnetic field effects remains unclear, prompting our investigation." Here, the citation is highlighting a knowledge gap, so it's Motivation.
+
+I need to be careful not to confuse Support and Basis. If the citation is used to back up a claim in the current paper, it's Support. If it's establishing the foundation for the current work's reasoning, it's Basis.
+
+Also, CoCoXY is about comparing two cited studies, not the current work. So, if the current paper mentions two previous studies and points out their conflicting results, that's CoCoXY.
+
+In summary, the process is: Analyze the context of the citation, determine how it's being used in the argument, map that use to the corresponding rhetorical class, and choose the most specific and appropriate label.
+
+Now, applying this to the examples provided:
+
+Example 1: Citation about spreading magnetic devices. The context is neutral, just stating a fact without support or comparison. So, Neutral.
+
+Example 2: Citation about previous research showing a phenomenon without yet explaining it. The current study aims to understand the mechanism, so the citation is used to show a knowledge gap. Therefore, Motivation.
+
+Another example: "Earlier studies have shown conflicting results about the effect of magnetic fields on crop yields @@CITATION@@." Here, the citation is about the comparison of prior results, so the general intent is comparative, but since it's comparing different studies, it might fall under CoCoXY. Alternatively, if the citation is being used to highlight confusion, which leads to the current study, it could be Motivation. The distinction is whether the citation is about comparing prior works versus setting up the motivation for the current study.
+
+Wait, CoCoXY is when the citation is comparing two cited studies. So, if the current paper refers to two different studies (perhaps cited as a group) and their conflicting results, that's CoCoXY. If it's referring to a single study and the lack of explanation, that's Motivation.
+
+So, in a passage like: "Earlier studies have reported conflicting findings @@CITATION@@." If @@CITATION@@ refers to multiple studies, it's CoCoXY. If @@CITATION@@ is a single study that found conflicting results, it's Weakness because it's pointing out a flaw in the cited work.
+
+This highlights the importance of precisely understanding the context around the citation.
+
+Another case: "Building on the methodology of Smith et al. @@CITATION@@, we developed a new approach to measure plant responses." Here, the citation is about using a method, so it's Usage.
+
+If the citation is used to confirm the current findings, like "Our results align with those of previous studies @@CITATION@@," that's Support.
+
+If the passage points out that previous work didn't consider a variable, leading the current study to do so, that's Motivation.
+
+If it's used to show that the current work's results contradict prior findings, that's CoCoRes.
+
+If the citation is just mentioning a related study without any comparative or supporting role, it's Neutral.
+
+So, in summary, context is key. The classifier must carefully analyze the surrounding text to determine the function of the citation in the argument.
+</think>
+
+Neutral
+
+```json
+"Neutral"
+```

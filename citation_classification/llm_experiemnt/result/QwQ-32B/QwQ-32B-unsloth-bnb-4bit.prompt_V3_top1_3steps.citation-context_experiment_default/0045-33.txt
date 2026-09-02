@@ -1,0 +1,162 @@
+Okay, let's tackle this step by step. First, I need to look at the user's query and the given example to understand the task. The user wants me to classify a citation in a scientific article passage according to specific predefined rhetorical classes. The example provided is about a passage mentioning a citation, and my job is to figure out what rhetorical class that citation falls into.
+
+Alright, starting with Step 1: Extract the context discussing the citation. The user provided a backticks-delimited passage where the citation @@CITATION@@ is mentioned. I need to focus on the part that discusses that specific citation. Let me imagine an example passage. Wait, actually, the user hasn't provided a specific passage here—maybe I need to refer back to the initial problem's context? Hmm, looking again, maybe the actual input for processing is in the user's message, but in this case, since the user is giving me the problem, perhaps I need to think through an example scenario.
+
+Wait, perhaps the initial problem is that the user provided an example scenario, but actually, the user is asking me to process a specific query where they'll provide the passage and the citation. Wait, let me check the exact problem again. Wait, the user's initial message is a setup instruction, and then the example given is a user query where they need to process a specific citation in a passage. Wait, looking at the user's instructions again:
+
+The user's message includes a sample with a passage, and their task is to assign the rhetorical class for the citation in that passage. The example given is the one with the aphid gut peptide and the citation. Let me see that example again.
+
+Wait, the user's example of the aphid gut peptide is in the Future class, since "The peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability @@CITATION@@", so the Future class is suggested here. 
+
+Wait, maybe I need to process an example passage to go through the process. Let me think of a hypothetical example. Suppose the input is something like:
+
+"In a recent study, @@CITATION@@ demonstrated that increased fertilizer use correlates with higher plant yields in wheat crops. This finding supports our hypothesis that optimizing fertilizer inputs could significantly improve agricultural productivity."
+
+Step 1: Extract the context discussing the citation. The relevant part is "demonstrated that increased fertilizer use correlates with higher plant yields in wheat crops. This finding supports our hypothesis..." 
+
+Step 2: Identify general intent. Here, the citation is supporting the current study's hypothesis, so it's supportive. Specifically, the example for Support says the citation is used to support the citing authors' work. So the general intent here would be Supportive, leading to the Support class or Similar? Wait, comparing definitions. 
+
+The Support example is: "All subscales were consistent with previous research, particularly that of @@CITATION@@ also using a U.S. sample...", so that's supporting their own finding. So yes, in this hypothetical example, the citation supports the current research's hypothesis, so the rhetorical class is Support. Step 2 general intent is supportive, so in Step 3 it would be Support.
+
+Another example: "Previous work by @@CITATION@@ focused on analyzing soil nitrogen levels, but our approach uses spectral analysis to better understand plant nutrient deficiencies." The general intent here is comparative, specifically comparing the goals or methods (since the methods are different, spectral vs. soil analysis). That points to CoCoGM. 
+
+Another example for Neutral: "The prevalence of this disease in the region has been documented since 2010 @@CITATION@@." Neutral because it's just stating a fact without comparison, support, etc. 
+
+So, applying the steps again:
+
+Given a passage, first extract the context around @@CITATION@@. Then figure out the general intent (like Supportive), then pick the specific class (Support in that case). 
+
+Wait, let's try with the user's example of "Future". Suppose the passage is: "These results highlight the need for further studies to explore similar effects in other species @@CITATION@@." Wait, no, actually the example given in Future says the citation is the one suggesting future applicability. Wait, in the user's example for Future, the citation in the sentence: “Similarly, a small aphid gut binding peptide was shown to interfere with enamovirus uptake from pea aphid gut into the hemocoel; the peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability @@CITATION@@.” Here, the citation is being used to support the idea of broader applicability, which is a suggestion for future research? Wait, actually, the example's explanation says Future is "suggest or imply directions for future research." The example given is saying the citation describes that, so the citing paper is using it to suggest that future research should look into broader applicability, so maybe the citation itself is being cited as a basis for why future research is needed? Or is the Future tag applied to citations that are the citing paper suggesting future work using the cited paper's findings? Hmm, maybe I need to be careful here.
+
+Alternatively, the "Future" example: "Similarly, a small aphid gut binding peptide was shown to interfere with enamovirus uptake from pea aphid gut into the hemocoel; the peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability @@CITATION@@", so the Future classification is because the citing paper is using the cited work's findings (bound to two others) to suggest future work could explore this broader applicability. The citation's own work is being cited because it indicates a potential for future research directions, so the Future tag is appropriate here. Therefore, the citing paper is pointing out this possibility, thereby using the citation to suggest future research.
+
+Another example for Basis: "As in @@CITATION@@", the first known study establishing... So that's a foundational basis for their current work.
+
+Now, returning to the actual problem: the user's instructions are for me to process a citation in a given passage, extract context, then classify it. Since the user hasn't given a specific passage here in the current query—Wait, looking back, the user's initial message is structured as a setup. Wait, looking at the user's message, the actual input they provided is the problem's setup and definitions, but the task is for me (the classifier) to process a given example. However, in the current question, maybe the user is asking me to go through the process for a specific case they have in mind, which they might have provided in their initial message. Wait, checking the user's input again:
+
+Ah, the user's first message is their entire problem setup, and in their #TASK, they say they need to process a citation in a passage provided in backticks. Wait, but in the current query, the user hasn't provided the actual passage example with a citation to process—they provided the example of definitions, but perhaps in their actual test case, they might provide a specific passage. Wait, perhaps I'm overcomplicating. Wait, the user is instructing me how to do the task, but the actual question is perhaps a test case. Wait, no—the user's message is probably the problem they are presenting to the AI (me), asking me to process it, but perhaps in the initial message, there's an example query.
+
+Wait, looking at the user's message again:
+
+Wait, the user starts by stating:
+
+"You are a classifier that assigns a reference in a scientific article citation passage in the plant health domain to a biological class. The biological class represents the biological information highlighted by the reference in the citation passage. Before providing the final JSON output, include your step-by-step reasoning. Please strictly follow this format."
+
+Then under #CONTEXT and #TASK, they outline the process.
+
+Then the user's actual input (the problem they expect me to solve) is likely the example from here, perhaps the example with the aphid gut peptide. Wait, no, the example given for Future is the aphid example. But the user's problem may instead have a different example. Since the user has structured their input, perhaps the problem is in their last message? Wait, perhaps the user is presenting the setup, and the actual passage to process is missing. Wait, no—this might be a mistake in the problem setup. Alternatively, maybe I'm supposed to process the example given in the definitions for practicing the method?
+
+Alternatively, perhaps the user is providing all the instructions and expects me to answer the example given in the Future section. But according to the instructions, I should only provide one of the labels, so perhaps the example given for Future is part of my instructions, but the actual task is to process a different example which the user may have given but I'm not seeing it. Maybe I'm misunderstanding the flow here.
+
+Wait, the user's exact message might have a specific test case. Let me re-examine:
+
+The user's message is divided into sections. Their task is presented, along with context, steps, definitions, etc. However, there's no specific citation passage provided here except in the examples within the definitions. But in an actual use case, the user would give the passage with the citation to process, and this prompt is the instruction.
+
+But the current query to the AI (me) is the entire set of instructions, so the user is essentially testing whether I can apply this classification process to an example given. Wait, perhaps the user is asking me to do the example provided in the Future section's example, like the aphid peptide citation. Let's see:
+
+In that example, the sentence is: “Similarly, a small aphid gut binding peptide was shown to interfere with enamovirus uptake from pea aphid gut into the hemocoel; the peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability@@CITATION@@.”
+
+The general intent here is Future because the citation is used to suggest broader applicability as a future research direction. Therefore, the rhetorical class would be Future.
+
+But let me process it step by step:
+
+Step 1: Extract context discussing citation. The relevant parts are the findings of the cited work (peptide binds to two others, suggesting broader applicability) and the citing paper's mention that this suggests potential. 
+
+Step 2: General intent is Future research implications. The citing paper is implying that future studies could explore this broader applicability.
+
+Step 3: Specific class is Future.
+
+Alternatively, the citation may be the study that did the two aphid species? The citing paper is using that result to suggest future work, so Future is correct.
+
+Alternatively, let's take another example from the definitions. The Support example says: "All subscales were consistent with previous research, particularly that of @@CITATION@@ also using a U.S. sample;..."
+
+Here, the citation is supporting the current study's findings, so Support is the class.
+
+Another one: "The results from our study align with those of other investigations into soil health indicators @@CITATION@@", which would be Similar.
+
+The "Usage" example: "The experimental set-up was described in detail previously @@CITATION@@." So here, the citing paper directly used the experimental setup from the citation. Hence, Usage.
+
+Now, if someone has to process a new example, say:
+
+"Crop rotation practices have been shown to reduce pest buildup in agricultural systems @@CITATION@@", and the citation references a foundational study on crop rotation's benefits. Then, if the current work is building on that, the Intent would be Basis.
+
+Alternatively, if the citation is a previous study's results that are in contrast: "Earlier findings by @@CITATION@@ reported no such effect, but our results clearly contradict those conclusions," then CoCoRes (comparison of results).
+
+If the citation is mentioned to say that the current work is using a method from it: "We adopted the PCR-based detection method of @@CITATION@@ to analyze the pathogens in our samples," then Usage.
+
+Alright, with this understanding, given any passage with @@CITATION@@, I can go through these steps to classify.
+
+But back to the original user's problem here. Since the user has not provided a specific passage in their message after the setup, perhaps this is a template, and the actual problem they expect is the one in the Future example. Alternatively, perhaps this is a test to see if I can handle the structure.
+
+Alternatively, considering the user's message ends with "Please strictly follow this format. Do not provide any explanations...", they must have provided a specific passage for processing, but in the provided problem description above, maybe the user's actual query is the example given in the Future section, and I need to process that.
+
+Wait looking at the user's message again, the structure is:
+
+User's instruction to me (the classifier) to process a citation in a given passage, then in the Output format, they instruct to return only the label.
+
+Wait, perhaps the user's message includes a passage with the citation? Let me check again. The user's message says:
+
+#CONTEXT: You are a classifier...
+
+#TASK: Extract... of the cited work and return only the single most appropriate rhetorical class label...
+
+#OUTPUT FORMAT: Think step by step, return only one label.
+
+Wait, but in the user's message as presented here in the problem, they might have missed providing the specific passage, but perhaps in actual input, the user includes a passage between backticks. Since in this context, the user is presenting the problem to me, maybe the example they expect me to process is the one provided in the definitions, like the aphid example. Alternatively, the user is asking for the process, but not providing an example here.
+
+Alternatively, perhaps this is a test scenario where the user is providing all the info, and the example is the Future one given in the instructions, so the correct output would be "Future". But I need to make sure.
+
+Wait, the example given under the "Future" class says the citing sentence includes @@CITATION@@ and the label is assigned as Future. So if the user's example is that exact sentence, then the output should be Future.
+
+But the user's actual input is the entire text above, which includes all definitions, and they want the classifier to process an example within that.
+
+Wait, perhaps I'm overcomplicating. Since I have to assume that perhaps the user provided an example passage in their query (not seen here in this problem's setup) but in their actual input (like the current query to me), maybe I need to process an example like the aphid one. Since I can't see the actual user's test case, maybe this is a placeholder.
+
+Alternatively, given that the user provided the setup, perhaps the task is to process an example that uses the aphid citation, which in the example is Future, so the answer is Future.
+
+Alternatively, perhaps their example is:
+
+"Similarly, a small aphid gut binding peptide was shown to interfere with enamovirus uptake from pea aphid gut into the hemocoel; the peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability @@CITATION@@."
+
+So for this passage, step 1 extracts the context about the peptide's broader applicability leading to suggesting future work. Step 2 general intent is future research implication, leading to Future as the label.
+
+Therefore, the answer is "Future".
+
+Another example, let's say the passage given is:
+
+"This study’s methodology followed the protocol outlined in prior research @@CITATION@@, which used the same controlled environment approach."
+
+Then the classification here would be Usage, since the method is adopted from the cited work.
+
+If a passage says:
+
+"While previous studies by @@CITATION@@ focused on rice plants, our investigation expands to include tropical maize, thus addressing a different crop type."
+
+That's about differences in goals/method, so CoCoGM.
+
+Alright, so I think I understand the process. Now, applying this to whatever passage the user provided. However, since in this current interaction, the user hasn't given the specific passage, only the instructions, perhaps this is the instruction phase and the actual test case follows. But given the structure here, maybe the user expects me to process the example in the Future section and return "Future".
+
+Wait, the user's message structure might be that the example is part of their question. Let me check again:
+
+The user's message includes the definitions and an example under Future. Since the example is within the user's instructions, perhaps the actual problem is to classify that exact example's citation. 
+
+The example under Future says: 
+
+“Similarly, a small aphid gut binding peptide was shown to interfere with enamovirus uptake from pea aphid gut into the hemocoel; the peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability @@CITATION@@.”
+
+The task is to determine the rhetorical class for @@CITATION@@ in this passage.
+
+Step 1: The context is about the peptide binding leading to the idea that broader applicability is a direction.
+
+Step 2: The general intent is to suggest future research to explore broader applicability. Hence Future.
+
+Step 3: The answer is Future.
+
+Therefore, the final JSON is {"rhetorical_class": "Future"}.
+
+Alternatively, if there's another example, but given the user's instructions include that example, this is likely the target passage here. 
+
+Hence, following the instructions step by step, the answer is correct.
+</think>
+
+Future

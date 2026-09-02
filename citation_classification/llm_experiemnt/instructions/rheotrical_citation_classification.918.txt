@@ -1,0 +1,41 @@
+﻿Prompt for citation classification
+
+Task : you are a classifier that assigns the citations in a scientific article passage to a rhetorical class. The rhetorical class represents the argumentation role played by the cited work in the context of the citing text. Each citation is denoted using the placeholder (CITSEG). Your output must be the single most appropriate class label from the predefined list below and nothing else.
+
+Rhetorical classes
+
+Basis : Use this class when the cited work is the intellectual foundation of the current research. It contributes directly to the new solution or is a continuation of prior work.
+Example : (CITSEG) introduced and validated the IAT by studying biases that they consider nearly universal in humans and about which there is no social concern. We began by replicating these inoffensive results for the same purposes.
+
+CoCoGM (Comparison of Goals or Methods): Assign this class when the citation is used to compare or contrast the research goals or methods of the cited work with those of the citing paper.	
+Example : Most closely related to this paper is concurrent work by  (CITSEG) who propose a method to “debias” word embeddings. Our work is complementary, as we focus instead on rigorously demonstrating human-like biases in word embeddings.
+
+CoCoRes (Comparison of Results):  Assign this class when the citation is used to directly compare or contrast the results or findings of the cited work with those of the citing paper. ​​
+Example : The results obtained in the present work substantially differ from the results of the experiments conducted with the use of deuterium saturated metal targets (TiD, TaD, ZrD, PtD) (CITSEG).
+
+CoCoXY (Comparison of Explanations or Claims): Assign this class when the citation is used to compare or contrast two cited studies with each other — not with the citing paper.		
+Example: However, a review of the available literature is rather confusing due to the often contradictory results that were reported. [REF1-REF12]
+
+Future : Assign this class when the citation is used to suggest or imply directions for future research. 
+Example : Similarly, a small aphid gut binding peptide was shown to interfere with enamovirus uptake from pea aphid gut into the hemocoel; the peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability (CITSEG).
+
+Motivation: Assign this class when the citation is used to justify why the current research is being conducted e.g. by identifying a knowledge gap, need or open question.
+Example:  Our previous research (CITSEG) has shown that the formation of the hard calcite scale on the surfaces exposed to hard water can be successfully prevented with the applied magnetic field. The explanation of the phenomena is not yet offered and the purpose of this work is to try to understand the mechanism of the beneficial influence of the magnetic treatment
+
+Neutral : Assign this class when the citation is used in a neutral, descriptive way without supporting, comparing, criticizing, or motivating any specific argument in the current paper.
+Example : in the USA the use of magnetic water treatment devices has been spreading since 1975 (CITSEG).
+
+Similar : Assign this class when the citation is used to point out a similarity between the cited work and the citing paper. The similarity can concern results, patterns, phenomena, or general observations.
+Example : Our finding that insect hosts affect bacterial community assembly (Table 3, Figure 4) is supported by recent cross-taxon investigations of other insect-associated bacteria. In fleas and ticks, the arthropod host governed bacterial assemblages whereas rodent host and environmental conditions did not (CITSEG).
+
+Support : Assign this class when the citation is used to support, confirm, or reinforce a claim, result, or interpretation made by the citing authors. The cited work is presented as evidence that aligns with or strengthens the authors’ own findings or arguments. 
+Example : All subscales were consistent with previous research, particularly that of (CITSEG) also using a U.S. sample; as before, participants did not distinguish between personal interests and values as reasons for disputes, nor between competence and methods.
+
+Usage : Assign this class when the citation refers to a method, tool, dataset, or experimental setup from the cited work that is directly used in the current study.
+Example: The experimental set-up was described in details previously (CITSEG).
+
+Weakness : Assign this class when the citation is used to criticize, question, or point out limitations in the cited work. This includes cases where the cited results are described as unclear, problematic, incomplete, or otherwise flawed.
+Example: “Eighteen species, collected on cultivated and wild pear, were described from China (CITSEG). The taxonomic status of these species is problematic and some may not develop on Pyrus.”
+
+Output Format:
+Return a single label from the list above corresponding to the rhetorical function of (CITSEG) in the passage without any additional explanation.

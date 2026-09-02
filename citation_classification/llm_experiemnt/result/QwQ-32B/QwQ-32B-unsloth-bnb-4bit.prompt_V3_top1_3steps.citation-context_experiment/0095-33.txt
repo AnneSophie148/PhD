@@ -1,0 +1,42 @@
+Okay, let's tackle this classification problem. The user provided a scientific article passage with a citation tagged @@CITATION@@, and I need to determine the rhetorical class of that citation. Let me go through the steps carefully.
+
+First, I need to extract the context around the citation. The passage given is:
+
+"Investigations on the influence of magnetic treatment of water on scale formation have been ongoing for decades. Early studies @@CITATION@@ reported significant reductions in scale thickness under magnetic treatment, but later research @@CITATION@@ found no such effects, leading to debates about the method's efficacy."
+
+The citation here is @@CITATION@@, which is part of "Early studies @@CITATION@@ reported significant reductions..." So the context around the citation is that early studies showed reductions in scale thickness, but later research didn't, leading to debates.
+
+Step 1: The context discussing the citation is the sentence mentioning the early studies and their findings. The key part is that the cited work reported significant reductions, which contrasts with later research. 
+
+Step 2: Identify the general intent. The citation is being compared with later research. The authors are pointing out that early studies found one result, while later ones didn't. This seems like a comparison between the cited work and another study (the later research), but also in the context of the citing paper's discussion. Wait, the example for CoCoRes is comparing results between the cited work and the citing paper, but here the citing paper is comparing the cited work with another study (the later research). Hmm. Let me check the definitions again.
+
+Looking at the definitions:
+
+CoCoRes is when the citation is used to directly compare or contrast the results with those of the citing paper. Wait, no, CoCoRes is between the cited work and the citing paper. But in this case, the citing paper is comparing two other studies: the early ones (citation) and the later ones. The citation is part of a comparison between two other works, not the citing paper's own results. Wait, the example for CoCoXY is when the citation compares two cited studies with each other. Let me check CoCoXY's definition again.
+
+CoCoXY is when the citation is used to compare or contrast two cited studies with each other, not with the citing paper. The example given is about conflicting results between two studies. In the user's example, the sentence says "Early studies @@CITATION@@ reported... but later research @@CITATION@@ found no such effects..." So here, two citations are mentioned, but in the problem, only the first @@CITATION@@ is the one we're focusing on. Wait, the user's example might have only one citation here, but in the given problem, the citation in question is the first one (early studies). The sentence is comparing the cited work (early studies) with later research. So the comparison is between the cited work and another study (later research), but the citing paper is discussing both. Wait, the task is to classify the citation @@CITATION@@. In the sentence, the citation is part of a comparison between early and later studies. The citing paper is presenting this contrast. 
+
+Wait, the example for CoCoRes is when the citing paper compares its own results with the cited work's. Here, the citing paper is comparing two other studies. So maybe this is CoCoXY? Because CoCoXY is when the citation is used to compare two cited studies. Let me see the CoCoXY example again: "Fast multiplication rates... although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@." Here, two studies are mentioned, and the citation is pointing out conflicting results between them. Similarly, in the user's example, the early studies (citation) are compared with later research, which is another citation. But in the problem, only the first citation is tagged. Wait, maybe the problem's example has only one citation, but in the user's input, perhaps the citation is part of a comparison between the cited work and another study. 
+
+Alternatively, maybe the citation is being contrasted with the later research, which is also cited but not tagged here. The citation in question (the early studies) is part of a comparison with later research. Since the citing paper is presenting this comparison between two other works, then the citation's intent here is to set up a contrast with another study, which would fall under CoCoXY? Because CoCoXY is when the citation is used to compare two cited studies with each other, not with the citing paper's work. 
+
+Alternatively, if the citing paper is comparing their own work with the cited work, that would be CoCoRes. But here, the citing paper is discussing the existing literature's conflicting results. The citation is part of a comparison between two different studies (early vs later), so that's CoCoXY. 
+
+Wait, let me check the exact definitions again. 
+
+CoCoGM: comparing goals or methods between cited and citing.
+
+CoCoRes: comparing results between cited and citing.
+
+CoCoXY: comparing two cited studies with each other.
+
+The example for CoCoXY is when two cited studies are compared (Wei et al. and Saracco et al. vs the other one). So in the user's example, the sentence is presenting two studies (early and later) and their conflicting results. The citation here (the early studies) is part of that comparison between two cited works. Therefore, the rhetorical class would be CoCoXY. 
+
+Alternatively, maybe the citation is being used to contrast with later research, but since the citing paper is just describing that there's a contrast between the two, it's CoCoXY. 
+
+Alternatively, the general intent here is comparative, and since it's comparing two cited studies (the early and later ones), the specific class is CoCoXY. 
+
+Therefore, the answer should be CoCoXY.
+</think>
+
+CoCoXY

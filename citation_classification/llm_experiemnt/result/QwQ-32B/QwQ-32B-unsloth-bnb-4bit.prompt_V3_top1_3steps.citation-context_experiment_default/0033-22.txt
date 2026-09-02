@@ -1,0 +1,58 @@
+Okay, let's tackle this classification problem. The user provided a task where I need to figure out the rhetorical class of a citation marked as @@CITATION@@ in a scientific passage about plant health. The example given is from plant health, but let's focus on the general method first.
+
+First step: Extract the context discussing the citation. The user mentions keeping only the semantic parts that help understand the citation's intent. But in the example query, they don't provide the actual citation passage. Wait, looking back, the example in the problem description has an example with the citation in a plant health context. Let me check the user's input again.
+
+Ah, actually, the user's task says that the input passage (delimited by backticks) will contain the citation @@CITATION@@, but the actual user's message here just gives me the setup instructions. Maybe I need to simulate that scenario? Wait no, perhaps the user expects me to process a specific input where the citation context is provided. Wait, looking at the user's message structure, perhaps they actually included the example from the problem description, and I need to process that?
+
+Wait, the problem is that in the user's input, the passage provided is the example given in step 3's definitions, specifically under CoCoXY. Let me recheck.
+
+The user's message includes the instructions and the problem, but in their actual query, maybe they're providing a test case. Wait, looking again, the user's main message includes all the definitions and an example for each category. The actual problem they present is an example passage for CoCoXY: "Fast multiplication rates... @@CITATION@@." So perhaps the task is to process that citation's context and return the correct class, which should be CoCoXY. 
+
+Wait the example under CoCoXY says: "Fast multiplication rates and high concentration... (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+The step-by-step for this example would be:
+
+Step 1: Extract the context. The context is discussing conflicting results between the cited works. The citation is pointing out that the current sentence is contrasting with some other study.
+
+Step 2: Identify the general intent. Since the citation is comparing two studies (Wei and Saracco with the other one in @@CITATION@@), it's a comparative intent. 
+
+Step 3: Under comparative, the specific class is CoCoXY because it's comparing explanations or claims between the cited studies themselves, not with the citing paper. The example's own classification is CoCoXY, so the correct answer should be CoCoXY.
+
+Therefore, the user is asking me to process such an example and get the right class. Since the user's input might be an example, but their task is to present my reasoning for that example, leading to the JSON output with the correct label.
+
+Wait, but in the problem setup, maybe the user provided a sample input for me to work through? Let me re-read the user's instructions precisely.
+
+Looking at the user's message:
+
+The task is to process a citation passage (delimited by backticks). The user has provided definitions and examples. The user's actual input here (the current query) might not include an actual test passage, but the initial context includes an example in the definitions, like the CoCoXY example. Perhaps this is a test of the system? Wait the user might have intended to present an example of the task by providing that passage with @@CITATION@@ in the CoCoXY example, and wants me to go through it step by step.
+
+Wait no, looking again. The user's message starts with the context and task, then gives the step-by-step process. The example under CoCoXY is part of the provided definition. The user's actual input probably expects me to process a test case they have in mind, but since they haven't provided a specific passage in the current query (the one the user has now inputted), maybe I'm misunderstanding. Alternatively, perhaps the user's input here includes the example as their test case.
+
+Wait, looking at the user's input, after the definitions, they end with "Please strictly follow this format. Do not provide any explanations..." etc. So maybe the actual test case they want me to process is part of the example given in the problem? Let me check again.
+
+Wait the problem is that the user is presenting this problem to me and expects me to process a specific example. But the way it's structured, perhaps the user is pasting their own instructions for me to follow, and then expects me to answer an actual example. However, in their current query, maybe they just provided the setup but no specific passage with @@CITATION@@. Hmm, perhaps this is a formatting issue. Maybe in the actual scenario, they would provide a passage with a citation, but in this example, it's the CoCoXY example given in the instructions.
+
+Alternatively, maybe the user made a mistake in their input. But given that the example given under CoCoXY is part of the user's instructions, perhaps the current task is to classify that very example. Let me proceed with that assumption. So, taking the example passage: 
+
+Original example text under CoCoXY: 
+
+"Fast multiplication rates and high concentration of two 'Ca. Phytoplasma asteris' strains have been reported in young developing leaves and roots of infected daisy plants (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+Assuming this is the input text where the @@CITATION@@ is placed at the end of that sentence.
+
+Step 1: Extract context discussing the citation. The entire sentence is the context. The part before the citation talks about studies by Wei and Saracco showing certain things, and then contrasts with "conflicting results" in the citation. The citation here is pointing out conflicting findings between the mentioned studies (Wei and Saracco) and the one in @@CITATION@@.
+
+Step 2: General intent. The key is that it's comparing two studies (the ones before and the cited one) to show conflict. So the general intent is Comparative.
+
+Step 3: Under Comparative subtypes, the three options are CoCoGM (goals/methods), CoCoRes (results), or CoCoXY (comparing explanations or claims between cited papers). The example's own definition says that CoCoXY is when comparing two cited studies with each other. Here, the sentence contrasts the results from Wei & Saracco with the study in @@CITATION@@. The comparison is between the cited studies. Since it's about conflicting results, and the focus is on contrasting the findings (explanations or results), but since the options are:
+
+CoCoRes is about comparing results with the citing paper, whereas CoCoXY is between two cited works. Wait, according to the definition of CoCoRes: the citation is compared with the citing paper's results. So here, since this sentence is pointing out conflicting results between Wei/Saracco and the @@CITATION@@, which are all cited works, not the current paper, then this falls under CoCoXY: "compare or contrast two cited studies with each other".
+
+So the correct class is CoCoXY.
+
+Hence, the final answer should be CoCoXY.
+</think>
+
+{
+  "label": "CoCoXY"
+}

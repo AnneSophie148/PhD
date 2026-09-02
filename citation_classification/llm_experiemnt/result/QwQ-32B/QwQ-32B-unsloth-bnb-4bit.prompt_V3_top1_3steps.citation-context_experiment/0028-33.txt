@@ -1,0 +1,114 @@
+Okay, let's tackle this classification problem step by step. The user provided a citation passage and wants me to determine the rhetorical class of the citation @@CITATION@@. 
+
+First, I need to follow the steps outlined. The first step is to extract the context discussing the citation. The given passage is:
+
+"Phytoplasma diseases cause substantial losses in various crops worldwide, and their management remains challenging due to the lack of effective chemical control options @@CITATION@@. Recent studies have shown that some plant-derived compounds can inhibit phytoplasma infection, offering a potential alternative to conventional pesticides @@CITATION@@."
+
+Wait, there are two citations here. The user's example in the problem statement had a single citation, but here there are two @@CITATION@@ tags. Hmm, maybe I need to check if the user provided the correct input. Wait, looking back, the user's input is the passage with two @@CITATION@@ instances, but the task is to process the citation marked with @@CITATION@@. Wait, but in the problem statement, the user says "the citation tagged @@CITATION@@", so perhaps there's only one citation in the actual input. Wait, the user's example input here has two. Maybe I need to clarify, but since I have to work with what's given, perhaps the user's input here is an example where two citations are present, but the task is to process the first or the second? Wait, no, perhaps the user's example is a test case, but the actual problem would have a single citation. Wait, looking at the user's exact input, the passage has two @@CITATION@@ instances. But the task says "the citation tagged @@CITATION@@", so maybe in this case, both are @@CITATION@@, but the user wants to process each one? Or perhaps it's a mistake. Wait, perhaps the user's input is the passage provided, and each @@CITATION@@ needs to be classified. But the problem says "assign a reference in a scientific article citation passage in the plant health domain to a biological class" but in the task, the user says "assign to a rhetorical class the citation tagged @@CITATION@@". So the task is for each citation in the passage, but here there are two. Since the user's instruction is to process the citation marked @@CITATION@@, perhaps in the given example, each @@CITATION@@ should be considered separately. But in the current example, maybe the user is providing a passage with two citations, but we need to process each one. However, the user's instruction might be expecting to handle one citation. Wait, maybe I need to look at the exact input given by the user. Let me recheck:
+
+The user's input is:
+
+"You are a classifier that assigns a reference in a scientific article citation passage in the plant health domain to a biological class. The biological class represents the biological information highlighted by the reference in the citation passage.
+
+CONTEXT
+You are a classifier that assigns to a rhetorical class the citation tagged @@CITATION@@ in a scientific article passage delimited by backticks.
+
+TASK
+Extract the context discussing the citation @@CITATION@@, identify general intent, then assign a fined-grained rhetorical class of the cited work, and return only the single most appropriate rhetorical class label from the predefined list (Basis, CoCoGM, CoCoRes, CoCoXY, Motivation, Future, Support, Similar, Usage, Weakness, Neutral).
+
+Step 1: Extract the context discussing the citation @@CITATION@@. Keep only the semantic context usefull to understand the intent of the citation @@CITATION@@.
+
+Step 2: Identify the general intent of the citation.
+
+Step 3: Select the specific rhetorical class (final output label).
+
+Then the example given by the user is:
+
+Passage: "Phytoplasma diseases cause substantial losses in various crops worldwide, and their management remains challenging due to the lack of effective chemical control options @@CITATION@@. Recent studies have shown that some plant-derived compounds can inhibit phytoplasma infection, offering a potential alternative to conventional pesticides @@CITATION@@."
+
+So in this case, there are two citations. The user wants the rhetorical class for each @@CITATION@@? But the problem says to return only one label. Wait, maybe the user's example is a test case where I have to process each citation. But the user instruction says "the citation tagged @@CITATION@@", so perhaps each instance is separate. However, in the given example, each citation is in a different part of the sentence. Let me see.
+
+First, let's process the first citation in the first sentence: "Phytoplasma diseases cause substantial losses... due to the lack of effective chemical control options @@CITATION@@."
+
+The context here is that the management is challenging because there's a lack of effective chemical control. The citation is supporting the statement that the management is challenging. So the citation is providing a basis for that claim, perhaps citing a study that discusses the lack of effective chemical options. Alternatively, maybe it's supporting the statement, so the citation supports the current authors' assertion. 
+
+Looking at the rhetorical classes:
+
+Support: the citation is used to support, or confirm the work, result or finding of the citing authors. The first part says "their management remains challenging due to the lack..." so the citation is providing support for that statement. Therefore, the first citation would be Support.
+
+The second citation is in the second sentence: "Recent studies have shown that some plant-derived compounds can inhibit phytoplasma infection, offering a potential alternative to conventional pesticides @@CITATION@@." Here, the citation is supporting the recent studies' findings. The authors are citing the studies that showed the inhibition, so the citation is supporting their statement. Hence, also Support? Or is it Usage if they are using the method? Wait, no, the example for Support is when the citation supports the citing authors' work. Here, the authors are citing others' studies to back up their claim that plant-derived compounds can inhibit infection, so that's Support.
+
+Wait but the problem says to return only one label, but there are two citations here. Wait, perhaps the user made a mistake in the example, but in the actual problem, each citation is separate. Wait, the user's instruction says "the citation tagged @@CITATION@@", so maybe in the given example, the user is asking for both citations to be considered, but in the output format, the user says to return only one label. That's conflicting. Alternatively, maybe the user provided a passage with two citations, but the task is to process each citation separately, but since the user's instruction here is to provide an example, perhaps the actual input would have one citation. Alternatively, maybe I need to process both citations in sequence. However, given the way the user's problem is structured, perhaps the example given here is a test case where the correct answer is Support for each, but let's see.
+
+Alternatively, maybe the first citation is about the lack of chemical control options. The sentence structure is "management remains challenging due to the lack of effective chemical control options @@CITATION@@", so the citation is providing evidence for the lack of effective chemical options. Hence, that's supporting the citing authors' statement, so Support.
+
+The second citation is about recent studies showing that plant-derived compounds can inhibit infection. The citation is supporting that claim, so again Support. Therefore, both citations would be Support. But since the user's example has two @@CITATION@@, but the output requires a single label, perhaps I need to check again.
+
+Wait, perhaps the user's example is a test case where the correct answer is Support for both citations. But the user's instruction says "return only the single most appropriate rhetorical class label", so maybe the example is to process each citation individually. Since the user's instruction is to process a given passage with a single @@CITATION@@, perhaps the example is flawed, but I should proceed with the first citation in the given example.
+
+Alternatively, perhaps the user intended the example to have only one citation. Maybe it's a typo. Let me read the user's input again:
+
+The user's input after the task description shows the example passage with two @@CITATION@@, but the task says "the citation tagged @@CITATION@@", so perhaps in the actual problem, each citation is separate. However, in the given example, the user is providing a sample passage with two citations, but the task is to process each one. Since the user's instruction says to return only one label, maybe the example is to choose one of them. But I need to process the given example as per the user's problem.
+
+Alternatively, perhaps the user's example is to test the classifier when there are two citations, but the problem is to process each citation separately. Since the user's output format requires only one label, perhaps each citation is a separate instance. Since the user's question here is an example, I need to process each citation in the given passage. Let me first process the first citation.
+
+First citation: "Phytoplasma diseases cause substantial losses in various crops worldwide, and their management remains challenging due to the lack of effective chemical control options @@CITATION@@."
+
+The context is that management is challenging because there's a lack of effective chemical options. The citation is providing the basis for that assertion. The authors are citing a study that shows the lack of effective chemical control, so the citation is supporting their statement. Therefore, the rhetorical class would be Support.
+
+Second citation: "Recent studies have shown that some plant-derived compounds can inhibit phytoplasma infection, offering a potential alternative to conventional pesticides @@CITATION@@."
+
+Here, the authors are citing the recent studies that demonstrated the inhibition. The citation is supporting their claim that these compounds can inhibit infection, so again Support. 
+
+Alternatively, if the second citation is referring to the studies themselves, maybe it's a Basis? Or perhaps the authors are using the method from the cited work, but the sentence structure says "Recent studies have shown...", so the citation is supporting their own assertion, so Support.
+
+Alternatively, if the authors are citing their own previous work, but in the example, it's just another citation. So both are Support.
+
+Wait, but the user's example for Support is when the citing authors' work is supported by the citation. In the first sentence, the citation supports the claim about the lack of chemical control, which is the authors' point. In the second, the citation supports the effectiveness of plant-derived compounds, which is also their point. So both are Support.
+
+However, the user might have intended for the first citation to be Basis, as it's foundational for the problem's context. Wait, the first part says that management is challenging due to lack of chemical control. If the cited work introduced the problem, maybe that's Basis. But the definition of Basis is when the citation references the intellectual foundation. For example, if the current research is building on that foundational work. Here, the current paper is talking about plant-derived compounds as an alternative, so the first citation is supporting their premise that chemical controls are lacking, which is a reason for their research. That would be Motivation? Wait, Motivation is when the citation is used to justify why the current research is conducted. 
+
+Wait, let's re-examine the definitions. Motivation: "the citation is used to justify why the current research is being conducted, e.g., by identifying a knowledge gap, need, promising results or open question."
+
+In the first sentence, the lack of effective chemical control options (supported by the citation) is a problem, leading to the need for alternatives. So the citation here is providing the motivation for their research. Therefore, the first citation would be Motivation. Because the authors are saying that because chemical controls are ineffective (as per the citation), they are looking into plant-derived compounds. So the citation is the motivation for their study.
+
+The second citation is about recent studies showing the potential of plant-derived compounds. The authors are citing those studies to support their own statement that these compounds can inhibit infection, so that's Support.
+
+Therefore, the first citation is Motivation, and the second is Support. But the user's example has two citations, so if the question is about the first one, the answer is Motivation, and the second is Support. But since the user's instruction says to return only one label, perhaps the example is intended to have only one citation. Alternatively, maybe I need to process each citation separately. However, given the way the user's example is structured, perhaps the first citation is the one to focus on.
+
+Wait, the user's instruction says "the citation tagged @@CITATION@@", so maybe each occurrence is considered separately, and the user expects two labels. But the output format says to return only one. Hmm, this is a bit confusing. Perhaps the example is a mistake, but given the problem, I need to proceed.
+
+Assuming that the first citation is the one to classify:
+
+First citation's context: "their management remains challenging due to the lack of effective chemical control options @@CITATION@@."
+
+The citation is supporting the claim that chemical control is lacking, which is part of the motivation for the current research. Therefore, the general intent is Motivational, leading to the specific class Motivation.
+
+Alternatively, if the citation is providing evidence for the statement, that's Support. But the purpose here is to motivate the need for the current research (since they are proposing an alternative), so Motivation might be better. Let me check the Motivation example:
+
+Example for Motivation: "Our previous research @@CITATION@@ has shown that the formation of the hard calcite scale on the surfaces exposed to hard water can be successfully prevented with the applied magnetic field. The explanation of the phenomena is not yet offered and the purpose of this work is to try to understand the mechanism of the beneficial influence of the magnetic treatment."
+
+In that example, the citation is the basis for why this current work is being done. Here, the lack of chemical control (as per the citation) is the reason they are looking into plant-derived compounds. So yes, that's Motivation.
+
+Therefore, the first citation is Motivation. The second citation is supporting their own statement, so Support. But since the user's example has two citations, perhaps the question is about the first one. Since the user's instruction requires only one label, I need to see which citation they are referring to. Since both are @@CITATION@@, maybe the user expects the first one. Alternatively, perhaps the example is a combined one, but the user might have intended for the second citation. Wait, the second sentence says "Recent studies have shown...", and the citation is supporting that claim. The authors are citing the studies, so the citation is supporting their assertion, hence Support.
+
+If the user's example requires both to be considered, but the output must be one, perhaps the correct answer here is Support for the second citation, but I'm not sure. Alternatively, perhaps the user made a mistake in the example. But given the information, I think the first citation is Motivation and the second is Support. Since the user's instruction says to return only one label, perhaps the first citation's context is the focus here. Alternatively, the user might have intended the second citation to be the example. Let me re-examine the problem again.
+
+The user's task says "assign a reference in a scientific article citation passage in the plant health domain to a biological class." Wait, but the task given in the user's message is to classify the citation's rhetorical class, not the reference's biological class. Wait, there's some confusion here. The initial context says "You are a classifier that assigns a reference in a scientific article citation passage in the plant health domain to a biological class." But the subsequent task is about rhetorical classes, not biological classes. Perhaps that's a mistake in the user's setup, but the task they provided is about rhetorical classes, so I should focus on that.
+
+Assuming that the task is correctly about rhetorical classes, and the user's example has two citations, but we need to process each separately, then the first citation is Motivation and the second is Support. Since the user's output requires a single label, perhaps the example is intended to have only one citation. Alternatively, perhaps the user wants the second citation's classification, which is Support.
+
+Alternatively, maybe I'm overcomplicating. Let's take the first citation again:
+
+Context: "their management remains challenging due to the lack of effective chemical control options @@CITATION@@."
+
+The citation is providing evidence for the lack of effective chemical control. The authors are using this to set up the motivation for their research. Therefore, the intent is Motivational → Motivation.
+
+The second citation: "Recent studies have shown that some plant-derived compounds can inhibit phytoplasma infection, offering a potential alternative to conventional pesticides @@CITATION@@."
+
+Here, the authors are citing the studies to support their statement about the effectiveness of plant-derived compounds. So the citation supports their claim, hence Support.
+
+So if the question is about the first citation, the answer is Motivation. If the second, then Support. Since the user's example has both, but the problem requires one, perhaps the user intended the first one. Alternatively, maybe the user made a mistake. Given the problem's setup, I'll proceed with the first citation as Motivation.
+</think>
+
+Motivation
