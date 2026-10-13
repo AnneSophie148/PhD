@@ -6,7 +6,58 @@ from projector import Projector
 import projector.regularizers
 from tqdm import tqdm
 
+def extract_json(text: Any):
+    text = str(text).strip()
+    # 1. Extract content inside ```json ... ```
+    match = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
 
+    if match:
+        text = match.group(1)
+
+    # 2. Try parsing the complete text
+    try:
+        parsed = json.loads(text)
+        if isinstance(parsed, dict):
+            return [parsed]
+
+        if isinstance(parsed, list):
+            return parsed
+
+    except (json.JSONDecodeError, TypeError):
+        pass
+
+    #3. otherwise extract multiple JSON objects
+    objects = []
+    brace_level = 0
+    start = None
+
+    for i, character in enumerate(text):
+        if character == "{":
+            if brace_level == 0:
+                start = i
+
+            brace_level += 1
+
+        elif character == "}":
+            brace_level -= 1
+
+            if brace_level == 0 and start is not None:
+                chunk = text[start:i + 1]
+
+                try:
+                    objects.append(json.loads(chunk))
+                except json.JSONDecodeError:
+                    pass
+
+                start = None
+
+    if not objects:
+        print("\nERROR parsing:")
+        print(text)
+        raise ValueError("No valid JSON objects found")
+
+    return objects
+    
 def load_json(path: str) -> Any:
     """Load and return a JSON file."""
     with open(path, "r", encoding="utf-8") as file:
