@@ -52,7 +52,8 @@ def get_eppo_codes_abstracts(dic_relations_per_doi:list):
 def main():
     """Script to match extracted entities to EPPO entities and attribute an EPPO code for comparison to extracted citation entities"""
 
-    extracted_relations_from_abstracts_file = "output_prompt_epop/relation_prediction_Qwen_Qwen3-32B.json"
+    #after having run filter_contribution
+    extracted_relations_from_abstracts_file = "predicted_contribution_relation.json"
     input_graph_with_rc_file = "../graph_citations/graph_with_Jurgens_cfunc_BIOBERT.json"
 
     graph_abstract_info = load_json(extracted_relations_from_abstracts_file)
