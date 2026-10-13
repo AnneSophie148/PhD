@@ -6,6 +6,13 @@ from tqdm import tqdm
 from spanlib.spanseq.overlap import remove_overlaps
 from projector import Projector
 import projector.regularizers
+from unidecode import unidecode
+
+def normalize_doi(doi: Any) -> str:
+    """Normalize a DOI so that graph passages can be matched."""
+    normalized = unidecode(str(doi or "").lower().strip())
+    normalized = re.sub(r"^(https?://(?:dx\.)?doi\.org/|doi:\s*)", "", normalized)
+    return normalized.rstrip(".,")
 
 def get_finegrained_passages(graph_with_finegrained_rc):
     finegrained_passages = {}
@@ -22,7 +29,7 @@ def get_finegrained_passages(graph_with_finegrained_rc):
             finegrained_passages[(citing_doi, cited_doi, text)] = passage
 
     return finegrained_passages
-    
+
 def clean_sentence(sentence: Any) -> str:
     """Remove XML/HTML tags while preserving their textual content."""
     if sentence is None:
@@ -81,6 +88,8 @@ def extract_relations_from_citations(graph: Dict[str, Any], entries, finegrained
 
     for edge_index, edge in enumerate(tqdm(edges, desc="Graph edges")):
         citation_passages = edge.get("citation_passages", [])
+        cited_doi = edge.get("cited_doi")
+        citing_doi = edge.get("citing_doi")
         for passage_index, passage in enumerate(citation_passages):
             passage["EPPO_entities"]=[]
             if not isinstance(passage, dict):
@@ -133,7 +142,7 @@ for item in eppo_codes:
 
 #V1 --> the relation extract will be updated with the Qwen relation extraction output
 finegrained_passages = get_finegrained_passages(graph_with_finegrained_rc)
-updated_graph = extract_relations_from_citations(graph_with_rc, entries)
+updated_graph = extract_relations_from_citations(graph_with_rc, entries, finegrained_passages)
 output_graph_file = "../graph_citations/graph_with_EPPO_entities.json"
 with open(output_graph_file, "w", encoding="utf-8") as file:
     json.dump(updated_graph, file, ensure_ascii=False, indent=2)
