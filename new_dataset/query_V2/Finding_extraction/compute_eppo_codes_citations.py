@@ -7,6 +7,22 @@ from spanlib.spanseq.overlap import remove_overlaps
 from projector import Projector
 import projector.regularizers
 
+def get_finegrained_passages(graph_with_finegrained_rc):
+    finegrained_passages = {}
+
+    for edge in graph_with_finegrained_rc.get("edges", []):
+        cited_doi = normalize_doi(edge.get("cited_doi"))
+        citing_doi = normalize_doi(edge.get("citing_doi"))
+
+        for passage in edge.get("citation_passages", []):
+            if not isinstance(passage, dict):
+                continue
+
+            text = str(passage.get("Full-text", "")).strip()
+            finegrained_passages[(citing_doi, cited_doi, text)] = passage
+
+    return finegrained_passages
+    
 def clean_sentence(sentence: Any) -> str:
     """Remove XML/HTML tags while preserving their textual content."""
     if sentence is None:
