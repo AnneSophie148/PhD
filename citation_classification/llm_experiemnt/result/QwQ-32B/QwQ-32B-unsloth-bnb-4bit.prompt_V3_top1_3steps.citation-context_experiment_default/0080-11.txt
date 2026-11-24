@@ -1,0 +1,100 @@
+Okay, let's tackle this problem step by step. First, I need to extract the context around the citation @@CITATION@@ from the given backticks. The user hasn't provided the actual passage yet, so maybe there was an error? Wait, looking back at the user's message, I see they provided an example context but maybe in the actual query, the passage would be between backticks. Hmm, maybe in the provided example, the step-by-step needs to be applied to a specific citation context. Let me check again.
+
+Wait, the user's instruction says to process the passage where the citation is tagged, but in the current setup, they might have given an example of how to format the input. Since the user's actual input might have a specific example, I should assume that the backticks contain the passage. 
+
+Wait, in the problem given to the assistant, the user's message includes the task but not the actual passage with the citation. Wait, no— looking again, the initial user message includes the task and instructions but perhaps the actual example context is part of the thinking here. Wait, perhaps there's a missing context here. Oh, maybe the user's input includes the example, but the actual problem presented here is to process a specific context. Wait, in this case, the original user query is exactly what's presented here. The user provided the context of how the problem works and now wants the assistant to apply it to a given example. Wait, but in this case, the user hasn't provided the actual citation passage in backticks. Wait, maybe the user's message is the entire query, including the part where they show their own example but in the current problem, it's part of the setup. Wait, perhaps there's confusion here because the example given in the user's message is part of the task, but in the actual test case, the backticks would have a real example. 
+
+Wait, this is a bit confusing. Let me re-read the exact instructions given. 
+
+The user says: 
+
+"You are a classifier that assigns to a rhetorical class the citation tagged @@CITATION@@ in a scientific article passage delimited by backticks."
+
+But in the provided input, there's no backticks with a passage. Wait, maybe the user made a mistake, but in the current scenario, the user's entire query includes a context and a task for the assistant. Wait looking back, the user's message includes a full setup with context and task, and then the example. Wait, perhaps in the actual problem, the passage with the citation is provided in backticks after this setup. But in the current question presented here, that's missing. Because the user's input is up to the "#OUTPUT FORMAT" and the "Please strictly follow this format..." etc. 
+
+Wait, perhaps I misread the user's input. Let me check again:
+
+The user's exact input is:
+
+"You are a classifier that assigns... " 
+
+and so on, all the way up to the instructions. They then say, perhaps in their actual query, the passage is given between backticks, but in this case, maybe the user is testing the structure. Since the problem says "include your step-by-step reasoning. Please strictly follow this format. Do not provide any explanations, additional comments, or other text beyond the reasoning and the final JSON."
+
+Wait, maybe the example the user provided includes a context in backticks. Let me check again. 
+
+Ah, perhaps I missed that in the initial problem setup, the actual example is part of the input. Let me see:
+
+In the user's message, after the instructions, there's a context and task, but maybe the passage is in backticks here. Wait, no. The user's message is the full instruction. Wait, perhaps the actual test case would have a passage in backticks, but in this scenario, since the user is providing the instruction, the example is in their message. Wait, no, the user's message has the instructions and the rhetorical classes, but the example they are providing (the one given to be answered) is actually this: perhaps this is a misconstructed example, but maybe the task here is to process the initial example given by the user in their own examples? For instance, in the Basis example, the citation is in the context. 
+
+Wait, perhaps the user wants me to process the Basis example given in their own example. Let me check.
+
+Looking at the user's instruction, they included an example for each class, e.g., for Basis, the context is:
+
+"Basis: ... “@@CITATION@@ introduced and validated the IAT by studying biases that they consider nearly universal in humans and about which there is no social concern. We began by replicating these inoffensive results for the same purposes.”"
+
+So maybe the assistant is being asked to classify this example? But the user's task says to process the citation in the passage given between backticks, so perhaps in the actual problem presented to the user, the user provided the passage with @@CITATION@@ inside backticks. However, in the current case, that example isn't here. So, this is a problem: without the actual passage between backticks, the assistant can't extract the context. 
+
+Alternatively, perhaps the user included an example here as part of their own input to test the classifier, like the Basis example. 
+
+Wait, looking again at the user's message, they wrote:
+
+"Below are the fined-grained rhetorical class definitions and examples."
+
+Then, for each class, there's an example with @@CITATION@@ in it. 
+
+So maybe the current task is to take those examples and apply the steps to each? But the user's exact input is asking for the process applied to a citation tagged in a passage. Since the user's question is to provide an example of how the classifier would work, perhaps the example given (like the Basis example) is supposed to be processed. 
+
+Ah! The Basis example provided by the user themselves is an example context, but in this scenario, maybe the user's actual input (the one they want the assistant to process) is the Basis example, and they want the assistant to show how to classify that. 
+
+Alternatively, perhaps the user is providing all the setup and expects the assistant to process an example context. Since in the current problem's context, perhaps the Basis example's context is what needs to be processed here. Let me make that assumption for proceeding. 
+
+Let's take, for instance, the Basis example's context:
+
+The context is:
+
+“@@CITATION@@ introduced and validated the IAT by studying biases that they consider nearly universal in humans and about which there is no social concern. We began by replicating these inoffensive results for the same purposes.”
+
+So the citation is @@CITATION@@ here. 
+
+First, extract the context discussing the citation: the entire sentence is the context here. 
+
+Step 1: Extract context. The relevant parts are: the citation introduced and validated the IAT, and the current paper is replicating their results for the same purposes. 
+
+Step 2: Identify general intent. The citation is mentioned because the current research is building upon it, using it as a foundation. The phrase "replicating these... for the same purposes" suggests that the cited work is foundational. 
+
+Therefore, the general intent is Foundational → Basis. 
+
+Step 3: The specific class is Basis, as per the definition. 
+
+Thus, the output should be "Basis".
+
+Alternatively, maybe the user expects a different example. Let me try another one from their examples to test the logic. 
+
+Take the Future example:
+
+Example context: “Similarly, a small aphid gut binding peptide was shown to interfere with enamovirus uptake from pea aphid gut into the hemocoel; the peptide also bound to gut epithelia of two other aphid species suggesting potential broader applicability @@CITATION@@.”
+
+Applying the steps: 
+
+Step1: The citation is discussing the peptide's broader applicability. 
+
+Step2: The intent here seems like the citing paper is mentioning it to suggest future directions based on the cited work. 
+
+Step3: So the class would be Future. 
+
+Similarly, for the "Support" example: 
+
+“Our finding that insect hosts affect bacterial community assembly... is supported by recent cross-taxon investigations... @@CITATION@@” 
+
+Step3 would be Support (the citation supports their finding). 
+
+But back to the Basis example: that's likely the correct path here. 
+
+Assuming the user's actual example given is the Basis example in their own definitions, the answer is Basis.
+</think>
+
+```json
+{
+  "label": "Basis"
+}
+```

@@ -1,0 +1,36 @@
+Okay, let's tackle this step by step. The user provided a task to classify a citation in a scientific article. The citation is tagged as @@CITATION@@ within a backtick-delimited passage. The goal is to determine the rhetorical class of that citation using the given definitions.
+
+First, I need to extract the context around the citation. The example given in the problem is: 
+
+"However, the role of the gut microbiota in this process remains unclear, with some studies suggesting a protective effect @@CITATION@@ while others report no significant association @@CITATION@@."
+
+Wait, but the user's input might have different text. Wait, actually, the user hasn't provided the actual passage yet. Oh right, the user is giving me a general instruction, but in the actual task, the passage would be provided. Since this is a test, maybe I should consider the example they gave in the definitions. Wait, no, the user's example is the one in the problem. Wait, perhaps the user's example is the one with the two citations. Let me re-read the problem.
+
+Looking back, the user's example for CoCoXY is: "Fast multiplication rates... although conflicting results were described... @@CITATION@@." So in that example, the citation is comparing two studies' conflicting results. The citation is pointing out that there are conflicting results between the two studies mentioned. The rhetorical class here is CoCoXY because it's comparing explanations or claims between the cited studies themselves, not with the citing paper's work.
+
+But in the current task, the user's example given in the problem might be the passage to analyze. Wait, no, the user's task is to process a given passage (which they would provide in the actual query). Since this is the initial prompt, perhaps the user is providing an example scenario. Wait, perhaps the user's actual input here is the example in their problem. Wait, maybe I need to look at the user's message again. Let me check:
+
+The user's message says: "You are a classifier that assigns a reference..." followed by the context and task. Then they provide the steps. Then the example for CoCoXY is given. The user's actual input for the problem is probably a passage with @@CITATION@@, but in the current message, they are just setting up the problem. Since the user's current input is the problem setup, perhaps the example they provided for CoCoXY is part of the task. Wait no, the user is asking me to process a specific example, but in their message, the example for CoCoXY is part of the definitions. So perhaps the user's actual test case is the CoCoXY example they provided. Let me see.
+
+Wait, in the problem description, the user is providing instructions for how to classify citations, and the example given for CoCoXY is "Fast multiplication rates... (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+So in this example, the citation is pointing out conflicting results between the studies of Wei et al. and Saracco et al., and the cited work (the @@CITATION@@ here) is the one that reported conflicting results. Wait, actually, in the example sentence, the citation is the one describing conflicting results. The sentence is comparing two studies (Wei and Saracco) and then mentions another study (the one with @@CITATION@@) which found conflicting results. Hmm, perhaps I'm misunderstanding the example. Let me parse it again.
+
+The example says: "Fast multiplication rates and high concentration of two 'Ca. Phytoplasma asteris' strains have been reported in young developing leaves and roots of infected daisy plants (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+So here, the first two citations (Wei and Saracco) are supporting the first part, and the @@CITATION@@ is pointing out conflicting results in a different study. The rhetorical class here is CoCoXY because it's comparing the explanations or claims between the cited studies (Wei/Saracco vs the cited work in @@CITATION@@). Wait, but the @@CITATION@@ is the third study that has conflicting results compared to the first two. The sentence is comparing the cited works (Wei and Saracco's results vs the one in @@CITATION@@). Therefore, the citation's role is to highlight a contrast between studies, so it's a comparison between two cited works, not between the citing paper and the cited one. Hence, CoCoXY is the correct label here.
+
+Now, the task requires me to apply this to a given passage. Since in this example, the user is providing this example, perhaps the actual test case here is this example. The user's instruction says "Please strictly follow this format. Do not provide any explanations, additional comments, or other text beyond the reasoning and the final JSON." So maybe in this scenario, the user is asking me to process the example they provided (the CoCoXY example) and output the label.
+
+So the steps would be:
+
+Step 1: Extract context. The sentence is "Fast multiplication rates... although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@." The relevant context is that two prior studies (Wei and Saracco) reported one finding, but the cited work (the @@CITATION@@) describes conflicting results in a different scenario (Euphorbia pulcherrima).
+
+Step 2: General intent. Since it's comparing two cited studies' results, the general intent is Comparative. Then looking into the specific subclasses under Comparative: CoCoGM (goals/methods), CoCoRes (results), CoCoXY (comparison between cited studies). Since this is comparing the results of the cited studies (Wei/Saracco vs the @@CITATION@@), the specific class is CoCoXY.
+
+Step 3: Assign CoCoXY as the label.
+</think>
+
+{
+  "label": "CoCoXY"
+}

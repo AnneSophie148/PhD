@@ -1,0 +1,342 @@
+Okay, let's tackle this problem step by step. First, I need to understand the user's request. They want me to classify a citation in a scientific article's passage into the top three most appropriate rhetorical classes based on the predefined list. The example given is about plant health, so the context is probably related to that.
+
+The user provided a structure to follow. Let me go through each step carefully. 
+
+Step 1 is to extract the context around the citation marked @@CITATION@@. The example passage isn't provided here, but in the actual problem, I need to look at the sentence or paragraph where @@CITATION@@ is mentioned. The key is to identify the surrounding text that explains why the citation is there. For instance, if the citation is part of a sentence saying "Earlier studies showed conflicting results @@CITATION@@, which our current work addresses," that context would be important.
+
+Step 2 involves identifying the general intent. The options are Foundational, Comparative, Motivational, Supportive, Technical, Critical/Analytical, or Descriptive. This helps narrow down the possible classes. For example, if the citation is used to compare methods with another study, that's Comparative, leading to CoCoGM, CoCoRes, or CoCoXY.
+
+Step 3 requires ranking the top three specific classes from the list. The definitions are crucial here. Let me recall them:
+
+- **Basis**: The citation is foundational to the current work.
+- **CoCoGM**: Comparing goals or methods.
+- **CoCoRes**: Comparing results.
+- **CoCoXY**: Comparing explanations or claims between cited works.
+- **Motivation**: Justifying the research's need.
+- **Future**: Suggesting future directions.
+- **Support**: Backing up the current findings.
+- **Similar**: Highlighting similarities.
+- **Usage**: Using a method/tool from the cited work.
+- **Weakness**: Criticizing the cited work.
+- **Neutral**: Descriptive without supporting or criticizing.
+
+Let me imagine an example to test this. Suppose the citation is in a sentence like: "Previous studies on phytoplasma distribution in plants reported varying results. While some found high concentrations in young leaves @@CITATION@@, others observed different patterns @@CITATION@@, highlighting the need for further research." 
+
+Here, the citation is part of a comparison between studies. The first citation might be compared with another, so CoCoXY would be relevant. The general intent is Comparative. The top classes could be CoCoXY, CoCoRes, and maybe Weakness if they point out conflicting results. But in this case, since it's contrasting two cited studies, CoCoXY is primary. If the citation is used to support the current work's approach, then Support or Similar might come in. 
+
+Another example: "Our method improves upon the technique outlined by @@CITATION@@ by addressing their limitations in sample size." Here, the citation is being compared in methods (CoCoGM) and also pointing out weaknesses, so CoCoGM and Weakness would be top. 
+
+Wait, but the user's example for Weakness is when the cited work is criticized. In my first hypothetical, if the conflicting results are presented neutrally, maybe it's CoCoRes (comparing results) or CoCoXY (comparing explanations). 
+
+Let me think of the example given in CoCoXY: "Fast multiplication rates... although conflicting results were described..." Here, two studies are compared, so CoCoXY is the main one. The user's example for CoCoRes is comparing results with the current work's results. 
+
+So, if the citation is part of a sentence that directly compares the cited work's results with the current study, then CoCoRes. If it's comparing two cited works, then CoCoXY. 
+
+Now, applying this to the actual problem. Since the user hasn't provided the specific passage, but in the initial problem setup, perhaps the example given in the task's CoCoXY example is similar. Let's say the citation is part of a sentence where two previous studies are contrasted, like "Study A found X @@CITATION@@, but Study B reported Y @@CITATION@@, indicating conflicting findings." Here, the citation is used to compare two cited works, so CoCoXY would be first. The general intent is Comparative, so CoCoXY is top, then maybe CoCoRes if the results are the focus. But if it's about their explanations or claims, then CoCoXY. 
+
+Alternatively, if the citation is used to support the current findings, then Support or Similar. 
+
+The key is to first extract the context, then determine the general intent. Let's suppose the context is something like: "Earlier research has shown conflicting results regarding the distribution of phytoplasma in plants. While some studies found high concentrations in young leaves @@CITATION@@, others observed different patterns @@CITATION@@, suggesting methodological differences." 
+
+Here, the citations are two studies being compared. The first citation is one study, the second another. The comparison is between them, so the general intent is Comparative, and the specific class would be CoCoXY. The other possible classes could be CoCoRes (if the focus is on their results differing) or maybe Weakness if the conflicting results are pointed out as a problem. But since the example given for CoCoXY is exactly this scenario, that's the main one. 
+
+Alternatively, if the citation is used to say that the current work's results differ from a previous one, then CoCoRes. 
+
+Wait, the example for CoCoRes is "the results obtained in the present work differ from @@CITATION@@." So if the citation is part of a sentence where the current results are compared to the cited work's, then CoCoRes. 
+
+In the CoCoXY example, the citation is part of a comparison between two other studies, not involving the current work. 
+
+So, the user's task requires me to imagine a context where @@CITATION@@ is in a passage. Since the user hasn't provided the actual text, maybe in their example, but in the problem prompt given here, perhaps the example given in the task's instructions is part of the context. Let me check the user's message again. 
+
+Looking back, the user provided an example under CoCoXY: "Fast multiplication rates... although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@." Here, the citation is comparing two studies (Wei et al. and Saracco vs. the other one). The citation is pointing out conflicting results between cited studies. So the citation here is the one that reported conflicting results, but the example's structure is that two citations are mentioned (Wei and Saracco) and then the citation in @@CITATION@@ is the conflicting one. 
+
+In that case, the citation marked @@CITATION@@ is the one that's being contrasted with the previous ones. Wait, the example says: "Fast multiplication rates and high concentration... (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@." So the @@CITATION@@ here refers to the study with conflicting results. The comparison is between the first two studies (Wei and Saracco) and the cited one in @@CITATION@@. So the @@CITATION@@ is part of a comparison between the cited studies (the two first ones and the @@CITATION@@ one). Thus, the rhetorical class would be CoCoXY. 
+
+If the user's example in the problem is similar, then the top classes would be CoCoXY, then perhaps CoCoRes (if the comparison is on results), and maybe Neutral if it's just descriptive but with comparison. But according to the example, the answer would be CoCoXY as the top. 
+
+Alternatively, if the citation is part of a sentence that says, "Our results support the findings of @@CITATION@@ who also observed this pattern," then the class would be Support. 
+
+But since I don't have the actual context here, I need to think through the process. The user's instruction is to follow the steps given. Let me try to outline the steps again with a hypothetical example. 
+
+Suppose the citation is in a sentence like: "Earlier studies have shown that plant pathogen X affects crop Y differently under varying temperatures. While some found increased infection rates at higher temperatures @@CITATION@@, others observed reduced spread @@CITATION@@, suggesting the need for further research." 
+
+Here, the citations are two studies with conflicting results. The @@CITATION@@ would be each of them. If the citation is one of them, then the general intent is Comparative (between the two studies), so the classes would be CoCoRes (comparing their results) or CoCoXY (comparing the two cited studies). Wait, but CoCoXY is when the comparison is between two cited works, not involving the current paper. 
+
+In this example, the current paper is pointing out the conflict between the two cited studies, so the citation is part of a comparison between them. Therefore, CoCoXY is the primary class. 
+
+Alternatively, if the citation is part of a sentence comparing the current work's results with a previous one, then CoCoRes. 
+
+Another scenario: "The method used here builds on the work of @@CITATION@@, which first identified the key enzymes involved." Here, the citation is foundational, so Basis. 
+
+Or if the citation is used to say "Despite previous claims @@CITATION@@, our results show otherwise," then Weakness. 
+
+The key is to first extract the context, then see if it's comparing with other studies (CoCoXY), supporting, etc. 
+
+Assuming the user's problem has a context where the citation is part of a comparison between two cited studies, leading to CoCoXY as the top, then maybe CoCoRes if results are compared, and Neutral if it's just a neutral mention. 
+
+Alternatively, if the citation is used to motivate the current study by pointing out a gap, then Motivation. 
+
+Without the actual text, I can't be sure, but the user's example in the CoCoXY case is the best example. 
+
+Wait, the user's example for CoCoXY is exactly the scenario where two citations are compared, so the @@CITATION@@ in that case is the third study that's conflicting. The sentence structure is: two studies (Wei and Saracco) are cited, and then "although conflicting results were described... @@CITATION@@", so the @@CITATION@@ is the third study. The comparison is between the first two and the third, so CoCoXY. 
+
+Thus, in such a case, the top three would be:
+
+1. CoCoXY
+
+2. CoCoRes (if the focus is on their results differing)
+
+3. Weakness (if the conflicting results imply a problem with one study)
+
+Or maybe Neutral if it's just stating the conflict without criticism. 
+
+Alternatively, if the citation is used to support the current findings, then Support. 
+
+But given the example, the top is CoCoXY. 
+
+Another example: "The current study's results align with previous findings @@CITATION@@, indicating a consistent pattern." Here, the citation is used to show similarity, so Similar would be top. 
+
+So, the process is: extract the context, see if it's comparing studies (CoCoXY or CoCoRes), supporting, etc., then pick the top three. 
+
+In the absence of the actual citation context provided here, but based on the user's example in the task description, if the citation is part of a comparison between two cited studies, the answer would be:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. Neutral 
+
+Wait, but Neutral is when it's just descriptive. If the citation is part of a comparison, it's not neutral. Alternatively, maybe Support or something else. 
+
+Alternatively, the three could be CoCoXY, CoCoGM (if methods are compared), but in the example, it's about results/explanations. 
+
+Hmm. Since I can't see the actual context here, but the user's example for CoCoXY is the scenario where the citation is part of a comparison between two other studies, then CoCoXY is the primary. The next might be CoCoRes if it's about their results. The third could be Weakness if the conflict is highlighted as a problem, but if it's just stating the conflict without criticism, maybe Neutral isn't right. 
+
+Alternatively, the third could be Basis if it's foundational, but not in this case. 
+
+Alternatively, the third could be Similar if they are similar, but in conflict, so maybe not. 
+
+Wait, perhaps the third is Support if the current paper is supporting one of the studies? Not sure. 
+
+Alternatively, if the citation is part of a sentence that says "Previous studies have conflicting results, which our work resolves," then the citation's role might be Weakness (pointing out conflicting results as a problem), so the classes could be CoCoXY (comparing the cited studies), Weakness (criticizing the conflict), and maybe Future (suggesting resolution as future work). 
+
+But without the exact context, it's hard, but based on the example provided in the user's CoCoXY definition, the answer would be CoCoXY as top, then maybe CoCoRes (if the comparison is on results), and Neutral might not be. 
+
+Alternatively, the third could be Neutral, but since the example's context is about conflicting results, maybe Weakness is second. 
+
+Hmm, this is tricky without the actual text, but I think the best approach is to follow the example given in the user's CoCoXY example. In that example, the citation is used to compare two cited studies, so the top three would be:
+
+1. CoCoXY
+
+2. CoCoRes (since the comparison is about results)
+
+3. Weakness (if the conflicting results imply a problem, but maybe not if it's just stating the conflict)
+
+Alternatively, maybe the third is Neutral, but that might not fit. 
+
+Alternatively, maybe the second is Support if the current paper's findings align with one study, but in the example, it's just stating the conflict between the cited studies. 
+
+Alternatively, maybe the second is Similar if they are similar in some way but conflicting in others. 
+
+This is a bit ambiguous, but I'll proceed with the example given by the user. The example for CoCoXY explicitly states that it's comparing two cited studies, so the first is CoCoXY. The second might be CoCoRes if the comparison is about their results. The third could be Neutral, but since it's a comparison, maybe not. Alternatively, the third could be Weakness if the conflict is presented as a problem. 
+
+Alternatively, the third might be Basis if the cited studies are foundational, but not necessarily. 
+
+Alternatively, the third could be Motivation if the conflict motivates the current study. 
+
+Hmm. The user's example for CoCoXY's citation is part of a sentence that says "although conflicting results were described...", so the citation is highlighting a conflicting result, which could imply a weakness in prior work. So maybe the second is Weakness, third CoCoRes. 
+
+But I'm not sure. 
+
+Alternatively, the user's example for CoCoXY is the citation being used to compare two cited studies, so the main class is CoCoXY, then maybe CoCoGM if their methods differ, but the example is about results. 
+
+Alternatively, the user's example's citation is the third one, contrasting with the first two. So the comparison is between the three? Or between the first two and the third? 
+
+In the example, Wei and Saracco are two studies that found high concentrations, then the citation is the third study that found conflicting results. So the comparison is between all three? Or between the first two and the third. The rhetorical class here is CoCoXY because it's comparing the explanations or claims between the cited studies. 
+
+Therefore, the top three would be:
+
+1. CoCoXY
+
+2. CoCoRes (since the conflict is about results)
+
+3. Weakness (if the conflict is presented as a problem)
+
+Alternatively, the third could be Support if the current paper sides with one, but not in the example. 
+
+Alternatively, the third might be Neutral, but since it's pointing out a conflict, that's not neutral. 
+
+So, based on the example given, the answer would be:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. Weakness
+
+But I'm not entirely sure. Alternatively, if the conflict isn't criticized, just stated, then maybe Neutral isn't right. 
+
+Alternatively, if the example's citation is the conflicting one, then Weakness might not apply unless they criticize it. 
+
+The example says "although conflicting results were described...", which is a neutral statement of fact, so maybe Weakness isn't the case. So perhaps the third is Neutral? But the comparison is the main thing. 
+
+Hmm. Alternatively, the third could be Similar if the studies are similar in some aspects but conflicting in others. 
+
+Alternatively, the third might be Basis if the cited studies form the basis for the current work. 
+
+This is a bit ambiguous, but given the example's exact wording, the primary is CoCoXY. The second is CoCoRes since it's about results differing. The third might be Neutral, but since it's part of a comparison, maybe not. 
+
+Alternatively, the third could be Future if the conflict suggests a need for future research, but that's not in the example's sentence. 
+
+So, I think the top three would be:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. Neutral 
+
+Wait, but Neutral is when it's just descriptive without supporting or criticizing. In the example, the citation is part of a comparison between studies, which is a comparative intent, so Neutral wouldn't be the third. 
+
+Alternatively, maybe the third is Similar, but they are conflicting. 
+
+Hmm, perhaps the third is Support if the current work supports one of the studies, but in the example, it's just stating the conflict. 
+
+Alternatively, the third is Basis if the cited studies are foundational, but not necessarily. 
+
+Alternatively, the third could be Usage if the method was used, but no. 
+
+Hmm, this is challenging. Given the example, I'll go with:
+
+1. CoCoXY (primary comparison between cited studies)
+
+2. CoCoRes (since the results are conflicting)
+
+3. Weakness (if the conflict implies a problem, but maybe not)
+
+Alternatively, maybe the third is Basis, but not sure. 
+
+Alternatively, since the example is exactly the CoCoXY scenario, the second might be CoCoGM if the methods are compared, but the example is about results. 
+
+Wait the example says "conflicting results were described", so that's about results. So CoCoRes would be second. 
+
+Third could be Neutral? No, because it's part of a comparison. 
+
+Alternatively, the third might be Similar if some aspects are similar. 
+
+Alternatively, the third could be Future if the conflict suggests future work, but the example's sentence doesn't mention that. 
+
+Hmm, maybe the third is Motivation, if the conflict motivates the current study. But again, the example's sentence is just stating the conflict between cited studies, not linking to current work. 
+
+Therefore, the top three would be CoCoXY, CoCoRes, and perhaps Basis or Neutral. 
+
+Alternatively, perhaps the third is Neutral, but I'm not sure. 
+
+Alternatively, the third could be Similar if the studies are similar in some way but conflicting in others. 
+
+Alternatively, maybe the third is Support if the current work supports one of the studies, but that's not in the example. 
+
+Given all this, I think the best answer based on the example provided in the user's CoCoXY definition is:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. Weakness 
+
+But if the conflict isn't criticized, maybe the third is Neutral. 
+
+Alternatively, the third could be Basis if the cited studies are foundational. 
+
+Hmm. Let me re-examine the example given by the user for CoCoXY:
+
+"Fast multiplication rates and high concentration of two 'Ca. Phytoplasma asteris' strains have been reported in young developing leaves and roots of infected daisy plants (Wei et al., 2004; Saracco et al., 2006), although conflicting results were described for a branch-inducing phytoplasma in Euphorbia pulcherrima @@CITATION@@."
+
+Here, the citation is pointing out that another study had conflicting results. The main comparison is between the first two studies (Wei and Saracco) and the cited one (the @@CITATION@@). The rhetorical class here is CoCoXY because it's comparing the explanations or claims between the cited works. The second class might be CoCoRes because the conflict is about results. The third could be Weakness if the conflicting result is presented as a problem, but the example uses "although" which might imply that the conflict is noted but not necessarily criticized. Alternatively, it could be Neutral, but since it's part of a comparison, maybe not. 
+
+Alternatively, the third could be Basis if the cited studies form the basis, but not here. 
+
+Hmm. Since the example doesn't include criticism, maybe the third is Neutral. But the comparison itself is the main point, so maybe the third is not needed beyond the first two. 
+
+Alternatively, the user's instruction says to pick three, so perhaps the third is CoCoGM if methods are compared, but the example is about results. 
+
+Alternatively, the third is Support if the current work aligns with one, but not in the example. 
+
+In the absence of more info, I'll proceed with the top three as:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. Weakness 
+
+But I'm not fully confident. Alternatively, maybe the third is Neutral. 
+
+Wait, the example's sentence is a neutral statement of fact about conflicting results, so perhaps the third is Neutral. But CoCoXY and CoCoRes are already comparative, so maybe Neutral isn't appropriate. 
+
+Alternatively, the third could be Basis if the cited studies are foundational. 
+
+Hmm. This is tough. I think the best answer based on the example given is:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. Weakness 
+
+But I'm not entirely sure. Alternatively, the third could be Basis if the studies are foundational. 
+
+Alternatively, maybe the third is Similar if the studies are similar but conflicting. 
+
+Alternatively, maybe the third is Motivation if the conflict motivates the current study, but the example doesn't mention that. 
+
+Given the example's context, I'll go with:
+
+1. CoCoXY 
+
+2. CoCoRes 
+
+3. Weakness 
+
+But I'm still uncertain. Alternatively, the third might be Support if the current work supports one of the cited studies, but in the example, it's not stated. 
+
+Alternatively, the third could be Neutral, but I think that's less likely. 
+
+Alternatively, the third might be Basis if the cited studies are foundational to the current work, but in the example, they are just being compared. 
+
+Hmm. I think I'll stick with the first two as CoCoXY and CoCoRes, and third as Weakness, assuming the conflict implies a problem with one study. 
+
+Alternatively, if the conflict is just stated without criticism, then maybe Neutral is third. 
+
+But the example uses "although conflicting results were described", which might not be a criticism, just a contrast. So maybe the third is Neutral. 
+
+Wait, Neutral is for descriptive without supporting, comparing, etc. But in this case, it's part of a comparison, so Neutral wouldn't fit. 
+
+Hmm. Maybe the third is Motivation, but not sure. 
+
+Alternatively, the third is Future if the conflict suggests future research, but not in the example. 
+
+Given all that, I'll proceed with the first two as CoCoXY and CoCoRes, and third as Weakness. 
+
+Alternatively, the third could be Similar if the studies are similar but conflicting. 
+
+Hmm. I think the top three are CoCoXY, CoCoRes, and Weakness. 
+
+But I'm not entirely confident. Alternatively, the third is Basis. 
+
+Wait, in the example, the cited studies are foundational to the current work's discussion, so Basis might be third. 
+
+Alternatively, no, because the current work isn't building on them but comparing them. 
+
+Alright, I think I've thought through it enough. The final answer based on the example given is:
+
+1. CoCoXY
+
+2. CoCoRes
+
+3. Weakness
+</think>
+
+1. CoCoXY  
+2. CoCoRes  
+3. Weakness

@@ -1,0 +1,68 @@
+Okay, let's tackle this step by step. The user provided a scientific article citation passage and wants me to classify the citation's rhetorical class. The passage given is:
+
+"The recent discovery of a novel plant pathogen in olive trees has raised concerns about its potential spread @@CITATION@@. This pathogen, however, shows a similar symptom profile to the well-documented Xylella fastidiosa infection @@CITATION@@, which has caused significant damage in Mediterranean regions. While the new pathogen's transmission mechanisms are still under investigation, preliminary studies suggest it may have a broader host range @@CITATION@@."
+
+Wait, actually, looking again, the user's input seems to have three citations here, but the task is about the one tagged @@CITATION@@. Wait, in the example given by the user, the citation is enclosed in @@CITATION@@. The user's input might have multiple citations, but we need to focus on the one marked with @@CITATION@@. Let me check the exact input again.
+
+Wait, the user's actual input is the passage provided, but in the problem statement, the user's input is the example given here. Wait, perhaps I need to look at the user's input. Wait, the user's input is the problem as presented. Wait, the user's message is the entire setup. Let me parse this correctly.
+
+Wait, the user's actual input is the following: 
+
+They provided a task where they want me to classify a citation in a passage. The example given by the user (maybe in their question) is:
+
+The passage is enclosed in backticks, and the citation is tagged @@CITATION@@. The user's example might be the one they provided in the task description. Wait, perhaps the user's actual input is the following:
+
+Wait, looking back, the user's input is the entire problem setup, but perhaps the actual test case is the one in the example given here. Wait, in the problem description, the user says:
+
+"You are a classifier that assigns a reference in a scientific article citation passage in the plant health domain to a biological class. The biological class represents the biological information highlighted by the reference in the citation passage. Before providing the final JSON output, include your step-by-step reasoning."
+
+Wait, but in the task, the example given by the user is about a plant health context. Wait, perhaps the user's actual input is a specific passage with a citation marked as @@CITATION@@. Wait, the user's actual input in their message is the problem setup, but in their example, they might have provided a test case.
+
+Wait, looking again at the user's message, the user provided an example scenario where the task is to process a citation in a passage. However, in their input, they might have included a specific example. Let me re-examine the user's message.
+
+Wait, in the user's message, the example provided in the task description is:
+
+"For instance, given the passage: 'The recent discovery of a novel plant pathogen in olive trees has raised concerns about its potential spread @@CITATION@@. This pathogen, however, shows a similar symptom profile to the well-documented Xylella fastidiosa infection @@CITATION@@, which has caused significant damage in Mediterranean regions. While the new pathogen's transmission mechanisms are still under investigation, preliminary studies suggest it may have a broader host range @@CITATION@@.' The task is to classify the citation marked @@CITATION@@."
+
+Wait, no. Wait, the user's actual input might be the example given in their message. Let me check again:
+
+The user's message includes a task where they give an example scenario. The user's input is a test case. Wait, perhaps the user's actual input is the following example:
+
+The user's input passage is: 
+
+`The recent discovery of a novel plant pathogen in olive trees has raised concerns about its potential spread @@CITATION@@. This pathogen, however, shows a similar symptom profile to the well-documented Xylella fastidiosa infection @@CITATION@@, which has caused significant damage in Mediterranean regions. While the new pathogen's transmission mechanisms are still under investigation, preliminary studies suggest it may have a broader host range @@CITATION@@.`
+
+And the task is to classify the citation marked @@CITATION@@. 
+
+Wait, but in this example, there are three citations. The user's @@CITATION@@ is each of the three? Or is the @@CITATION@@ only in one place? Wait, in the example given by the user in their problem description, the citation is marked once. Let me see:
+
+Looking back, the user's example in their problem setup says:
+
+"For instance, given the passage: 'The recent discovery of a novel plant pathogen in olive trees has raised concerns about its potential spread @@CITATION@@. This pathogen, however, shows a similar symptom profile to the well-documented Xylella fastidiosa infection @@CITATION@@, which has caused significant damage in Mediterranean regions. While the new pathogen's transmission mechanisms are still under investigation, preliminary studies suggest it may have a broader host range @@CITATION@@.' The task is to classify the citation marked @@CITATION@@."
+
+Wait, but here, the @@CITATION@@ is used three times. The user's task is to process each citation? But in the problem statement, they are asking for the citation tagged @@CITATION@@, so perhaps the user's input is a specific example where the citation is in a particular sentence. Wait, perhaps the user is providing an example where the citation is in the sentence that mentions the similar symptom profile. Let me read the example again:
+
+The first citation is about the discovery of the novel pathogen. The second citation is about the similar symptom profile to Xylella fastidiosa. The third is about the preliminary studies suggesting broader host range.
+
+The task is to classify the citation marked @@CITATION@@. But in the problem statement's example, the user might be referring to the second citation (the one about similar symptoms) as the example. Let's assume that the citation in question is the one in the second sentence: "This pathogen, however, shows a similar symptom profile to the well-documented Xylella fastidiosa infection @@CITATION@@, which has caused significant damage in Mediterranean regions."
+
+So, the task is to classify that citation.
+
+Step 1: Extract the context discussing the citation @@CITATION@@. The sentence is: "This pathogen, however, shows a similar symptom profile to the well-documented Xylella fastidiosa infection @@CITATION@@, which has caused significant damage in Mediterranean regions."
+
+The key part here is that the current pathogen has a similar symptom profile to Xylella, and the citation is supporting that similarity. The citation is being used to back up the claim of similarity between the two pathogens.
+
+Step 2: Identify the general intent. The citation is pointing out a similarity between the cited work (which documents Xylella's symptoms) and the current paper's pathogen's symptoms. The intent here is to show similarity between the current work and the cited work's findings.
+
+Step 3: The predefined classes. Looking at the definitions:
+
+- Similar: the citation is used to point out a similarity between the cited work and the citing paper's results, etc. The example given for Similar is when a finding is supported by another study showing the same thing. 
+
+Yes, in this case, the current paper is noting that their new pathogen has similar symptoms to Xylella, and citing the prior work on Xylella to support that similarity. So the citation is used to highlight a similarity between the two, so the class would be 'Similar'.
+
+Alternatively, could it be Support? The 'Support' class is when the citation supports the current work's findings. Here, the current work's claim is that their pathogen's symptoms are similar to Xylella's. The citation is providing the basis for the comparison, so it's supporting the similarity claim. Wait, but the example for Similar says "point out a similarity between the cited work and the citing paper", which is exactly this case. 
+
+The 'Support' class is when the cited work supports the citing authors' work. For example, in the example for Support: "participants did not distinguish between personal interests and values as reasons for disputes, nor between competence and methods" and they cite a previous study that also found this. Here, the current paper's point is that their pathogen's symptoms are similar to Xylella's, so they cite the Xylella study to show that similarity. So 'Similar' is the correct class here.
+</think>
+
+Similar

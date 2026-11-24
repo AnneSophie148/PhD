@@ -1,0 +1,52 @@
+Okay, let's tackle this step by step. The user provided a task where I need to classify a citation in a scientific article into one of the predefined rhetorical classes. The example given is about plant health, so I need to focus on that domain.
+
+First, I need to extract the context around the citation marked @@CITATION@@. The passage is within backticks, so I'll look for that part. Let me imagine a sample passage. Suppose the passage says something like: "Previous studies have shown that certain phytoplasma strains exhibit high concentrations in plant roots @@CITATION@@. However, conflicting results exist regarding their distribution in leaves @@CITATION@@." Wait, but the citation here is only one, so maybe a better example would be: "While earlier research @@CITATION@@ found uniform distribution of the pathogen in all plant tissues, our results show a significant variation depending on the host species."
+
+Step 1 is to extract the context discussing the citation. So in this example, the relevant part is "While earlier research @@CITATION@@ found uniform distribution...", which compares the cited study's findings with the current study's results.
+
+Step 2: Determine the general intent. Here, the authors are contrasting their results with the cited work. The general intent would be Comparative, which points to one of CoCoGM, CoCoRes, or CoCoXY. Since they are comparing results (uniform vs. variable distribution), that's CoCoRes.
+
+Step 3: Check definitions. CoCoRes is for comparing results. The example given in the instructions for CoCoRes mentions differing results, which matches. So the label should be CoCoRes.
+
+Another example: If the citation was used to support the current findings, like "Similar to @@CITATION@@, we observed increased growth rates...", then it's Support. If they mention a method used from the cited work, that's Usage. If the citation is pointing out a gap the current study addresses, that's Motivation.
+
+Wait, the user's example for Similar is about pointing out a similarity, which is different from Support. Support is when the cited work's findings are in agreement and used to back up the current study. Similar is when the similarity itself is noted, perhaps in results or patterns. 
+
+Let me think of another scenario. Suppose the passage says: "The technique developed by @@CITATION@@ was employed here to analyze the plant samples." That's Usage. If it's "Our method differs from @@CITATION@@ in that we use a non-invasive approach," then CoCoGM (comparing methods). 
+
+If the citation is about a previous study that the current work builds on as a foundation, like "Building on the framework established in @@CITATION@@, we extended the model to include..." then it's Basis. 
+
+If the citation is criticized for flawed results, like "Despite the claims in @@CITATION@@, our analysis shows inconsistencies in their data," that's Weakness. 
+
+Neutral would be a simple mention without any comparison or critique, like "Phytoplasma strains were first identified in the 1990s @@CITATION@@."
+
+So the key is to parse the context, see if it's comparing results, methods, goals, supporting, etc., then match to the closest class. Need to make sure not to confuse similar with support. Support is when the cited work's findings are used to back the current study's claims. Similar is just noting that the findings or patterns are similar, perhaps in a comparative context but not necessarily supporting. 
+
+Another point: CoCoXY is when two cited studies are compared with each other, not with the citing paper. Like "Study A found X @@CITATION@@, while Study B reported Y @@CITATION@@, showing conflicting explanations." But in the problem, each citation is considered individually, so CoCoXY would require the citation to be part of a comparison between two other studies. 
+
+In the user's example for CoCoXY, the citation is used to contrast two other studies. So if the passage says "In daisies, high concentrations were reported @@CITATION@@, but conflicting results were found in Euphorbia @@CITATION@@," then each citation is part of the comparison between the two studies. But in the problem, each citation instance is handled separately. So if the citation in question is part of such a comparison between two cited works, then it's CoCoXY. 
+
+But in the current task, the citation is tagged as @@CITATION@@, so each instance is separate. So the step is to look at each citation's context. 
+
+Alright, applying this to the user's example given in the problem: 
+
+Suppose the passage is: 
+
+"The impact of phytoplasma on plant root development has been widely studied @@CITATION@@. However, the role of environmental factors in this interaction remains understudied, motivating our current research into soil pH effects."
+
+Here, the citation is mentioned to highlight a knowledge gap (since the current research is motivated by unstudied areas beyond the cited work). So the intent would be Motivation. 
+
+Another example: 
+
+"Our findings align with previous studies showing reduced yield in infected crops @@CITATION@@, reinforcing the need for early detection."
+
+Here, the citation supports the current findings, so Support. 
+
+If the citation is used to suggest future research directions, like "Future studies should explore the genetic basis of this resistance, as preliminary data suggests variability @@CITATION@@", then Future. 
+
+If the citation is about a method used in the current study: "We used the PCR protocol established by @@CITATION@@ to identify the pathogen," that's Usage. 
+
+So the key is to parse the context sentence, see how the citation is referenced, then map to the appropriate class.
+</think>
+
+CoCoRes

@@ -1,0 +1,91 @@
+Task : you are a classifier that assigns a reference in a scientific article citation passage in plant health domain to a biological class. The biological class represents the biological information highlighted by the reference in the citation passage. You must classify only the reference denoted by CITSEG. You will assign an identifier to the passages so that you can easily retrieve the pairs text/answer. You will return the identifier and the best first three classes in json format. If the class “relation” is in the best first three classes , you should list the linked entities.
+
+Example of json format:
+
+```json
+[
+   {
+     "citation_passage": "Thus, B. nigricornis could potentially transmit CaLsol from carrot to potato crops and vice versa. Although eggs and immatures B. nigricornis are rarely observed during visual inspections in the field, the reproduction and presence of this psyllid species on potato crops has been confirmed (Hodkinson et al. 1981; Antolínez et al. 2019) and has been reported to cause severe yield losses in Iran (Fathi et al. 2011). Although CaLsol-positive adults of B. nigricornis have been found in potato crops in Spain, the role of this species in transmitting the bacterium to potato was never demonstrated (Teresani et al. 2015). Accordingly, a study of the possible role of B. nigricornis as a vector of CaLsol on potato was strongly needed because of the important economic losses in the carrot and potato industry associated with pathogen spread (Liefting et al. 2009; Munyaneza 2010; Munyaneza et al. 2010a; 2012; (CITSEG) Alfaro-Fernández et al. 2012a; 2012b; Bertolini et al. 2015; Munyaneza 2015). For this reason, we conducted a series of transmission experiments under controlled conditions at ICA-CSIC (Madrid, Spain) to evaluate the transmission rate of CaLsol (haplotype E) by B. nigricornis in carrot and potato plants. Bactericera nigricornis CaLsol-free and CaLsol-infected colonies were established at the ICA-CSIC and used for the assays. First, a B. nigricornis CaLsol-free colony was established by collecting insects from a population in a potato field in Valladolid, Spain, in 2016.",
+     "top_classes": [
+       "relation",
+       "location_vector",
+       "Infection_rate"
+     ],
+     "entities": [
+       {
+         "type": "Insect",
+         "name": "B. nigricornis"
+       },
+       {
+         "type": "Pathogen",
+         "name": "CaLsol"
+       },
+       {
+         "type": "Plant",
+         "name": "potato"
+       },
+       {
+         "type": "Plant",
+         "name": "carrot"
+       }
+     ],
+     "linked_items": [
+       "B. nigricornis",
+       "CaLsol",
+       "potato",
+       "carrot"
+     ]
+   }
+ ]
+```
+
+
+Classification guidelines :
+
+location_pathogen_vector : Mentions the location of a pathogen as well as the insect vector that transmits this pathogen to a plant.
+
+Example: During a survey between 2000 and 2006 (CITSEG) could show that 'Ca. P. prunorum' as well as its vector, C. pruni, were present on all cultivated Prunus species in several stone fruit growing regions in Southwestern Germany.”
+
+
+location_disease : Refers to a geographic location of a disease
+
+Example: ESFY is known to occur in most southern and central European countries (Cieślińska 2011; Marcone et al. 2010, 2011). Its highest spread is in the Mediterranean basin while its northern border ranges from England (Davies and Adams 2000) via Germany (Jarausch et al. 2007b) to Poland (CITSEG).
+
+location_vector : Mentions the presence of a vector in a location. It also refers to the transmission of a pathogen by a vector in a location.
+
+Example : In summary, 27 nominal species of pear psyllids are currently known from China (Li 2011; Luo et al. 2012), three from Japan (CITSEG; Inoue et al. 2012)
+
+Identification : Refers to the characterization or identification of an object. This identification is done using different molecular biology techniques such as ELISA. It can also refer to a morphological marker in the case of insects.
+
+Example : In 1995, groups of 50 individuals of C. pyri were collected from the same infected orchard in July, August and September, respectively, and were then analyzed by PCR. For the analysis, the two different pairs of ribosomal primers used were: fPD/r0 1 (CITSEG) and AP3/ AP5 (Firrao et al., 1994) respectively.
+
+relation : mentions a biological interaction, or an association between the following objects : plant, insect vector, pathogen. You must list the items linked as an element in the json.
+
+Example : After 1970, mycoplasmalike bodies were detected in sieve tubes of pear trees affected 	with pear decline (CITSEG) and in the pear psylla vector of pear decline.
+```json
+“entities” : [
+{"type": "Insect", "name": "pear psylla"},
+{"type": "Disease", "name": "pear decline"},
+{"type": "Pathogen", "name": "mycoplamalike bodies"}
+]
+```
+
+
+plant-modification-by-pathogen:  It is the consequence of the relation pathogen plant. It refers to the effects of the pathogen on the plant : how the affected plant reacts to a pathogen : symptoms, defenses, hormonal changes…
+
+Example: Not surprisingly, some bacteria species utilize SA hydroxylase for a degradation of SA to catechol to suppress an adequate plant defence reaction [CITSEG] or evolved the production of effector proteins that interfere with SA regulated defence responses by activating JA pathway [67].
+
+Life-cycle_insect : Refers to the seasonal changes and to the different instars of an insect. It includes the “remigrant” notion
+
+Example: HAt 15 to 33 °C, female longevity varies from 88.3 to 28.7 d and is 38 % higher than male
+longevity (CITSEG;Nava et al. 2007).”
+
+
+Infection-rate : mentions the infection rate of a pathogen transmitted by an insect or the number of infected plants after inoculation experiments. We include in this class cases when the infection rate of a pathogen is transmitted by an insect in a specific location ; the infection rate of a pathogen is transmitted by an insect in specific climatic or seasonal conditions
+
+	Example : Apple trees were infected with a virulent accession (3/6, n = 13) in 2017 [CITSEG] [78] [79].
+
+Sampling : Refers to the processing of collecting samples, they can be insect vectors, pathogens or infected plants.
+
+Example:  We contributed 22 German isolates covering 5 stone fruit growing regions with 16 apricot or peach orchards to the MLST analysis of (CITSEG)
+Other : The reference cannot be classified in the above classes.
