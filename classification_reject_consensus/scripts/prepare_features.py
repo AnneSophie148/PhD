@@ -49,18 +49,7 @@ def load_model_from_checkpoint(checkpoint_path, device):
     citseg_id = tokenizer.convert_tokens_to_ids("CITSEG")
     print("CITSEG token id:", citseg_id)
 
-    loaded_model = CitationClassifier(
-        linear_size=checkpoint["hidden_layers"],
-        model=model,
-        tokenizer=tokenizer,
-        in_features=checkpoint["in_features"],
-        num_class=len(checkpoint["all_labels"]),
-        use_section=checkpoint["use_section"],
-        num_sections=checkpoint["num_sections"],
-        section_emb_dim=32,
-        dropout=0.5
-    )
-
+    loaded_model = CitationClassifier(linear_size=checkpoint["hidden_layers"], model=model, tokenizer=tokenizer, in_features=checkpoint["in_features"], num_class=len(checkpoint["all_labels"]), use_section=checkpoint["use_section"], dropout=0.5)
     loaded_model.load_state_dict(checkpoint["model_state_dict"])
     loaded_model = loaded_model.to(device)
     loaded_model.eval()
