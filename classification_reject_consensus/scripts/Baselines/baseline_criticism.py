@@ -27,7 +27,6 @@ def main():
             prediction = 0 if any(has_criticism(article) for article in records) else 1
             labels.append(label)
             predictions.append(prediction)
-            results.append({"doi": doi, "true_label": category, "predicted_label": "points_noirs" if prediction == 0 else "points_blancs"})
 
     print(f"Articles evaluated: {len(labels)}")
     print(f"Accuracy: {accuracy_score(labels, predictions):.3f}")
